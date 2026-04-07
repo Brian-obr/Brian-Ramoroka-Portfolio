@@ -26,7 +26,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brianramoroka.com"),
+  metadataBase: new URL("https://brianramoroka.co.za"),
   title: {
     default: "Brian Ramoroka — SEO Web Developer & Software Engineer",
     template: "%s — Brian Ramoroka",

@@ -31,7 +31,7 @@ export default function Navbar() {
         className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 hidden lg:block"
       >
         <div className="flex items-center gap-1 px-2 py-2 rounded-full
-          bg-bg-nav backdrop-blur-[16px] border border-border-subtle shadow-lg">
+          bg-bg-nav backdrop-blur-[16px] border border-border-subtle shadow-lg flex-nowrap">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -52,7 +52,7 @@ export default function Navbar() {
           <a
             href="#"
             className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
-              bg-accent text-black hover:bg-accent-hover transition-colors"
+              bg-accent text-black hover:bg-accent-hover transition-colors whitespace-nowrap"
             aria-label="Download CV"
           >
             <Download size={14} />

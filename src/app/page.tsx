@@ -11,7 +11,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://brianramoroka.com" },
+  alternates: { canonical: "https://brianramoroka.co.za" },
 };
 
 export default function HomePage() {
@@ -22,10 +22,10 @@ export default function HomePage() {
         "@type": "Person",
         name: "Brian Ramoroka",
         jobTitle: "SEO Web Developer & Software Engineer",
-        url: "https://brianramoroka.com",
+        url: "https://brianramoroka.co.za",
         address: { "@type": "PostalAddress", addressLocality: "Cape Town", addressCountry: "ZA" },
       },
-      { "@type": "WebSite", name: "Brian Ramoroka", url: "https://brianramoroka.com" },
+      { "@type": "WebSite", name: "Brian Ramoroka", url: "https://brianramoroka.co.za" },
     ],
   };
 

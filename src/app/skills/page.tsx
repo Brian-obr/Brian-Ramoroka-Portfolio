@@ -11,7 +11,7 @@ export const metadata: Metadata = {
       "Explore Brian Ramoroka's technical skills in web development, SEO, DevOps, and AI.",
   },
   alternates: {
-    canonical: "https://brianramoroka.com/skills",
+    canonical: "https://brianramoroka.co.za/skills",
   },
 };
 
@@ -19,8 +19,8 @@ const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.com" },
-    { "@type": "ListItem", position: 2, name: "Skills & Tools", item: "https://brianramoroka.com/skills" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.co.za" },
+    { "@type": "ListItem", position: 2, name: "Skills & Tools", item: "https://brianramoroka.co.za/skills" },
   ],
 };
 

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Explore Brian Ramoroka's portfolio of web development, SEO, and AI integration projects.",
   },
   alternates: {
-    canonical: "https://brianramoroka.com/portfolio",
+    canonical: "https://brianramoroka.co.za/portfolio",
   },
 };
 
@@ -23,8 +23,8 @@ const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.com" },
-    { "@type": "ListItem", position: 2, name: "Portfolio", item: "https://brianramoroka.com/portfolio" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.co.za" },
+    { "@type": "ListItem", position: 2, name: "Portfolio", item: "https://brianramoroka.co.za/portfolio" },
   ],
 };
 

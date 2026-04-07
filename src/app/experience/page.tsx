@@ -13,15 +13,15 @@ export const metadata: Metadata = {
     title: "Experience — Brian Ramoroka",
     description: "Work history and selected projects by Brian Ramoroka.",
   },
-  alternates: { canonical: "https://brianramoroka.com/experience" },
+  alternates: { canonical: "https://brianramoroka.co.za/experience" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.com" },
-    { "@type": "ListItem", position: 2, name: "Experience", item: "https://brianramoroka.com/experience" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.co.za" },
+    { "@type": "ListItem", position: 2, name: "Experience", item: "https://brianramoroka.co.za/experience" },
   ],
 };
 

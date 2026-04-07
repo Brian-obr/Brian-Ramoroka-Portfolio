@@ -11,7 +11,7 @@ export const navLinks: NavLink[] = [
 
 export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://za.linkedin.com/in/brian-obr", icon: "Linkedin" },
-  { label: "GitHub", href: "https://github.com/placeholder", icon: "Github" },
+  { label: "GitHub", href: "https://github.com/Brian-obr", icon: "Github" },
 ];
 
 export const skillGroups: SkillGroup[] = [

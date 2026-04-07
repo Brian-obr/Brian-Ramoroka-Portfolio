@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${project.title} — Brian Ramoroka`,
       description: `Case study: ${project.title} — ${project.category} project.`,
     },
-    alternates: { canonical: `https://brianramoroka.com/portfolio/${slug}` },
+    alternates: { canonical: `https://brianramoroka.co.za/portfolio/${slug}` },
   };
 }
 

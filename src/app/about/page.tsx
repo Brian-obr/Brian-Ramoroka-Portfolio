@@ -11,15 +11,15 @@ export const metadata: Metadata = {
     description:
       "SEO web developer and software engineer based in Cape Town. Building high-performance, search-optimised websites across 8+ international markets.",
   },
-  alternates: { canonical: "https://brianramoroka.com/about" },
+  alternates: { canonical: "https://brianramoroka.co.za/about" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.com" },
-    { "@type": "ListItem", position: 2, name: "About", item: "https://brianramoroka.com/about" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.co.za" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://brianramoroka.co.za/about" },
   ],
 };
 
