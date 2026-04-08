@@ -27,7 +27,7 @@ export default function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-accent transition-colors"
+                className="text-text-muted hover:text-accent transition-colors"
                 aria-label={link.label}
               >
                 {Icon && <Icon size={24} />}
@@ -36,7 +36,7 @@ export default function Footer() {
           })}
         </div>
 
-        <p className="text-white text-sm">
+        <p className="text-text-muted text-sm">
           &copy; {new Date().getFullYear()} Brian Ramoroka. All rights reserved.
         </p>
       </div>
