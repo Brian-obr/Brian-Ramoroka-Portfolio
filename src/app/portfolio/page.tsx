@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://brianramoroka.co.za/portfolio",
   },
+  robots: { index: false, follow: false },
 };
 
 const breadcrumbJsonLd = {
@@ -29,6 +31,7 @@ const breadcrumbJsonLd = {
 };
 
 export default function PortfolioPage() {
+  notFound();
   const projects = getAllProjects();
 
   return (
@@ -37,7 +40,7 @@ export default function PortfolioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BackgroundImage imageSrc="/images/Brian Ramoroka/Sitting.png" lighter />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" lighter />
       <PageTransition>
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">

@@ -3,9 +3,9 @@ import type { NavLink, SocialLink, Experience, Language, Education, SkillGroup, 
 export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
   { label: "Experience", href: "/experience" },
   { label: "Skills", href: "/skills" },
-  { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -21,7 +21,11 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     name: "SEO & Analytics",
-    skills: ["Technical SEO", "On-Page Optimisation", "Keyword Research", "Link Building", "Google Analytics", "Google Search Console", "Ahrefs", "Core Web Vitals", "Schema Markup", "Site Speed Optimization", "Mobile-First", "Responsive Design"],
+    skills: ["Technical SEO", "On-Page Optimisation", "Keyword Research", "Link Building", "Google Analytics", "Google Search Console", "Ahrefs", "Core Web Vitals", "Schema Markup", "Site Speed Optimisation", "Mobile-First", "Responsive Design"],
+  },
+  {
+    name: "CMS Platforms",
+    skills: ["WordPress", "Shopify", "Wix", "Magento", "Webflow", "Custom CMS Solutions"],
   },
   {
     name: "Databases",
@@ -38,12 +42,12 @@ export const skills: string[] = skillGroups.flatMap((g) => g.skills);
 export const languages: Language[] = [
   { name: "English", proficiency: "Fluent", barWidth: 100 },
   { name: "Sepedi", proficiency: "Fluent", barWidth: 100 },
-  { name: "Sesotho", proficiency: "Proficient", barWidth: 80 },
-  { name: "Setswana", proficiency: "Proficient", barWidth: 80 },
-  { name: "isiZulu", proficiency: "Conversational", barWidth: 70 },
-  { name: "isiXhosa", proficiency: "Elementary", barWidth: 50 },
-  { name: "Xitsonga", proficiency: "Elementary", barWidth: 40 },
-  { name: "Tshivenḓa", proficiency: "Elementary", barWidth: 40 },
+  { name: "Sesotho", proficiency: "Proficient", barWidth: 75 },
+  { name: "Setswana", proficiency: "Proficient", barWidth: 75 },
+  { name: "isiZulu", proficiency: "Conversational", barWidth: 50 },
+  { name: "isiXhosa", proficiency: "Elementary", barWidth: 25 },
+  { name: "Xitsonga", proficiency: "Elementary", barWidth: 25 },
+  { name: "Tshivenḓa", proficiency: "Elementary", barWidth: 25 },
 ];
 
 export const education: Education[] = [
@@ -56,25 +60,27 @@ export const experiences: Experience[] = [
     title: "SEO Web Developer",
     company: "Rhiza Babuyile",
     dates: "Mar 2025 — Present",
-    description: "Develop and maintain SEO-optimised websites for a Dutch-based company, serving clients across NL, DE, FR, ES, UK, and USA.",
+    description: "South African company partnering with Grizzly New Marketing in the Netherlands. Develop and maintain SEO-optimised websites for 150+ clients across NL, BE, DE, FR, ES, UK, and USA.",
     bullets: [
       "Perform comprehensive technical SEO audits — resolving crawlability, indexing, and site-speed issues",
       "Execute end-to-end SEO campaigns at local, provincial, national, and international scale",
       "Monitor performance through Google Analytics and Search Console, translating data into growth strategies",
       "Ensure all websites are fully responsive, mobile-friendly, and optimised for user experience",
-      "Handle ongoing website maintenance, development, and performance optimisation across CMS platforms",
+      "Handle ongoing website maintenance, development, and performance optimisation across WordPress, Shopify, Magento, and custom CMS platforms",
+      "Deliver results across 8+ international markets with 90%+ good KPI ratings",
     ],
     projects: [],
   },
   {
     title: "Software Developer Intern",
-    company: "Pillar 5 Group",
+    company: "Business Innovation and Incubation (BiiC)",
     dates: "Jul 2024 — Dec 2024",
     description: "Contributed to the full development lifecycle of Java/Spring Boot applications with PostgreSQL.",
     bullets: [
       "Contributed to the full development lifecycle of Java/Spring Boot applications, integrating PostgreSQL databases and ensuring data integrity",
       "Collaborated in an Agile team to implement features, fix bugs, and enhance system functionality, maintaining high standards of data accuracy",
       "Gained experience with Azure cloud services and Git for version control, and assisted in database management and backend development tasks",
+      "Built a strong foundation in database design, backend architecture, and software engineering principles",
     ],
     projects: [],
   },

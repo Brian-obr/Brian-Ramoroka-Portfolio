@@ -26,10 +26,10 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brianramoroka.co.za"),
+  metadataBase: new URL("https://www.brianramoroka.co.za"),
   title: {
     default: "Brian Ramoroka — SEO Web Developer & Software Engineer",
-    template: "%s — Brian Ramoroka",
+    template: "%s",
   },
   description:
     "Brian Ramoroka is an SEO web developer and software engineer based in Cape Town, South Africa, specializing in performant, SEO-optimized web experiences.",
@@ -37,9 +37,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     siteName: "Brian Ramoroka",
+    images: [
+      {
+        url: "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+        width: 1200,
+        height: 630,
+        alt: "Brian Ramoroka — SEO Web Developer & Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp"],
   },
   robots: {
     index: true,

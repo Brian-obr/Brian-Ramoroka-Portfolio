@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 
 interface BackgroundImageProps {
   imageSrc?: string;
+  /** Descriptive alt text for the profile image */
+  imageAlt?: string;
   /** Use a lighter left-to-right gradient so more of the image is visible */
   lighter?: boolean;
 }
 
 export default function BackgroundImage({
-  imageSrc = "/images/Brian Ramoroka/Standing.png",
+  imageSrc = "/images/brian-ramoroka-seo-web-developer.webp",
+  imageAlt = "Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town",
   lighter = false,
 }: BackgroundImageProps) {
   const [blur, setBlur] = useState(0);
@@ -42,7 +45,8 @@ export default function BackgroundImage({
       >
         <img
           src={imageSrc}
-          alt=""
+          alt={imageAlt}
+          loading="lazy"
           className="w-full h-full object-cover"
           style={{ objectPosition: "center 15%" }}
         />

@@ -21,10 +21,10 @@ export default function NotFound() {
             Go Home
           </Link>
           <Link
-            href="/portfolio"
+            href="/contact"
             className="inline-block border-2 border-accent text-accent font-semibold px-8 py-3 rounded-lg hover:bg-accent hover:text-bg-deep transition-colors"
           >
-            View Portfolio
+            Contact Me
           </Link>
         </div>
       </div>

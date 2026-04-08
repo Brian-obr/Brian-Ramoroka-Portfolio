@@ -18,7 +18,7 @@ export default function MarketsSection() {
           transition={{ duration: 0.4 }}
           className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-12"
         >
-          Markets I work across.
+          Where I work.
         </motion.h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Code2, Search, Database, Wrench } from "lucide-react";
+import { Code2, Search, Layout, Database, Wrench } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { skillGroups } from "@/lib/constants";
 import type { LucideIcon } from "lucide-react";
@@ -9,14 +9,15 @@ import type { LucideIcon } from "lucide-react";
 const iconMap: Record<string, LucideIcon> = {
   "Languages & Frameworks": Code2,
   "SEO & Analytics": Search,
+  "CMS Platforms": Layout,
   "Databases": Database,
   "Tools & Platforms": Wrench,
 };
 
-// Show top 2-3 skills from each group
 const previewCounts: Record<string, number> = {
   "Languages & Frameworks": 3,
   "SEO & Analytics": 3,
+  "CMS Platforms": 3,
   "Databases": 2,
   "Tools & Platforms": 3,
 };
@@ -35,7 +36,7 @@ export default function SkillsPreview() {
           transition={{ duration: 0.4 }}
           className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-12"
         >
-          The toolkit.
+          What I work with.
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

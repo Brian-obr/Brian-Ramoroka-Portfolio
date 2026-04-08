@@ -7,16 +7,26 @@ import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
   description:
-    "Get in touch with Brian Ramoroka for web development, SEO strategy, or software engineering projects. Based in Cape Town, South Africa.",
+    "Get in touch with Brian Ramoroka. Web development, SEO, app development, software engineering. Based in Cape Town, working internationally.",
   openGraph: {
-    title: "Contact — Brian Ramoroka",
+    title: "Contact Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
     description:
-      "Get in touch with Brian Ramoroka for web development, SEO strategy, or software engineering projects.",
+      "Get in touch with Brian Ramoroka. Web development, SEO, app development, software engineering. Based in Cape Town, working internationally.",
+    url: "https://www.brianramoroka.co.za/contact",
+    type: "website",
+    locale: "en_ZA",
+    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
+    description:
+      "Get in touch with Brian Ramoroka. Web development, SEO, app development, software engineering. Based in Cape Town, working internationally.",
   },
   alternates: {
-    canonical: "https://brianramoroka.co.za/contact",
+    canonical: "https://www.brianramoroka.co.za/contact",
   },
 };
 
@@ -37,7 +47,8 @@ const contactInfo = [
     icon: MapPin,
     label: "Location",
     value: "Cape Town, South Africa",
-    href: undefined,
+    href: "https://www.google.com/maps/place/Cape+Town,+South+Africa",
+    external: true,
   },
   {
     icon: LinkedinIcon,
@@ -59,8 +70,8 @@ const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Contact", item: "https://brianramoroka.co.za/contact" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
+    { "@type": "ListItem", position: 2, name: "Contact", item: "https://www.brianramoroka.co.za/contact" },
   ],
 };
 
@@ -71,17 +82,18 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BackgroundImage imageSrc="/images/Brian Ramoroka/Standing.png" />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-seo-web-developer.webp" imageAlt="Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town" />
       <PageTransition>
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
           <h1 className="text-[2rem] md:text-[3rem] font-display leading-[1.2] text-text-primary mb-3">
-            Let&apos;s Work Together
+            Let us Work Together
           </h1>
           <p className="text-text-body text-base mb-8 md:mb-12 max-w-xl">
-            Have a project in mind or want to discuss how I can help? Take a look at{" "}
+            Whether you have a project in mind, are looking to fill a dev team role, or need freelance,
+            contract, or permanent support — I am interested. Take a look at{" "}
             <Link href="/experience" className="deep-link">my experience</Link> and{" "}
-            <Link href="/skills" className="deep-link">my skills</Link>, then fill out the
+            <Link href="/services" className="deep-link">my services</Link>, then fill out the
             form below or reach out directly.
           </p>
 
@@ -106,7 +118,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact info */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 space-y-6">
               <div className="bg-bg-card-solid rounded-[20px] p-6 space-y-6">
                 {contactInfo.map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
@@ -139,6 +151,21 @@ export default function ContactPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Google Maps — Cape Town general area */}
+              <div className="rounded-[20px] overflow-hidden border border-border-subtle mt-2">
+                <iframe
+                  src="https://www.google.com/maps?q=Cape+Town,+South+Africa&hl=en&z=12&output=embed"
+                  width="100%"
+                  height="200"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Cape Town, South Africa location map"
+                  aria-label="Map showing Cape Town, South Africa"
+                />
               </div>
             </div>
           </div>

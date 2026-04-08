@@ -18,7 +18,7 @@ export default function EducationSection() {
           transition={{ duration: 0.4 }}
           className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-12"
         >
-          Foundation.
+          The foundation.
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">

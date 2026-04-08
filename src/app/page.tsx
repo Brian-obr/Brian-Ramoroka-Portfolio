@@ -11,7 +11,25 @@ import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://brianramoroka.co.za" },
+  title: "Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
+  description:
+    "Brian Ramoroka is an SEO web developer and software engineer in Cape Town, South Africa. I build websites that rank and drive real growth across international markets.",
+  openGraph: {
+    title: "Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
+    description:
+      "Brian Ramoroka is an SEO web developer and software engineer in Cape Town, South Africa. I build websites that rank and drive real growth across international markets.",
+    url: "https://www.brianramoroka.co.za/",
+    type: "website",
+    locale: "en_ZA",
+    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
+    description:
+      "Brian Ramoroka is an SEO web developer and software engineer in Cape Town, South Africa. I build websites that rank and drive real growth across international markets.",
+  },
+  alternates: { canonical: "https://www.brianramoroka.co.za/" },
 };
 
 export default function HomePage() {
@@ -22,17 +40,39 @@ export default function HomePage() {
         "@type": "Person",
         name: "Brian Ramoroka",
         jobTitle: "SEO Web Developer & Software Engineer",
-        url: "https://brianramoroka.co.za",
+        url: "https://www.brianramoroka.co.za",
+        email: "ramorokaob@gmail.com",
+        telephone: "+27813798635",
         address: { "@type": "PostalAddress", addressLocality: "Cape Town", addressCountry: "ZA" },
+        sameAs: [
+          "https://za.linkedin.com/in/brian-obr",
+          "https://github.com/Brian-obr",
+        ],
+        knowsAbout: [
+          "SEO", "Web Development", "Software Engineering", "JavaScript", "React",
+          "Next.js", "Java", "Spring Boot", "WordPress", "Shopify",
+        ],
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: "Cape Peninsula University of Technology",
+        },
+        worksFor: {
+          "@type": "Organization",
+          name: "Rhiza Babuyile",
+        },
       },
-      { "@type": "WebSite", name: "Brian Ramoroka", url: "https://brianramoroka.co.za" },
+      {
+        "@type": "WebSite",
+        name: "Brian Ramoroka",
+        url: "https://www.brianramoroka.co.za",
+      },
     ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BackgroundImage imageSrc="/images/Brian Ramoroka/Standing.png" />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-seo-web-developer.webp" />
       <PageTransition>
         <Hero />
         <AboutSummary />

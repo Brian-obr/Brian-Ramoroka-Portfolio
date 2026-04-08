@@ -7,7 +7,7 @@ const csp = [
   "img-src 'self' data: https:",
   "font-src 'self' https://fonts.gstatic.com",
   "connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com",
-  "frame-src 'none'",
+  "frame-src https://www.google.com https://maps.google.com",
 ].join("; ");
 
 const securityHeaders = [

@@ -15,10 +15,20 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-8"
+          className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-4"
         >
-          Let&apos;s build something<br />that ranks.
+          Let us build something<br />that actually works.
         </motion.h2>
+
+        <motion.p
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="text-text-body text-base max-w-xl mb-8 leading-relaxed"
+        >
+          Whether you need a website, SEO strategy, or are looking to add a developer to your team — I am here for it.
+        </motion.p>
 
         <motion.div
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}

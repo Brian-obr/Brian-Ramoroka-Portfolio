@@ -10,7 +10,10 @@ const projectTypes = [
   "Web Development",
   "SEO",
   "Web App",
-  "AI Integration",
+  "App Development",
+  "Software Engineering",
+  "Maintenance & Support",
+  "Hiring / Team Role",
   "Other",
 ];
 

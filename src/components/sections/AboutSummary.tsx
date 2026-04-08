@@ -4,9 +4,23 @@ import { motion, useReducedMotion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 
 const highlights = [
-  { title: "Cross-Market Experience", description: "Serving clients across 8+ international markets — NL, DE, FR, ES, UK, USA, and ZA." },
-  { title: "Dev + SEO Hybrid", description: "Combining full-stack development skills with deep SEO expertise for truly optimised web products." },
-  { title: "Growth Focused", description: "Every line of code and every campaign is measured against real business growth metrics." },
+  {
+    title: "Cross-Market Reach",
+    description: "South Africa, Netherlands, Belgium, Germany, France, Spain, UK, and USA.",
+  },
+  {
+    title: "Developer + SEO Specialist",
+    description: (
+      <>
+        Full-stack development combined with deep SEO expertise.{" "}
+        <Link href="/services" className="deep-link text-sm">See services</Link>
+      </>
+    ),
+  },
+  {
+    title: "Results That Count",
+    description: "90%+ good KPI ratings across 150+ client websites.",
+  },
 ];
 
 export default function AboutSummary() {
@@ -27,30 +41,24 @@ export default function AboutSummary() {
           {...fadeIn}
           className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-12"
         >
-          Developer precision.<br />Marketer&apos;s mindset.
+          The short version.
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left: About text (shortened for homepage) */}
           <div className="space-y-5">
             <motion.p {...fadeIn} className="text-text-body leading-relaxed">
-              I&apos;m Brian Ramoroka — an SEO web developer and{" "}
-              <Link href="/experience" className="deep-link">software engineer</Link> based in Cape Town, South Africa.
-              I work at the intersection of web development and search engine optimisation, building websites that
-              don&apos;t just look good but actually perform in search results.
-            </motion.p>
-            <motion.p {...fadeIn} className="text-text-body leading-relaxed">
-              Currently at Rhiza Babuyile, I develop SEO-optimised websites for clients across the Netherlands, Germany, France, Spain, the UK, and the USA. My work spans{" "}
-              <Link href="/about#services" className="deep-link">SEO campaigns</Link>, technical audits, and ongoing web development.
+              I work at Rhiza Babuyile, a South African company partnering with Grizzly New Marketing in the
+              Netherlands. Together we manage over 150 client websites across international markets, with 90%+ good
+              KPI ratings. If that sounds like what you need,{" "}
+              <Link href="/contact" className="deep-link">let us talk</Link>.
             </motion.p>
             <motion.div {...fadeIn}>
               <Link href="/about" className="deep-link text-base">
-                Read more about me →
+                More about me →
               </Link>
             </motion.div>
           </div>
 
-          {/* Right: Highlight cards */}
           <div className="space-y-4">
             {highlights.map((item, i) => (
               <motion.div

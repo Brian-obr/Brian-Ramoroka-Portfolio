@@ -7,7 +7,7 @@ export const contactFormSchema = z.object({
     .max(100, "Name must be 100 characters or less"),
   email: z.string().email("Please enter a valid email"),
   projectType: z
-    .enum(["Web Development", "SEO", "Web App", "AI Integration", "Other"])
+    .enum(["Web Development", "SEO", "Web App", "App Development", "Software Engineering", "Maintenance & Support", "Hiring / Team Role", "Other"])
     .optional()
     .or(z.literal("")),
   message: z
