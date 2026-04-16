@@ -54,6 +54,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+
+verification: {
+    google: "7zT5KRWkb5rmiyErTIRP8OnVKBIdARbVCBSnfcUGhqg",
+  },
+
 };
 
 export default function RootLayout({
@@ -65,7 +70,7 @@ export default function RootLayout({
 
   return (
     <html
-      lang="en"
+      lang="en-ZA"
       className={`${dmSans.variable} ${spaceMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-deep">
