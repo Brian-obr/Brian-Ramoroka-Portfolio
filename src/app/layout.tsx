@@ -33,22 +33,14 @@ export const metadata: Metadata = {
   },
   description:
     "Brian Ramoroka is an SEO web developer and software engineer based in Cape Town, South Africa, specializing in performant, SEO-optimized web experiences.",
+  // OG/Twitter card images come from src/app/opengraph-image.tsx (true 1200×630)
   openGraph: {
     type: "website",
     locale: "en_ZA",
     siteName: "Brian Ramoroka",
-    images: [
-      {
-        url: "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
-        width: 1200,
-        height: 630,
-        alt: "Brian Ramoroka — SEO Web Developer & Software Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp"],
   },
   robots: {
     index: true,
@@ -74,9 +66,14 @@ export default function RootLayout({
       className={`${dmSans.variable} ${spaceMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-deep">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <div className="relative z-10 flex flex-col min-h-full">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
           <Footer />
         </div>
         {gaId && process.env.NODE_ENV === "production" && (

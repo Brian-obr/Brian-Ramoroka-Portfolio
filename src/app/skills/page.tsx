@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/skills",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",

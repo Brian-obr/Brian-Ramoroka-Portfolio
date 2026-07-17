@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -38,9 +37,11 @@ export default function HomePage() {
     "@graph": [
       {
         "@type": "Person",
+        "@id": "https://www.brianramoroka.co.za/#person",
         name: "Brian Ramoroka",
         jobTitle: "SEO Web Developer & Software Engineer",
         url: "https://www.brianramoroka.co.za",
+        image: "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
         email: "ramorokaob@gmail.com",
         telephone: "+27813798635",
         address: { "@type": "PostalAddress", addressLocality: "Cape Town", addressCountry: "ZA" },
@@ -63,8 +64,23 @@ export default function HomePage() {
       },
       {
         "@type": "WebSite",
+        "@id": "https://www.brianramoroka.co.za/#website",
         name: "Brian Ramoroka",
         url: "https://www.brianramoroka.co.za",
+        publisher: { "@id": "https://www.brianramoroka.co.za/#person" },
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.brianramoroka.co.za/#service",
+        name: "Brian Ramoroka — Web Development & SEO",
+        url: "https://www.brianramoroka.co.za",
+        founder: { "@id": "https://www.brianramoroka.co.za/#person" },
+        areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Cape Town",
+          addressCountry: "ZA",
+        },
       },
     ],
   };

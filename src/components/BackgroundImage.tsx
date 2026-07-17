@@ -1,31 +1,40 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface BackgroundImageProps {
   imageSrc?: string;
-  /** Descriptive alt text for the profile image */
-  imageAlt?: string;
   /** Use a lighter left-to-right gradient so more of the image is visible */
   lighter?: boolean;
 }
 
 export default function BackgroundImage({
   imageSrc = "/images/brian-ramoroka-seo-web-developer.webp",
-  imageAlt = "Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town",
   lighter = false,
 }: BackgroundImageProps) {
-  const [blur, setBlur] = useState(0);
+  const imageWrapRef = useRef<HTMLDivElement>(null);
 
+  // Scroll blur written straight to the DOM in a rAF, so scrolling never
+  // triggers React re-renders.
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
       const maxBlur = 5;
       const scrollRange = 600;
-      const newBlur = Math.min((scrollY / scrollRange) * maxBlur, maxBlur);
-      setBlur(newBlur);
+      const blur = Math.min((window.scrollY / scrollRange) * maxBlur, maxBlur);
+      if (imageWrapRef.current) {
+        imageWrapRef.current.style.filter = `blur(${blur}px)`;
+      }
+    };
+    const handleScroll = () => {
+      if (!rafId) rafId = requestAnimationFrame(update);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   /* Desktop left-to-right gradient (different opacity if lighter prop set) */
@@ -40,14 +49,18 @@ export default function BackgroundImage({
       {/* Mobile: full-width, face/upper-body centred at 15% from top       */}
       {/* Desktop: right 55%, anchored top-right                            */}
       <div
+        ref={imageWrapRef}
         className="absolute inset-0 md:inset-auto md:top-0 md:right-0 md:h-full md:w-[55%]"
-        style={{ filter: `blur(${blur}px)`, transition: "filter 0.1s linear" }}
+        style={{ transition: "filter 0.1s linear" }}
       >
-        <img
+        {/* alt="" — decorative: text overlays it and the wrapper is aria-hidden */}
+        <Image
           src={imageSrc}
-          alt={imageAlt}
-          loading="lazy"
-          className="w-full h-full object-cover"
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 768px) 55vw, 100vw"
+          className="object-cover"
           style={{ objectPosition: "center 15%" }}
         />
       </div>

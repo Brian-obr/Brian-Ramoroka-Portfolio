@@ -17,6 +17,6 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function CaseStudyPage({ params }: PageProps) {
+export default async function CaseStudyPage() {
   notFound();
 }

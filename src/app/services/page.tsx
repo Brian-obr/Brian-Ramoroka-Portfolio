@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/services",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -39,35 +38,35 @@ const serviceSchemas = [
     "@type": "Service",
     name: "Web Development",
     description: "Custom website design and development, responsive mobile-first builds, frontend and backend development, API integrations, and performance tuning.",
-    provider: { "@type": "Person", name: "Brian Ramoroka" },
+    provider: { "@id": "https://www.brianramoroka.co.za/#person" },
     areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
   },
   {
     "@type": "Service",
     name: "SEO Services",
     description: "Technical SEO audits, on-page optimisation, keyword research and tracking, link building, and campaign management across international markets.",
-    provider: { "@type": "Person", name: "Brian Ramoroka" },
+    provider: { "@id": "https://www.brianramoroka.co.za/#person" },
     areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
   },
   {
     "@type": "Service",
     name: "App Development",
     description: "Web and mobile application development using React, Next.js, Node.js, Java/Spring Boot, PostgreSQL, and modern cloud platforms.",
-    provider: { "@type": "Person", name: "Brian Ramoroka" },
+    provider: { "@id": "https://www.brianramoroka.co.za/#person" },
     areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
   },
   {
     "@type": "Service",
     name: "Software Engineering",
     description: "Full-stack development, database design and optimisation, CI/CD pipelines, Git version control, Agile/Scrum, and Azure cloud infrastructure.",
-    provider: { "@type": "Person", name: "Brian Ramoroka" },
+    provider: { "@id": "https://www.brianramoroka.co.za/#person" },
     areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
   },
   {
     "@type": "Service",
     name: "Maintenance & Support",
     description: "Website maintenance, security patches, performance monitoring, content updates, CMS management, uptime monitoring, and backup management.",
-    provider: { "@type": "Person", name: "Brian Ramoroka" },
+    provider: { "@id": "https://www.brianramoroka.co.za/#person" },
     areaServed: ["ZA", "NL", "BE", "DE", "FR", "ES", "GB", "US"],
   },
 ];
@@ -81,7 +80,7 @@ export default function ServicesPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" imageAlt="Brian Ramoroka, Software Engineer and SEO Specialist" lighter />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" lighter />
       <PageTransition>
         {/* Hero */}
         <section className="relative z-10 pt-28 md:pt-[140px] pb-12">

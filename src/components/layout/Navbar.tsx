@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X, Menu, Download } from "lucide-react";
@@ -11,17 +11,53 @@ export default function Navbar() {
 
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
+  const closeMobileMenu = useCallback(() => {
     setIsMobileOpen(false);
-  }, [pathname]);
+    menuButtonRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
+  // Dialog behaviour while the overlay is open: Esc closes, Tab is trapped inside
+  useEffect(() => {
+    if (!isMobileOpen) return;
 
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeMobileMenu();
+        return;
+      }
+      if (e.key !== "Tab" || !overlayRef.current) return;
+
+      const focusables = overlayRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileOpen, closeMobileMenu]);
 
   return (
     <>
@@ -77,9 +113,12 @@ export default function Navbar() {
             CV
           </a>
           <button
+            ref={menuButtonRef}
             onClick={() => setIsMobileOpen(true)}
             className="px-3 py-1.5 rounded-full text-text-body hover:text-text-primary transition-colors"
             aria-label="Open menu"
+            aria-expanded={isMobileOpen}
+            aria-controls="mobile-menu"
           >
             <Menu size={20} />
           </button>
@@ -90,6 +129,11 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
+            ref={overlayRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
             initial={{ opacity: prefersReducedMotion ? 1 : 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: prefersReducedMotion ? 1 : 0 }}
@@ -98,7 +142,8 @@ export default function Navbar() {
             style={{ background: "rgba(10, 10, 12, 0.95)", backdropFilter: "blur(12px)" }}
           >
             <button
-              onClick={() => setIsMobileOpen(false)}
+              ref={closeButtonRef}
+              onClick={closeMobileMenu}
               className="absolute top-6 right-6 p-2 text-text-secondary hover:text-text-primary"
               aria-label="Close menu"
             >
@@ -121,6 +166,7 @@ export default function Navbar() {
               ))}
               <a
                 href="#"
+                onClick={() => setIsMobileOpen(false)}
                 className="mt-4 flex items-center gap-2 px-8 py-3 rounded-full text-base font-semibold
                   bg-accent text-black hover:bg-accent-hover transition-colors"
               >

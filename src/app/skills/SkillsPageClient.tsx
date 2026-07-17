@@ -22,7 +22,7 @@ export default function SkillsPageClient() {
 
   return (
     <>
-      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" imageAlt="Brian Ramoroka, Full-Stack Developer" />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" />
       <section className="relative z-10 pt-20 md:pt-[120px] pb-16">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20 space-y-20">
 

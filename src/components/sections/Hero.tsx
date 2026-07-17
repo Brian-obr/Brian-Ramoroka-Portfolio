@@ -1,6 +1,4 @@
-"use client";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import OpenToWorkBadge from "@/components/ui/OpenToWorkBadge";
 import ContactInfoRow from "@/components/ui/ContactInfoRow";
 
@@ -10,14 +8,11 @@ const stats = [
   { value: "8+", label: "International Markets" },
 ];
 
+/* CSS-only stagger (see .fade-up in globals.css): the hero paints without
+   waiting for JS hydration, keeping LCP off the JavaScript critical path. */
+const delay = (s: number) => ({ animationDelay: `${s}s` });
+
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-
-  const fadeUp = (delay: number) =>
-    prefersReducedMotion
-      ? {}
-      : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay } };
-
   return (
     <section className="min-h-screen flex items-center">
       <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20 w-full py-24 lg:py-32">
@@ -28,40 +23,40 @@ export default function Hero() {
           nothing ever overlaps the image at any breakpoint.
         */}
         <div className="max-w-[540px] lg:max-w-[50%]">
-          <motion.div {...fadeUp(0)} className="mb-6">
+          <div className="fade-up mb-6" style={delay(0)}>
             <OpenToWorkBadge />
-          </motion.div>
+          </div>
 
-          <motion.p {...fadeUp(0.1)} className="text-accent font-mono tracking-wide uppercase text-sm mb-3">
+          <p className="fade-up text-accent font-mono tracking-wide uppercase text-sm mb-3" style={delay(0.1)}>
             SEO Web Developer
-          </motion.p>
+          </p>
 
-          <motion.h1
-            {...fadeUp(0.2)}
-            className="text-[2.5rem] md:text-[4.5rem] font-display leading-[1.1] text-text-primary mb-6"
+          <h1
+            className="fade-up text-[2.5rem] md:text-[4.5rem] font-display leading-[1.1] text-text-primary mb-6"
+            style={delay(0.2)}
           >
             Brian Ramoroka
-          </motion.h1>
+          </h1>
 
-          <motion.p {...fadeUp(0.25)} className="text-text-body text-base md:text-lg mb-8 leading-relaxed">
+          <p className="fade-up text-text-body text-base md:text-lg mb-8 leading-relaxed" style={delay(0.25)}>
             SEO web developer and software engineer based in Cape Town. I have built and maintained over 150 client
             websites across 8+ international markets. I am also open to joining development teams — check out my{" "}
             <Link href="/skills" className="deep-link">skills</Link> and{" "}
             <Link href="/services" className="deep-link">services</Link>.
-          </motion.p>
+          </p>
 
-          <motion.div {...fadeUp(0.3)} className="mb-12">
+          <div className="fade-up mb-12" style={delay(0.3)}>
             <ContactInfoRow layout="horizontal" />
-          </motion.div>
+          </div>
 
-          <motion.div {...fadeUp(0.4)} className="flex flex-wrap gap-8 md:gap-12">
+          <div className="fade-up flex flex-wrap gap-8 md:gap-12" style={delay(0.4)}>
             {stats.map((stat) => (
               <div key={stat.label}>
                 <p className="text-2xl md:text-3xl font-bold text-accent">{stat.value}</p>
                 <p className="text-text-muted text-sm mt-1">{stat.label}</p>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

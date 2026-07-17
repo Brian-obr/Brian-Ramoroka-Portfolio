@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/experience",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -40,7 +39,7 @@ export default function ExperiencePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" imageAlt="Brian Ramoroka, Full-Stack Developer" />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" />
       <PageTransition>
         <section className="relative z-10 pt-20 md:pt-[120px] pb-16">
           <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">

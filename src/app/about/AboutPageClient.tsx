@@ -46,7 +46,7 @@ export default function AboutPageClient() {
 
   return (
     <>
-      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" imageAlt="Brian Ramoroka, Software Engineer and SEO Specialist" lighter />
+      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" lighter />
 
       {/* Hero */}
       <section className="relative z-10 pt-28 md:pt-[140px] pb-12">
