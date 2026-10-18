@@ -13,7 +13,14 @@ function classify(a: HTMLAnchorElement): TrackEvent | null {
   if (href.startsWith("tel:")) return "click_phone";
   if (href.startsWith("https://wa.me/")) return "click_whatsapp";
   if (a.dataset.track === "click_booking") return "click_booking";
-  if (/^https?:\/\//.test(href) && new URL(href).host !== SITE_HOST && new URL(href).host !== location.host) return "outbound_click";
+  if (/^https?:\/\//.test(href)) {
+    try {
+      const host = new URL(href).host;
+      if (host !== SITE_HOST && host !== location.host) return "outbound_click";
+    } catch {
+      return null;
+    }
+  }
   return null;
 }
 
@@ -33,7 +40,7 @@ export default function TrackClicks() {
       const event = classify(a);
       if (!event) return;
       const params: Record<string, string> = { link_location: locationOf(a) };
-      if (event === "outbound_click") params.link_domain = new URL(a.href).host;
+      if (event === "outbound_click") params.link_domain = a.host;
       if (event === "cv_download") params.file_name = a.pathname.split("/").pop() ?? "";
       track(event, params);
     };

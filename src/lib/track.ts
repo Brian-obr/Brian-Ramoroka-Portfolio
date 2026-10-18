@@ -15,5 +15,5 @@ export type TrackEvent =
  */
 export function track(event: TrackEvent, params: Record<string, string | number | boolean> = {}) {
   (window.dataLayer ??= []).push({ event, ...params });
-  if (process.env.NEXT_PUBLIC_GTM_ID === undefined) window.gtag?.("event", event, params);
+  if (!process.env.NEXT_PUBLIC_GTM_ID) window.gtag?.("event", event, params);
 }

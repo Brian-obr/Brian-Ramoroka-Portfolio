@@ -5,7 +5,7 @@
 | Decision | Choice | Why |
 |---|---|---|
 | Container | Google Tag Manager via `@next/third-parties/google` `<GoogleTagManager>` | One place to add GA4, Clarity and Ads later without deploys |
-| Consent Mode | **Advanced** (tags load, send cookieless pings while denied) | A low-traffic site needs modelled conversions; pings carry no cookies or identifiers. Basic mode would leave the GA4 baseline near zero. If you prefer strict POPIA reading, switch to **Basic** by not rendering GTM until `analytics_storage` is granted (one flag: `NEXT_PUBLIC_CONSENT_MODE=basic`) |
+| Consent Mode | **Basic** (revised 2026-10-19 after code review): no Google tag is requested until the visitor accepts | Makes the banner's "only runs if you accept" literally true and is the stricter POPIA reading. Cost: no modelled conversions from visitors who reject. Defaults are still set to denied inline so GTM inherits the state |
 | CMP | Own lightweight banner (no paid CMP) | 1 cookie category set, no IAB TCF requirement (no ad-tech); saves a subscription and ~40KB |
 | Categories | Necessary (always), Analytics (GA4, Clarity), Marketing (none today; reserved) | Granular as required by GDPR for EU visitors |
 | Storage | `localStorage["consent.v1"] = {"analytics":bool,"marketing":bool,"ts":ISO}` | No cookie needed to store the choice |
@@ -58,7 +58,7 @@ No PII in any parameter: no names, emails or messages, and nothing in URLs. `/th
 
 ## Verification (external)
 
-1. GTM Preview on the Vercel preview URL: before consent, Tag Assistant shows the Google tag with `gcs=G100` (denied) and **no `_ga` cookie**.
+1. GTM Preview on the Vercel preview URL: before consent, **no request to googletagmanager.com or google-analytics.com** and no `_ga` cookie.
 2. Click Accept: `gcs=G111`, `_ga` cookie set, page_view sent.
 3. Submit the form → `/thank-you` → exactly one `generate_lead` in GA4 DebugView; reload → no second event.
 4. Playwright: `tests/consent.spec.ts` asserts no `_ga` cookie and no request to `google-analytics.com/g/collect` with `gcs=G111` before Accept.

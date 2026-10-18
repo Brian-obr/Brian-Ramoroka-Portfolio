@@ -1,27 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CONSENT_OPEN_EVENT, readConsent, saveConsent } from "@/lib/consent";
 
 /** Bottom sheet overlaying the page (fixed, so it never shifts layout). Accept and Reject carry equal weight. */
 export default function ConsentBanner() {
   const [open, setOpen] = useState(false);
+  const sheet = useRef<HTMLElement>(null);
+  const returnTo = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // Reading localStorage must wait for the client; the banner is absent from server HTML on purpose.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!readConsent()) setOpen(true);
-    const reopen = () => setOpen(true);
+    const reopen = () => {
+      returnTo.current = document.activeElement as HTMLElement | null;
+      setOpen(true);
+    };
     window.addEventListener(CONSENT_OPEN_EVENT, reopen);
     return () => window.removeEventListener(CONSENT_OPEN_EVENT, reopen);
   }, []);
+
+  // Reserve room at the end of the page so the sheet never hides the footer or a focused control (WCAG 2.4.11).
+  useEffect(() => {
+    if (!open || !sheet.current) return;
+    document.body.style.paddingBottom = `${sheet.current.offsetHeight + 32}px`;
+    if (returnTo.current) sheet.current.querySelector("button")?.focus();
+    return () => {
+      document.body.style.paddingBottom = "";
+    };
+  }, [open]);
 
   if (!open) return null;
 
   const choose = (analytics: boolean) => {
     saveConsent(analytics);
     setOpen(false);
+    (returnTo.current ?? document.getElementById("main"))?.focus();
+    returnTo.current = null;
   };
 
   const button =
@@ -29,7 +46,7 @@ export default function ConsentBanner() {
 
   return (
     <section
-      role="region"
+      ref={sheet}
       aria-label="Cookie consent"
       className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-[560px] rounded-xl border border-white/15 bg-[#1A1817] p-5 text-[#F5F5F4] shadow-[0_8px_24px_rgb(0_0_0/0.5)]"
     >

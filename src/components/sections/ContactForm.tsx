@@ -38,9 +38,13 @@ function Field({
 export default function ContactForm() {
   const [state, action, pending] = useActionState(submitContact, initial);
   const startedAt = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  // React resets the form after each submit, so the timestamp is re-armed whenever the state changes.
   useEffect(() => {
     if (startedAt.current && !startedAt.current.value) startedAt.current.value = String(Date.now());
-  }, []);
+    // Move focus to the first invalid field so screen-reader users hear the error.
+    formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+  }, [state]);
 
   const e = state.errors ?? {};
   const v = state.values ?? {};
@@ -48,7 +52,7 @@ export default function ContactForm() {
     e[field] ? { "aria-invalid": true as const, "aria-describedby": `${field}-error` } : {};
 
   return (
-    <form action={action} className="space-y-5" noValidate>
+    <form ref={formRef} action={action} className="space-y-5" noValidate>
       {state.message && (
         <p role="alert" className="rounded-lg border border-[#FCA5A5] p-4 text-sm text-[#FCA5A5]">
           {state.message}{" "}
@@ -80,6 +84,11 @@ export default function ContactForm() {
             </label>
           ))}
         </div>
+        {e.type && (
+          <p id="type-error" className="mt-2 text-sm text-[#FCA5A5]">
+            {e.type}
+          </p>
+        )}
       </fieldset>
 
       <Field id="name" label="Name" error={e.name}>
@@ -97,7 +106,14 @@ export default function ContactForm() {
         />
       </Field>
       <Field id="company" label="Company (optional)" error={e.company}>
-        <input id="company" name="company" autoComplete="organization" defaultValue={v.company} className={inputClass} />
+        <input
+          id="company"
+          name="company"
+          autoComplete="organization"
+          defaultValue={v.company}
+          className={inputClass}
+          {...aria("company")}
+        />
       </Field>
       <Field id="message" label="Message" error={e.message}>
         <textarea

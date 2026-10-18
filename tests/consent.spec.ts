@@ -8,8 +8,29 @@ const consentCalls = (dl: DL, kind: "default" | "update") =>
     .filter((a) => a[0] === "consent" && a[1] === kind)
     .map((a) => a[2] as Record<string, string>);
 
+// The test build sets NEXT_PUBLIC_GA_ID=G-TEST00000 (npm run build:test), so the tag would load if allowed.
+let googleRequests: string[] = [];
 test.beforeEach(async ({ page }) => {
-  await page.route(/googletagmanager\.com|google-analytics\.com/, (r) => r.abort());
+  googleRequests = [];
+  await page.route(/googletagmanager\.com|google-analytics\.com/, (r) => {
+    googleRequests.push(r.request().url());
+    return r.abort();
+  });
+});
+
+test("no Google tag is requested before consent; accepting loads it", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  expect(googleRequests).toEqual([]);
+  await page.getByRole("region", { name: "Cookie consent" }).getByRole("button", { name: "Accept analytics" }).click();
+  await expect.poll(() => googleRequests.some((u) => u.includes("gtag/js?id=G-TEST00000"))).toBe(true);
+});
+
+test("rejecting after accepting removes _ga cookies", async ({ page, context }) => {
+  await page.goto("/");
+  await context.addCookies([{ name: "_ga", value: "GA1.1.1.1", domain: "localhost", path: "/" }]);
+  await page.getByRole("region", { name: "Cookie consent" }).getByRole("button", { name: "Reject" }).click();
+  expect((await context.cookies()).filter((c) => c.name.startsWith("_ga"))).toHaveLength(0);
 });
 
 test("consent defaults to denied before any choice and no _ga cookie is set", async ({ page, context }) => {
