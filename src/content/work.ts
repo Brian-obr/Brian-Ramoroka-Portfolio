@@ -53,7 +53,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "brianramoroka-co-za",
     title: "brianramoroka.co.za",
     kind: "Next.js rebuild",
-    summary: "This site: a Next.js 16 rebuild that cut the time for the main content to appear on a throttled phone from 4.3 seconds to 1.5, with tests guarding every fix.",
+    summary: "This site: a Next.js 16 rebuild that cut the time for the main content to appear on a throttled phone from 4.3 seconds to 1.5, with automated tests behind the fixes.",
     image: {
       src: "/images/work/brianramoroka-desktop.webp",
       width: 1600,
@@ -64,8 +64,8 @@ export const caseStudies: CaseStudy[] = [
     facts: [
       { label: "Mobile LCP, throttled lab test", value: "4.3 s to 1.5 s" },
       { label: "Page weight (home)", value: "1,043 KB to 330 KB" },
-      { label: "Lighthouse performance (mobile)", value: "84 to 99" },
-      { label: "Automated checks", value: "Playwright, axe and Lighthouse budgets on every push" },
+      { label: "Lighthouse performance (mobile)", value: "83-84 to 99-100" },
+      { label: "Automated checks", value: "Playwright and axe on every page; Lighthouse budgets on three key pages" },
     ],
     sections: [
       {
@@ -84,7 +84,7 @@ export const caseStudies: CaseStudy[] = [
       {
         heading: "How it stays fixed",
         body: [
-          "Each fix has a Playwright test written before the change, plus axe accessibility checks and Lighthouse performance budgets that fail the build if anything regresses.",
+          "Each fix has a Playwright test written before the change. Axe accessibility checks run on every page, and Lighthouse performance budgets on the home, contact and case study pages fail the CI build if they regress.",
         ],
       },
     ],

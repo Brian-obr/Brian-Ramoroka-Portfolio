@@ -20,7 +20,7 @@ export default function ServicesPage() {
         title="Websites that load fast and get found"
         lead="I work with small businesses and agencies in South Africa and abroad. Every job is quoted up front, after a short conversation about what you need."
       >
-        <ButtonLink href="/contact">Ask for a quote</ButtonLink>
+        <ButtonLink href="/contact">Get in touch</ButtonLink>
       </PageIntro>
 
       <Container>

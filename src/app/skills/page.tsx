@@ -23,9 +23,10 @@ export default function SkillsPage() {
         {skillGroups.map((g, i) => (
           <section
             key={g.heading}
+            aria-labelledby={`skills-${i}`}
             className={`rounded-[12px] border border-border p-6 ${i === 0 ? "bg-surface md:row-span-2" : "bg-surface-2"}`}
           >
-            <h2 className="text-h3 font-semibold text-ink">{g.heading}</h2>
+            <h2 id={`skills-${i}`} className="text-h3 font-semibold text-ink">{g.heading}</h2>
             <p className="mt-1 text-[15px] text-muted">{g.note}</p>
             <ul className="mt-5 flex flex-wrap gap-2">
               {g.skills.map((s) => (

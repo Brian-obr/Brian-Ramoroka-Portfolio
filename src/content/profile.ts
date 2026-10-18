@@ -68,7 +68,7 @@ export const skillGroups = [
   {
     heading: "Used at work",
     note: "At Rhiza Babuyile or BiiC.",
-    skills: ["Git", "JavaScript", "REST APIs", "HTML", "CSS", "Azure", "Agile", "SQL", "PostgreSQL", "Java", "Spring Boot", "WordPress", "Shopify", "Technical SEO", "GA4 and Search Console"],
+    skills: ["Git", "JavaScript", "REST APIs", "HTML", "CSS", "Azure", "Agile", "SQL", "PostgreSQL", "Java", "Spring Boot", "WordPress", "Shopify", "Magento 2", "Technical SEO", "GA4 and Search Console"],
   },
   {
     heading: "Used in my own projects",

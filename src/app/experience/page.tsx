@@ -45,7 +45,7 @@ export default function ExperiencePage() {
                 <h2 className="text-h3 font-semibold text-ink">{r.title}</h2>
                 <p className="mt-1 text-ink">
                   {r.company}
-                  {r.companyNote && <span className="text-muted">. {r.companyNote}</span>}
+                  {r.companyNote && <span className="block text-muted">{r.companyNote}</span>}
                 </p>
                 <p className="mt-4 max-w-[62ch] text-muted">{r.summary}</p>
                 <ul className="mt-4 list-disc space-y-1 pl-5 text-ink">

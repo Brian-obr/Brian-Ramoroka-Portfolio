@@ -97,3 +97,20 @@ Built from the revised strategy (two audiences, `website-research.md`) and Direc
 - `audit/2026-10/content-briefs.md`: 3 briefs (WooCommerce product schema from The Breezy Exchange, this site's 4.3 → 1.5s rebuild, a one-hour technical SEO check), replacing the 5 generic briefs per research §5.2. Posts themselves are a follow-up.
 - Motion: CSS only. 150ms colour/border/transform transitions on links and buttons, 1px press on buttons, a 200ms fade-and-drop when the mobile menu opens (`@starting-style`). Nothing animates on load (test: every element in `main` is fully opaque at first paint). `prefers-reduced-motion: reduce` sets every transition to 0ms (test).
 - Found by the motion test: `opacity-85` used to fade text in the dark card; replaced with a colour token so contrast is computed on a real colour.
+
+## Phase 5-7 code review (fresh subagent) and fixes (`redesign/05b-review-fixes`)
+
+| # | Finding | Severity | Fix | Test |
+|---|---|---|---|---|
+| 1 | Mobile menu collapsed to 49px: `backdrop-blur` on the header made it the containing block for the fixed menu | **blocker** | Blur moved to a `::before` pseudo-element; menu height `calc(100dvh - 64px)` | `menu.spec.ts`: menu ≥ 600px tall at 375×740, every link ≥ 44px |
+| 2 | Menu focus escaped into hidden content; `aria-controls` target missing when closed; scroll lock stuck after resizing to desktop | major | `inert` on main and footer while open; menu always rendered with `hidden`; closes at ≥ 1024px | `menu.spec.ts` (3 tests) |
+| 3 | Claims-policy test checked strings that never appear | major | Scoped to the "Used at work" region; asserts studied-only items are absent and proven items present | `design.spec.ts` |
+| 4-6 | Focus ring 1.48:1 on the inverted dark card; accent 4.45:1 on surface-2 (current menu item); error page button 4.18:1 | minor | `focus-visible:outline-bg`; `text-accent-strong`; `text-on-accent` | axe |
+| 7 | Case study overstated test coverage; "84 to 99" vs log 83-84 → 99-100 | minor | Reworded; LHCI now also covers `/work/the-breezy-exchange` | — |
+| 8 | Home skills snapshot cut Java, Spring Boot, WordPress, Shopify | minor | Full lists | — |
+| 9 | Magento 2 missing from "Used at work"; "Rhiza Babuyile. Partner of" | minor | Added; note on its own line | `design.spec.ts` |
+| 10 | 4 different labels for the contact intent | minor | "Get in touch" everywhere; "See my skills" | `critical.spec.ts`, `design.spec.ts` |
+| 11 | Work-card links announced the full image alt | minor | `alt=""` (title is in the link) | — |
+| 12 | Dash test missed title/meta/alt/JSON-LD; motion test only checked opacity | minor | Both widened | `design.spec.ts`, `motion.spec.ts` |
+
+Also fixed after a visual check: the header name wrapped to two lines at 375px (test added).
