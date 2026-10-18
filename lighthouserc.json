@@ -1,0 +1,22 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npx next start -p 3200",
+      "startServerReadyPattern": "Ready",
+      "url": ["http://localhost:3200/", "http://localhost:3200/contact"],
+      "numberOfRuns": 3,
+      "settings": { "preset": "perf", "formFactor": "mobile", "screenEmulation": { "mobile": true, "width": 412, "height": 823, "deviceScaleFactor": 1.75 }, "throttlingMethod": "simulate", "skipAudits": ["is-on-https", "redirects-http", "uses-http2"] }
+    },
+    "assert": {
+      "assertions": {
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2000, "aggregationMethod": "median" }],
+        "total-blocking-time": ["error", { "maxNumericValue": 200, "aggregationMethod": "median" }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.05, "aggregationMethod": "median" }],
+        "resource-summary:script:size": ["error", { "maxNumericValue": 174080 }],
+        "resource-summary:image:size": ["error", { "maxNumericValue": 204800 }],
+        "resource-summary:total:size": ["error", { "maxNumericValue": 614400 }]
+      }
+    },
+    "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
+  }
+}
