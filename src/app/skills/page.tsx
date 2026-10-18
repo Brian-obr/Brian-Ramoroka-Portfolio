@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import SkillsPageClient from "./SkillsPageClient";
 
@@ -27,22 +29,11 @@ export const metadata: Metadata = {
   },
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Skills & Tools", item: "https://www.brianramoroka.co.za/skills" },
-  ],
-};
 
 export default function SkillsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={pageGraph({ path: "/skills", name: "Skills and tools", description: metadata.description as string, breadcrumb: [{ name: "Skills", path: "/skills" }] })} />
       <SkillsPageClient />
     </>
   );

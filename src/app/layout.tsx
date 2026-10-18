@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Space_Mono, Instrument_Serif } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -58,6 +58,10 @@ verification: {
 
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0c",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,9 +77,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: consentDefaultsScript }} />
       </head>
       <body className="min-h-full flex flex-col bg-bg-deep">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-3 focus:font-semibold focus:text-black"
+        >
+          Skip to content
+        </a>
         <div className="relative z-10 flex flex-col min-h-full">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
           <Footer />
         </div>
         <ConsentBanner />

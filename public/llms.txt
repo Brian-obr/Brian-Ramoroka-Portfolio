@@ -1,0 +1,19 @@
+# Brian Ramoroka
+
+> Brian Ramoroka is a web developer in Cape Town, South Africa. He builds websites and web apps that load fast and get found: front-end, WordPress and Shopify, with SEO built in and a Java and Spring Boot background. He is open to developer roles and takes on freelance projects.
+
+## Pages
+
+- [Home](https://www.brianramoroka.co.za/): who Brian is and the two ways to work with him
+- [Experience](https://www.brianramoroka.co.za/experience): SEO web developer at Rhiza Babuyile (since March 2025, client sites for Grizzly New Marketing, Netherlands); software developer intern at BiiC (Java, Spring Boot, PostgreSQL, Azure)
+- [Skills](https://www.brianramoroka.co.za/skills): skills grouped by where they were used (work, own projects, study)
+- [Services](https://www.brianramoroka.co.za/services): website builds, WordPress and Shopify work, fixes and maintenance, technical SEO
+- [About](https://www.brianramoroka.co.za/about): background and education (Cape Peninsula University of Technology)
+- [Contact](https://www.brianramoroka.co.za/contact): hiring or project enquiries
+
+## Contact
+
+- Email: ramorokaob@gmail.com
+- Phone and WhatsApp: +27 81 379 8635
+- LinkedIn: https://za.linkedin.com/in/brian-obr
+- GitHub: https://github.com/Brian-obr

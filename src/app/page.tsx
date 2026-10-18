@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import AboutSummary from "@/components/sections/AboutSummary";
@@ -34,45 +36,10 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Person",
-        name: "Brian Ramoroka",
-        jobTitle: "SEO Web Developer & Software Engineer",
-        url: "https://www.brianramoroka.co.za",
-        email: "ramorokaob@gmail.com",
-        telephone: "+27813798635",
-        address: { "@type": "PostalAddress", addressLocality: "Cape Town", addressCountry: "ZA" },
-        sameAs: [
-          "https://za.linkedin.com/in/brian-obr",
-          "https://github.com/Brian-obr",
-        ],
-        knowsAbout: [
-          "SEO", "Web Development", "Software Engineering", "JavaScript", "React",
-          "Next.js", "Java", "Spring Boot", "WordPress", "Shopify",
-        ],
-        alumniOf: {
-          "@type": "EducationalOrganization",
-          name: "Cape Peninsula University of Technology",
-        },
-        worksFor: {
-          "@type": "Organization",
-          name: "Rhiza Babuyile",
-        },
-      },
-      {
-        "@type": "WebSite",
-        name: "Brian Ramoroka",
-        url: "https://www.brianramoroka.co.za",
-      },
-    ],
-  };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={pageGraph({ path: "/", name: "Brian Ramoroka, web developer", description: metadata.description as string })} />
       <BackgroundImage />
       <>
         <Hero />

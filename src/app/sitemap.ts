@@ -7,7 +7,9 @@ const routes: { path: string; lastModified: string; priority: number }[] = [
   { path: "/", lastModified: "2026-10-19", priority: 1 },
   { path: "/about", lastModified: "2026-04-16", priority: 0.9 },
   { path: "/services", lastModified: "2026-04-16", priority: 0.9 },
-  { path: "/contact", lastModified: "2026-04-16", priority: 0.7 },
+  { path: "/contact", lastModified: "2026-10-19", priority: 0.7 },
+  { path: "/privacy", lastModified: "2026-10-19", priority: 0.2 },
+  { path: "/cookies", lastModified: "2026-10-19", priority: 0.2 },
   { path: "/experience", lastModified: "2026-04-16", priority: 0.5 },
   { path: "/skills", lastModified: "2026-04-16", priority: 0.5 },
 ];
