@@ -110,3 +110,25 @@ Pre-launch checklist (all ticked in the final PR):
 - [ ] Env vars documented for you: `NEXT_PUBLIC_GTM_ID`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `NEXT_PUBLIC_CAL_URL`, `NEXT_PUBLIC_SITE_URL`
 
 Then the final PR `redesign/2026-10 → main` (**stop and wait for you**).
+
+---
+
+## Revision 2026-10-19: strategy update from `website-research.md`
+
+Source: Brian's `website-research.md` (40 Indeed SA job ads, 5 freelance SERPs, competitor teardown). It's kept outside git because it references job applications. Where it conflicts with the original plan, the research wins.
+
+| Original plan | Revised | Reason (research §) |
+|---|---|---|
+| Freelance-first, Cape Town local service site | **Two audiences: employers (full-stack, front-end and back-end roles) and freelance clients.** Title "Web Developer" + the positioning line from §5.1 | §1, §5.1 |
+| 5 service pages (`/web-design-cape-town`, `/wordpress-developer-cape-town`, `/seo-cape-town`, `/nextjs-developer`, `/white-label-for-agencies`) | **Dropped.** Services stay one page/section. Revisit after 3 months of Search Console data | §4, §5.2 |
+| `/experience` and `/skills` → 308 to `/hire-me` | **Kept** as employer pages; `/hire-me` dropped. The CV button lives on `/experience` (and the home hiring path) | employer audience |
+| Skills: long lists | Lead with the most-asked terms grouped by evidence level (Work / Own project / Study); add Tailwind CSS; CMS list cut to one line; SEO tools moved to the services page | §2, §5.4 |
+| Events `generate_lead` etc. | Add `form_submit_hiring` and `form_submit_project` (the contact form asks "Hiring or project?"); keep `cv_download`. `generate_lead` fires on both with a `lead_type` parameter | §6 |
+| Case studies | The Breezy Exchange **and** brianramoroka.co.za itself (before/after Lighthouse, Rich Results, crawl) | §6 |
+| GBP + local citations (phase 4) | Optional. Recommended (local pack evidence in REPORT §5 still stands) but secondary to marketplace profiles (Codeable/Upwork/Contra) that link back to the site | §5.2 |
+
+**Claims policy (unanswered research §7 questions 1, 2, 3, 5):** the site does not claim code review, SQL Server, Node.js, automated testing or .NET work experience. "Study" items are labelled as study. No entry offer is shown; it's quote on request. The proof project (§5.3) is listed as "in progress" only once a repo exists.
+
+**Revised redirect map:** only `/portfolio` and `/portfolio/:slug` → `/work` (308). `/experience` and `/skills` keep returning 200.
+
+**Revised phase 5 page list:** `/` (both paths), `/about`, `/experience` (+CV), `/skills` (evidence-grouped), `/services` (single page, including the SEO tools), `/work`, `/work/the-breezy-exchange`, `/work/brianramoroka-co-za`, `/contact` (hiring/project switch), `/thank-you`, `/privacy`, `/cookies`.

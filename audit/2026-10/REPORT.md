@@ -1,5 +1,7 @@
 # brianramoroka.co.za: Evidence-led SEO, performance and redesign audit
 
+> **Revision 2026-10-19:** Brian supplied `website-research.md` (40 SA job ads + freelance SERPs). It changes the positioning to two audiences (employers first) and drops the separate service pages. See `PLAN.md` → "Revision 2026-10-19". Findings and evidence below are unchanged; recommendations in §5, §14.4 and §15 that conflict with the revision are superseded.
+
 Audit date: 2026-10-19 · Branch: `audit/2026-10` · Commit audited: `f26e6f4` (main, last deploy 2026-04-16)
 Raw evidence lives in `baseline/`. Every finding cites a file in that folder or a `file:line` in the repo.
 
