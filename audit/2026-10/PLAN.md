@@ -115,7 +115,7 @@ Then the final PR `redesign/2026-10 → main` (**stop and wait for you**).
 
 ## Revision 2026-10-19: strategy update from `website-research.md`
 
-Source: Brian's `website-research.md` (40 Indeed SA job ads, 5 freelance SERPs, competitor teardown). It's kept outside git because it references job applications. Where it conflicts with the original plan, the research wins.
+Source: Brian's `website-research.md` (40 Indeed SA job ads, 5 freelance SERPs, competitor teardown). It's kept outside git (personal working notes). Where it conflicts with the original plan, the research wins.
 
 | Original plan | Revised | Reason (research §) |
 |---|---|---|
