@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "lhci": "lhci autorun",
-    "verify": "npm run lint && npm run typecheck && npm run build && npm run test:e2e"
+    "verify": "npm run lint && npm run typecheck && npm run build:test && npm run test:e2e",
+    "build:test": "NEXT_PUBLIC_GA_ID=G-TEST00000 next build"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.2",

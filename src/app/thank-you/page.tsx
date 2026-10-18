@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import ThankYouTracker from "./ThankYouTracker";
 
 export const metadata: Metadata = {
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default async function ThankYouPage({ searchParams }: { searchParams: Promise<{ type?: string; s?: string }> }) {
   const { type, s } = await searchParams;
   const kind = type === "hiring" ? "hiring" : "project";
-  const id = s && /^[a-z0-9-]{1,40}$/i.test(s) ? s : null;
+  // Only a submission that went through the Server Action carries a matching httpOnly cookie.
+  const lead = (await cookies()).get("lead")?.value;
+  const id = s && lead === s ? s : null;
 
   return (
     <section className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24">

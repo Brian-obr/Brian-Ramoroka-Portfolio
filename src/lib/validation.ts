@@ -5,7 +5,12 @@ export type EnquiryType = (typeof enquiryTypes)[number];
 
 export const contactFormSchema = z.object({
   type: z.enum(enquiryTypes, { message: "Choose hiring or project" }),
-  name: z.string().trim().min(2, "Please enter your name").max(100, "Name must be 100 characters or less"),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Please enter your name")
+    .max(100, "Name must be 100 characters or less")
+    .transform((n) => n.replace(/[\r\n]+/g, " ")),
   email: z.string().trim().email("Please enter a valid email address"),
   company: z.string().trim().max(120).optional().or(z.literal("")),
   message: z

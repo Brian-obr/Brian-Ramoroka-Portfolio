@@ -1,5 +1,6 @@
 export const CONSENT_KEY = "consent.v1";
 export const CONSENT_OPEN_EVENT = "consent:open";
+export const CONSENT_CHANGE_EVENT = "consent:change";
 
 export type ConsentChoice = { analytics: boolean; ts: string };
 
@@ -45,4 +46,15 @@ export function saveConsent(analytics: boolean) {
   }
   window.gtag?.("consent", "update", { analytics_storage: analytics ? "granted" : "denied" });
   (window.dataLayer ??= []).push({ event: "consent_update", analytics });
+  if (!analytics) clearAnalyticsCookies();
+  window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
+}
+
+/** Withdrawing consent removes GA cookies set by an earlier "Accept" (on the host and the parent domain). */
+function clearAnalyticsCookies() {
+  const names = document.cookie.split(";").map((c) => c.split("=")[0].trim()).filter((n) => n.startsWith("_ga"));
+  const host = location.hostname;
+  const domains = ["", host, `.${host.replace(/^www\./, "")}`];
+  for (const name of names)
+    for (const d of domains) document.cookie = `${name}=; Max-Age=0; path=/${d ? `; domain=${d}` : ""}`;
 }

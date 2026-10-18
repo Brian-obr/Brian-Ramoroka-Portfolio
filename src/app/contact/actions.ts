@@ -1,7 +1,7 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { contactFormSchema } from "@/lib/validation";
 
@@ -16,8 +16,12 @@ export type ContactState = {
 const MIN_FILL_MS = 3000;
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
+/**
+ * Best effort only: memory is per serverless instance. Vercel's WAF rate limiting is the real control (PLAN phase 8).
+ */
 function rateLimited(ip: string): boolean {
   const now = Date.now();
+  for (const [key, e] of attempts) if (now > e.resetAt) attempts.delete(key);
   const entry = attempts.get(ip);
   if (!entry || now > entry.resetAt) {
     attempts.set(ip, { count: 1, resetAt: now + 60 * 60 * 1000 });
@@ -71,8 +75,8 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   const values = Object.fromEntries(
     ["type", "name", "email", "company", "message"].map((k) => [k, String(formData.get(k) ?? "")]),
   );
+  const kind = values.type === "hiring" ? "hiring" : "project";
   const id = randomUUID().slice(0, 8);
-  const thankYou = `/thank-you?type=${values.type === "hiring" ? "hiring" : "project"}&s=${id}`;
 
   // Validate first so a quick human with a typo sees their errors instead of being treated as a bot.
   const parsed = contactFormSchema.safeParse(values);
@@ -89,9 +93,12 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   // The time trap needs the client-side timestamp; without JavaScript it is absent, so only the honeypot applies.
   const startedAt = Number(formData.get("startedAt") || 0);
   const tooFast = startedAt > 0 && Date.now() - startedAt < MIN_FILL_MS;
-  if (String(formData.get("website") ?? "") !== "" || tooFast) redirect(thankYou);
+  // Bots get the same page without a submission id, so no conversion fires for them.
+  if (String(formData.get("website") ?? "") !== "" || tooFast) redirect(`/thank-you?type=${kind}`);
 
-  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const h = await headers();
+  // Vercel sets x-real-ip / x-vercel-forwarded-for from the connection; the first x-forwarded-for hop is client-controlled.
+  const ip = h.get("x-real-ip") ?? h.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (rateLimited(ip)) return { status: "error", message: "Too many messages from this connection. Please email me instead.", values };
 
   const d = parsed.data;
@@ -101,5 +108,7 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   const sent = await deliver(subject, text, d.email);
   if (!sent) return { status: "error", message: "Your message couldn't be sent. Please email me directly.", values };
 
-  redirect(thankYou);
+  // Proof for /thank-you that this id came from a real delivery: forged or bot URLs fire no conversion.
+  (await cookies()).set("lead", id, { httpOnly: true, sameSite: "lax", secure: true, maxAge: 600, path: "/thank-you" });
+  redirect(`/thank-you?type=${kind}&s=${id}`);
 }

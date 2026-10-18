@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
 test.beforeEach(async ({ page }) => {
   await page.route(/googletagmanager\.com|google-analytics\.com/, (r) => r.abort());
@@ -36,7 +36,17 @@ test("honeypot submissions are dropped silently", async ({ page }) => {
   await page.locator('input[name="website"]').evaluate((el: HTMLInputElement) => (el.value = "spam.example"));
   await page.waitForTimeout(3100);
   await page.getByRole("button", { name: "Send message" }).click();
-  await expect(page).toHaveURL(/\/thank-you/);
+  // Same page as a real enquiry, but no submission id, so no conversion is recorded.
+  await expect(page).toHaveURL(/\/thank-you\?type=project$/);
+  const leads = await page.evaluate(() => (window.dataLayer ?? []).filter((e) => (e as { event?: string }).event === "generate_lead"));
+  expect(leads).toHaveLength(0);
+});
+
+test("after a failed submit, focus moves to the first invalid field", async ({ page }) => {
+  await page.goto("/contact");
+  await page.getByLabel("Email").fill("still-not-an-email");
+  await page.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByLabel("Name")).toBeFocused();
 });
 
 test.describe("without JavaScript", () => {
@@ -51,4 +61,18 @@ test.describe("without JavaScript", () => {
     // No JS means no startedAt timestamp; the action must skip the time trap and deliver (logged in test).
     await expect(page).toHaveURL(/\/thank-you\?type=hiring/);
   });
+});
+
+test("the sixth message from one connection within an hour is refused", async ({ page }) => {
+  test.slow();
+  for (let i = 1; i <= 6; i++) {
+    await page.goto("/contact");
+    await page.getByLabel("Name").fill("Rate Test");
+    await page.getByLabel("Email").fill("rate@example.co.za");
+    await page.getByLabel("Message").fill(`Message number ${i} for the limiter.`);
+    await page.waitForTimeout(3100);
+    await page.getByRole("button", { name: "Send message" }).click();
+    if (i < 6) await expect(page).toHaveURL(/\/thank-you\?type=project&s=/);
+    else await expect(page.getByText(/Too many messages from this connection/)).toBeVisible();
+  }
 });

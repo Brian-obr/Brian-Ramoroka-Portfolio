@@ -21,8 +21,8 @@ export default function CookiesPage() {
       <JsonLd data={pageGraph({ path: "/cookies", name: "Cookie policy", description: metadata.description as string, breadcrumb: [{ name: "Cookie policy", path: "/cookies" }] })} />
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary">Cookie policy</h1>
       <p>
-        Analytics cookies are only set after you choose &quot;Accept analytics&quot;. Until then, Google Analytics runs in
-        consent mode and sets no cookies.
+        Google Analytics only loads after you choose &quot;Accept analytics&quot;. Until then no Google script runs and
+        no analytics cookies are set. Choosing &quot;Reject&quot; later removes them.
       </p>
       <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Cookies used on this site">
         <table className="w-full text-left text-sm">

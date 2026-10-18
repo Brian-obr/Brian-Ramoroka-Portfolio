@@ -49,3 +49,21 @@ Measurements: local `next build && next start` (Lighthouse 12.8.2 via LHCI, mobi
 **Bugs found by the tests and fixed:** (1) the bot time trap ran before validation, so fast typos were silently dropped as spam; (2) without JavaScript, every submission looked like a bot (no timestamp) and was dropped; (3) the consent banner covered the footer's legal links, so a privacy link was added to the banner.
 
 **Needs Brian (accounts, §10.6):** GTM container → `NEXT_PUBLIC_GTM_ID`; Resend account + DNS for `brianramoroka.co.za` → `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`; until then the form uses the existing `FORMSPREE_URL` if it is set in Vercel (H-04 unverified). External check pending: GTM Preview / Tag Assistant on the preview URL.
+
+## Phase 2-3 code review (fresh subagent) and fixes (`redesign/03b-review-fixes`)
+
+| # | Finding | Severity | Fix | Test |
+|---|---|---|---|---|
+| 1 | Banner said GA "only runs if you accept", but gtag loaded on every page (Advanced mode pings) | major | **Basic Consent Mode**: no Google request until Accept; tracking-plan.md updated | `consent.spec.ts`: 0 Google requests before Accept, `gtag/js?id=G-TEST00000` after |
+| 2 | Bots and forged `/thank-you?s=` URLs fired `generate_lead` | major | Bots redirect without `s`; real deliveries set an httpOnly `lead` cookie (10 min, path /thank-you) that must match `s` | forged URL and honeypot both fire 0 leads |
+| 3 | Rejecting after Accept left `_ga` cookies | major | `_ga*` cookies expired on host and parent domain | `consent.spec.ts` |
+| 4 | Vacuous tests (no GA id in test build; honeypot test couldn't fail) | major | `npm run build:test` sets a dummy GA id (CI too); honeypot test asserts no `s` and no lead | — |
+| 5 | Form errors not announced; `company` and `type` errors not wired | minor | Focus moves to the first invalid field; aria wired for all fields | `contact.spec.ts` focus test |
+| 6 | Time trap disarmed after the first submit | minor | Re-armed on every state change | — |
+| 7 | Banner focus handling, sheet covering content | minor | Focus moves into the banner on reopen and back on close; body padding reserves the sheet height | — |
+| 8 | Empty `NEXT_PUBLIC_GTM_ID` lost events; malformed hrefs could throw | minor | `!GTM_ID`; try/catch | — |
+| 9 | Rate limiter keyed on a spoofable header, never evicted | note | `x-real-ip` / `x-vercel-forwarded-for`, eviction; documented as best effort (real control: Vercel WAF) | new test: 6th message refused |
+| 10 | CR/LF in name reaches the email subject | minor | Stripped in the schema | — |
+| 11 | CSP needs nonces if `'unsafe-inline'` is ever dropped | note | Documented (H-05) | — |
+
+Debugging note: after the per-IP fix the mobile run failed only on valid submissions. The hypothesis was the shared `"unknown"` rate-limit bucket (desktop used up the limit first), confirmed when the same test passed alone on a fresh server. Tests now get a per-test client IP.
