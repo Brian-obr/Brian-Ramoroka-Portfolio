@@ -7,14 +7,12 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { navLinks } from "@/lib/constants";
 
 export default function Navbar() {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
   const pathname = usePathname();
+  // The menu is open only for the path it was opened on, so navigating closes it without an effect.
+  const [openOnPath, setOpenOnPath] = useState<string | null>(null);
+  const isMobileOpen = openOnPath === pathname;
+  const setIsMobileOpen = (open: boolean) => setOpenOnPath(open ? pathname : null);
   const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    setIsMobileOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";

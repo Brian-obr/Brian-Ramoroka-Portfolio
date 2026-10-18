@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Loader2, CheckCircle } from "lucide-react";
-import { contactFormSchema, type ContactFormData } from "@/lib/validation";
+import { contactFormSchema } from "@/lib/validation";
 import type { FormState } from "@/types";
 
 const projectTypes = [
