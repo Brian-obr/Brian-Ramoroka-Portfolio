@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
 import { CV_PATH, hasCv } from "@/lib/cv";
@@ -29,19 +31,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.brianramoroka.co.za/experience" },
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Experience", item: "https://www.brianramoroka.co.za/experience" },
-  ],
-};
 
 export default function ExperiencePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={pageGraph({ path: "/experience", name: "Work experience", description: metadata.description as string, type: "ProfilePage", breadcrumb: [{ name: "Experience", path: "/experience" }] })} />
       <BackgroundImage imageAlt="Brian Ramoroka, Full-Stack Developer" />
       <>
         <section className="relative z-10 pt-20 md:pt-[120px] pb-16">

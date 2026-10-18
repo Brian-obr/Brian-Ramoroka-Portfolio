@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
@@ -67,22 +69,11 @@ const contactInfo = [
   },
 ];
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Contact", item: "https://www.brianramoroka.co.za/contact" },
-  ],
-};
 
 export default function ContactPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={pageGraph({ path: "/contact", name: "Contact Brian Ramoroka", description: metadata.description as string, type: "ContactPage", breadcrumb: [{ name: "Contact", path: "/contact" }] })} />
       <BackgroundImage imageAlt="Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town" />
       <>
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 
 export const metadata: Metadata = {
@@ -16,12 +18,13 @@ const rows = [
 export default function CookiesPage() {
   return (
     <article className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24 text-text-body leading-relaxed space-y-6">
+      <JsonLd data={pageGraph({ path: "/cookies", name: "Cookie policy", description: metadata.description as string, breadcrumb: [{ name: "Cookie policy", path: "/cookies" }] })} />
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary">Cookie policy</h1>
       <p>
         Analytics cookies are only set after you choose &quot;Accept analytics&quot;. Until then, Google Analytics runs in
         consent mode and sets no cookies.
       </p>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Cookies used on this site">
         <table className="w-full text-left text-sm">
           <thead className="text-text-primary">
             <tr>

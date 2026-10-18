@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph, ids } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
 import BackgroundImage from "@/components/BackgroundImage";
@@ -26,14 +28,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.brianramoroka.co.za/services" },
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Services", item: "https://www.brianramoroka.co.za/services" },
-  ],
-};
 
 const serviceSchemas = [
   {
@@ -73,15 +67,11 @@ const serviceSchemas = [
   },
 ];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [breadcrumbJsonLd, ...serviceSchemas],
-};
 
 export default function ServicesPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={pageGraph({ path: "/services", name: "Web development and SEO services", description: metadata.description as string, breadcrumb: [{ name: "Services", path: "/services" }], about: ids.service })} />
       <BackgroundImage imageAlt="Brian Ramoroka, Software Engineer and SEO Specialist" lighter />
       <>
         {/* Hero */}

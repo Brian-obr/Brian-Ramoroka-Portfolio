@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageGraph } from "@/lib/schema";
 import { ogImage } from "@/lib/metadata";
 import AboutPageClient from "./AboutPageClient";
 
@@ -25,19 +27,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.brianramoroka.co.za/about" },
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "About", item: "https://www.brianramoroka.co.za/about" },
-  ],
-};
 
 export default function AboutPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <JsonLd data={pageGraph({ path: "/about", name: "About Brian Ramoroka", description: metadata.description as string, type: "AboutPage", breadcrumb: [{ name: "About", path: "/about" }] })} />
       <>
         <AboutPageClient />
       </>
