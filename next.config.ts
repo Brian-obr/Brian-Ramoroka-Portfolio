@@ -9,7 +9,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' https://fonts.gstatic.com",
-  "connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com",
+  "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://formspree.io https://www.google-analytics.com https://analytics.google.com",
   "frame-src https://www.google.com https://maps.google.com",
 ].join("; ");
 
