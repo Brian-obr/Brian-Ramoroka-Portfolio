@@ -8,10 +8,18 @@ test.beforeEach(async ({ page }) => {
 });
 
 for (const route of indexableRoutes) {
-  test(`${route} renders no em or en dashes`, async ({ page }) => {
+  test(`${route} has no em or en dashes in text, title, meta, alt text or JSON-LD`, async ({ page }) => {
     await page.goto(route);
-    const text = await page.locator("body").innerText();
-    expect(text.match(/[—–]/g) ?? []).toEqual([]);
+    const all = await page.evaluate(() =>
+      [
+        document.body.innerText,
+        document.title,
+        ...[...document.querySelectorAll("meta[content]")].map((m) => m.getAttribute("content") ?? ""),
+        ...[...document.querySelectorAll("img[alt]")].map((i) => i.getAttribute("alt") ?? ""),
+        ...[...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent ?? ""),
+      ].join("\n"),
+    );
+    expect(all.match(/[—–]/g) ?? []).toEqual([]);
   });
 
   test(`${route} interactive controls are at least 44x44 (inline text links excepted)`, async ({ page }) => {
@@ -55,7 +63,7 @@ test("home hero states the role and both calls to action are visible without scr
   await page.addInitScript(() => localStorage.setItem("consent.v1", JSON.stringify({ analytics: false, ts: "x" })));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Web Developer");
-  for (const name of ["See my experience", "Start a project"]) {
+  for (const name of ["See my experience", "Get in touch"]) {
     const box = await page.getByRole("main").getByRole("link", { name }).first().boundingBox();
     expect(box, name).not.toBeNull();
     expect(box!.y + box!.height, name).toBeLessThanOrEqual(667);
@@ -89,6 +97,11 @@ test("/portfolio ends on the work page", async ({ page }) => {
 test("skills are grouped by evidence and claim nothing unproven", async ({ page }) => {
   await page.goto("/skills");
   for (const h of ["Used at work", "Used in my own projects", "Studied"]) await expect(page.getByRole("heading", { name: h })).toBeVisible();
+  // Claims policy: nothing studied-only or unproven may sit under "Used at work".
+  const work = await page.getByRole("region", { name: "Used at work" }).innerText();
+  for (const notAtWork of ["C#", ".NET", "Angular", "Unit testing", "JUnit", "Docker", "AWS", "Python", "Node", "SQL Server", "code review", "Kubernetes"])
+    expect(work, notAtWork).not.toContain(notAtWork);
+  for (const proven of ["Java", "Spring Boot", "PostgreSQL", "Azure", "Git", "WordPress", "Shopify", "Magento 2"]) expect(work, proven).toContain(proven);
   const text = await page.locator("main").innerText();
   for (const unproven of ["Node.js", "SQL Server", "Kubernetes", "SvelteKit", "code review"]) expect(text).not.toContain(unproven);
   await expect(page.getByText("Tailwind CSS").first()).toBeVisible();

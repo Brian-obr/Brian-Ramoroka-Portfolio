@@ -35,7 +35,7 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/experience">See my experience</ButtonLink>
               <ButtonLink href="/contact" variant="secondary">
-                Start a project
+                Get in touch
               </ButtonLink>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function HomePage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <ButtonLink href="/skills" variant="secondary">
-                Skills by evidence
+                See my skills
               </ButtonLink>
               {cv && (
                 <ButtonLink href={CV_PATH} variant="secondary" download data-track="cv_download">
@@ -92,7 +92,7 @@ export default function HomePage() {
             <div className="mt-6">
               <Link
                 href="/services"
-                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-bg/40 px-5 font-semibold hover:bg-bg/10"
+                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-bg/40 px-5 font-semibold hover:bg-bg/10 focus-visible:outline-bg"
               >
                 How I work with clients
               </Link>
@@ -110,7 +110,7 @@ export default function HomePage() {
                 <div className="aspect-[16/10] overflow-hidden rounded-[12px] border border-border bg-surface-2">
                   <Image
                     src={c.image.src}
-                    alt={c.image.alt}
+                    alt=""
                     width={c.image.width}
                     height={c.image.height}
                     sizes="(min-width: 768px) 50vw, 100vw"
@@ -130,7 +130,7 @@ export default function HomePage() {
           {skillGroups.map((g) => (
             <div key={g.heading}>
               <h2 className="text-[18px] font-semibold text-ink">{g.heading}</h2>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted">{g.skills.slice(0, 8).join(", ")}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">{g.skills.join(", ")}</p>
             </div>
           ))}
         </Container>

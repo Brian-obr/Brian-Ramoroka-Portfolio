@@ -8,7 +8,7 @@ export default function Error({ reset }: { error: Error & { digest?: string }; r
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary mb-6">Something went wrong</h1>
       <p className="text-text-body mb-8">The page failed to load. Try again, or go back to the home page.</p>
       <div className="flex flex-wrap justify-center gap-4">
-        <button type="button" onClick={reset} className="min-h-[44px] rounded-lg bg-accent px-6 font-semibold text-black">
+        <button type="button" onClick={reset} className="min-h-[44px] rounded-lg bg-accent px-6 font-semibold text-on-accent">
           Try again
         </button>
         <Link href="/" className="inline-flex min-h-[44px] items-center rounded-lg border border-border-subtle px-6 text-text-primary">

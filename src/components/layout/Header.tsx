@@ -5,10 +5,12 @@ import MobileMenu from "./MobileMenu";
 import { navLinks } from "./nav";
 
 export default function Header() {
+  // Blur lives on a pseudo-element: backdrop-filter on the header itself would make it the containing block
+  // for the fixed mobile menu and collapse the menu to the header height.
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur supports-[backdrop-filter]:bg-bg/80">
-      <Container className="flex h-16 items-center justify-between gap-6">
-        <Link href="/" className="inline-flex min-h-[44px] items-center text-[17px] font-semibold tracking-tight text-ink">
+    <header className="sticky top-0 z-40 border-b border-border bg-bg/90 before:absolute before:inset-0 before:-z-10 before:backdrop-blur supports-[backdrop-filter]:bg-bg/80">
+      <Container className="flex h-16 items-center justify-between gap-3">
+        <Link href="/" className="inline-flex min-h-[44px] items-center whitespace-nowrap text-[17px] font-semibold tracking-tight text-ink">
           Brian Ramoroka
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
@@ -22,12 +24,12 @@ export default function Header() {
             </Link>
           ))}
           <ButtonLink href="/contact" className="ml-3 min-h-[44px] px-4 text-[15px]">
-            Contact
+            Get in touch
           </ButtonLink>
         </nav>
         <div className="flex items-center gap-2 lg:hidden">
-          <ButtonLink href="/contact" className="px-4 text-[15px]">
-            Contact
+          <ButtonLink href="/contact" className="px-3 text-[15px]">
+            Get in touch
           </ButtonLink>
           <MobileMenu links={navLinks} />
         </div>

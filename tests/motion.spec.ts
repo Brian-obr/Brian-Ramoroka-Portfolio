@@ -11,6 +11,13 @@ test("with reduced motion, transitions are instant", async ({ browser }) => {
 test("nothing animates on load: every element is fully opaque without waiting", async ({ page }) => {
   await page.goto("/", { waitUntil: "commit" });
   await page.waitForSelector("h1");
-  const transparent = await page.$$eval("main *", (els) => els.filter((e) => getComputedStyle(e).opacity !== "1").length);
-  expect(transparent).toBe(0);
+  const moving = await page.$$eval("main *", (els) =>
+    els
+      .filter((e) => {
+        const cs = getComputedStyle(e);
+        return cs.opacity !== "1" || cs.animationName !== "none" || (cs.transform !== "none" && !e.matches(":hover"));
+      })
+      .map((e) => e.tagName),
+  );
+  expect(moving).toEqual([]);
 });

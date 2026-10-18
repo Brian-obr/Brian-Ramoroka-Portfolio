@@ -5,7 +5,8 @@
       "startServerReadyPattern": "Ready",
       "url": [
         "http://localhost:3200/",
-        "http://localhost:3200/contact"
+        "http://localhost:3200/contact",
+        "http://localhost:3200/work/the-breezy-exchange"
       ],
       "numberOfRuns": 3,
       "settings": {
