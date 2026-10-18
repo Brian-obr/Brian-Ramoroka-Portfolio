@@ -16,6 +16,8 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   display: "swap",
+  // Decorative labels only; preloading it delayed LCP under slow 4G (audit F-05 follow-up).
+  preload: false,
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -37,18 +39,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     siteName: "Brian Ramoroka",
-    images: [
-      {
-        url: "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
-        width: 1200,
-        height: 630,
-        alt: "Brian Ramoroka — SEO Web Developer & Software Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp"],
   },
   robots: {
     index: true,

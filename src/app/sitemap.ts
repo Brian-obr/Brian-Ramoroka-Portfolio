@@ -1,15 +1,22 @@
 import type { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.brianramoroka.co.za";
-  const today = new Date().toISOString();
+const baseUrl = "https://www.brianramoroka.co.za";
 
-  return [
-    { url: baseUrl + "/", lastModified: today, changeFrequency: "monthly", priority: 1 },
-    { url: baseUrl + "/about", lastModified: today, changeFrequency: "monthly", priority: 0.9 },
-    { url: baseUrl + "/services", lastModified: today, changeFrequency: "monthly", priority: 0.9 },
-    { url: baseUrl + "/experience", lastModified: today, changeFrequency: "monthly", priority: 0.8 },
-    { url: baseUrl + "/skills", lastModified: today, changeFrequency: "monthly", priority: 0.8 },
-    { url: baseUrl + "/contact", lastModified: today, changeFrequency: "monthly", priority: 0.7 },
-  ];
+/** Date each page's content last changed. Update the entry when you edit that page (audit F-13). */
+const routes: { path: string; lastModified: string; priority: number }[] = [
+  { path: "/", lastModified: "2026-10-19", priority: 1 },
+  { path: "/about", lastModified: "2026-04-16", priority: 0.9 },
+  { path: "/services", lastModified: "2026-04-16", priority: 0.9 },
+  { path: "/contact", lastModified: "2026-04-16", priority: 0.7 },
+  { path: "/experience", lastModified: "2026-04-16", priority: 0.5 },
+  { path: "/skills", lastModified: "2026-04-16", priority: 0.5 },
+];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return routes.map(({ path, lastModified, priority }) => ({
+    url: `${baseUrl}${path}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority,
+  }));
 }

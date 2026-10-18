@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageTransition from "@/components/layout/PageTransition";
+import { ogImage } from "@/lib/metadata";
 import AboutPageClient from "./AboutPageClient";
 
 export const metadata: Metadata = {
@@ -13,13 +13,14 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/about",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
     description:
       "Brian Ramoroka. Cape Town-based SEO web developer and software engineer. 150+ client websites across 8 international markets. 90%+ KPI track record.",
+    images: [ogImage.url],
   },
   alternates: { canonical: "https://www.brianramoroka.co.za/about" },
 };
@@ -37,9 +38,9 @@ export default function AboutPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <PageTransition>
+      <>
         <AboutPageClient />
-      </PageTransition>
+      </>
     </>
   );
 }

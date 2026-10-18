@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Loader2, CheckCircle } from "lucide-react";
 import { contactFormSchema } from "@/lib/validation";
 import type { FormState } from "@/types";
@@ -24,7 +23,6 @@ export default function ContactForm() {
     errors: {},
   });
   const formRef = useRef<HTMLFormElement>(null);
-  const prefersReducedMotion = useReducedMotion();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,19 +100,13 @@ export default function ContactForm() {
 
   if (formState.status === "success") {
     return (
-      <motion.div
-        initial={{ opacity: prefersReducedMotion ? 1 : 0, scale: prefersReducedMotion ? 1 : 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+      <div
         className="bg-bg-card-solid rounded-[20px] p-8 text-center"
       >
-        <motion.div
-          initial={{ pathLength: prefersReducedMotion ? 1 : 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
+        <div
         >
           <CheckCircle className="mx-auto text-accent mb-4" size={48} />
-        </motion.div>
+        </div>
         <p className="text-text-primary text-lg font-medium mb-4">
           {formState.message}
         </p>
@@ -124,7 +116,7 @@ export default function ContactForm() {
         >
           Send Another Message
         </button>
-      </motion.div>
+      </div>
     );
   }
 

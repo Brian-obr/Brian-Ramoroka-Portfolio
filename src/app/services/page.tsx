@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
-import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
@@ -14,13 +14,14 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/services",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Services | Brian Ramoroka | Web Development, SEO & Software Engineering",
     description:
       "Web development, SEO campaigns, app development, CMS solutions, software engineering, and maintenance. Here is what I can do for you.",
+    images: [ogImage.url],
   },
   alternates: { canonical: "https://www.brianramoroka.co.za/services" },
 };
@@ -81,8 +82,8 @@ export default function ServicesPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" imageAlt="Brian Ramoroka, Software Engineer and SEO Specialist" lighter />
-      <PageTransition>
+      <BackgroundImage imageAlt="Brian Ramoroka, Software Engineer and SEO Specialist" lighter />
+      <>
         {/* Hero */}
         <section className="relative z-10 pt-28 md:pt-[140px] pb-12">
           <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
@@ -342,7 +343,7 @@ export default function ServicesPage() {
             </Link>
           </div>
         </section>
-      </PageTransition>
+      </>
     </>
   );
 }

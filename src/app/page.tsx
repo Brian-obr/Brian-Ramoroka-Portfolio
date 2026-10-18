@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import AboutSummary from "@/components/sections/AboutSummary";
 import ServicesPreview from "@/components/sections/ServicesPreview";
@@ -7,7 +8,6 @@ import MarketsSection from "@/components/sections/MarketsSection";
 import ExperiencePreview from "@/components/sections/ExperiencePreview";
 import EducationSection from "@/components/sections/EducationSection";
 import ContactCTA from "@/components/sections/ContactCTA";
-import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
@@ -21,13 +21,14 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
     description:
       "Brian Ramoroka is an SEO web developer and software engineer in Cape Town, South Africa. I build websites that rank and drive real growth across international markets.",
+    images: [ogImage.url],
   },
   alternates: { canonical: "https://www.brianramoroka.co.za/" },
 };
@@ -72,8 +73,8 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-seo-web-developer.webp" />
-      <PageTransition>
+      <BackgroundImage />
+      <>
         <Hero />
         <AboutSummary />
         <ServicesPreview />
@@ -82,7 +83,7 @@ export default function HomePage() {
         <ExperiencePreview />
         <EducationSection />
         <ContactCTA />
-      </PageTransition>
+      </>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
 import ProjectCard from "@/components/ui/ProjectCard";
-import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 import { getAllProjects } from "@/lib/projects";
 
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     title: "Portfolio — Brian Ramoroka",
     description:
       "Explore Brian Ramoroka's portfolio of web development, SEO, and AI integration projects.",
+    images: [ogImage],
   },
   alternates: {
     canonical: "https://brianramoroka.co.za/portfolio",
@@ -40,8 +41,8 @@ export default function PortfolioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-software-engineer-cape-town.webp" lighter />
-      <PageTransition>
+      <BackgroundImage lighter />
+      <>
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
           <h1 className="text-[2rem] md:text-[3rem] font-bold text-text-primary mb-4">Portfolio</h1>
@@ -68,7 +69,7 @@ export default function PortfolioPage() {
           )}
         </div>
       </section>
-    </PageTransition>
+    </>
     </>
   );
 }
