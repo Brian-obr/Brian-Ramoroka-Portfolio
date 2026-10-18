@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import {
   Code2,
   Search,
@@ -31,12 +30,10 @@ export default function ServiceCard({
   title: string;
   description: string;
 }) {
-  const prefersReducedMotion = useReducedMotion();
   const Icon = iconMap[iconName];
 
   return (
-    <motion.div
-      whileHover={prefersReducedMotion ? {} : { y: -4 }}
+    <div
       className="bg-bg-elevated rounded-lg p-6 border-l-[3px] border-transparent hover:border-accent transition-colors group"
     >
       {Icon && <Icon className="text-accent mb-4" size={24} />}
@@ -44,6 +41,6 @@ export default function ServiceCard({
       <p className="text-text-secondary text-base leading-relaxed">
         {description}
       </p>
-    </motion.div>
+    </div>
   );
 }

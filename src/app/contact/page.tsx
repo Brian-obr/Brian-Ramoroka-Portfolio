@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { LinkedinIcon, GithubIcon } from "@/components/icons/SocialIcons";
 import ContactForm from "@/components/sections/ContactForm";
-import PageTransition from "@/components/layout/PageTransition";
 import BackgroundImage from "@/components/BackgroundImage";
 
 export const metadata: Metadata = {
@@ -17,13 +17,14 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/contact",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Brian Ramoroka | SEO Web Developer & Software Engineer | Cape Town",
     description:
       "Get in touch with Brian Ramoroka. Web development, SEO, app development, software engineering. Based in Cape Town, working internationally.",
+    images: [ogImage.url],
   },
   alternates: {
     canonical: "https://www.brianramoroka.co.za/contact",
@@ -82,8 +83,8 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-seo-web-developer.webp" imageAlt="Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town" />
-      <PageTransition>
+      <BackgroundImage imageAlt="Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town" />
+      <>
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
           <h1 className="text-[2rem] md:text-[3rem] font-display leading-[1.2] text-text-primary mb-3">
@@ -171,7 +172,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </PageTransition>
+    </>
     </>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import type { Experience, Project } from "@/types";
 
 interface ExperienceEntryProps {
@@ -10,14 +9,9 @@ interface ExperienceEntryProps {
 }
 
 export default function ExperienceEntry({ experience, index, linkedProjects }: ExperienceEntryProps) {
-  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: prefersReducedMotion ? 0 : index * 0.1 }}
+    <div
       className="relative grid grid-cols-1 md:grid-cols-[200px_auto_1fr] gap-4 md:gap-0"
     >
       {/* Left: date + company (desktop) */}
@@ -72,6 +66,6 @@ export default function ExperienceEntry({ experience, index, linkedProjects }: E
           ))}
         </ul>
       </div>
-    </motion.div>
+    </div>
   );
 }

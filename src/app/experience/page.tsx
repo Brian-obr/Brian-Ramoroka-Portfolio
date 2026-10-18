@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/metadata";
 import Link from "next/link";
-import PageTransition from "@/components/layout/PageTransition";
+import { CV_PATH, hasCv } from "@/lib/cv";
 import BackgroundImage from "@/components/BackgroundImage";
 import ExperienceEntry from "@/components/ui/ExperienceEntry";
 import { experiences } from "@/lib/constants";
@@ -16,13 +17,14 @@ export const metadata: Metadata = {
     url: "https://www.brianramoroka.co.za/experience",
     type: "website",
     locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Work Experience | Brian Ramoroka | SEO Web Developer & Software Engineer",
     description:
       "Brian Ramoroka work experience. SEO web development across 150+ international client websites and Java/Spring Boot software development.",
+    images: [ogImage.url],
   },
   alternates: { canonical: "https://www.brianramoroka.co.za/experience" },
 };
@@ -40,8 +42,8 @@ export default function ExperiencePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" imageAlt="Brian Ramoroka, Full-Stack Developer" />
-      <PageTransition>
+      <BackgroundImage imageAlt="Brian Ramoroka, Full-Stack Developer" />
+      <>
         <section className="relative z-10 pt-20 md:pt-[120px] pb-16">
           <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
             <div className="mb-12">
@@ -54,6 +56,25 @@ export default function ExperiencePage() {
                 <Link href="/skills" className="deep-link">technical skills</Link> and a focus on measurable growth.
                 Want to work together? <Link href="/contact" className="deep-link">Connect with me</Link>.
               </p>
+              <div className="mt-6">
+                {hasCv() ? (
+                  <a
+                    href={CV_PATH}
+                    download
+                    data-track="cv_download"
+                    className="inline-flex items-center min-h-[44px] px-6 rounded-full font-semibold bg-accent text-black hover:bg-accent-hover"
+                  >
+                    Download CV (PDF)
+                  </a>
+                ) : (
+                  <p className="text-text-body">
+                    CV available on request:{" "}
+                    <a className="deep-link" href="mailto:ramorokaob@gmail.com?subject=CV%20request">
+                      ramorokaob@gmail.com
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="space-y-8">
@@ -77,7 +98,7 @@ export default function ExperiencePage() {
             </div>
           </div>
         </section>
-      </PageTransition>
+      </>
     </>
   );
 }

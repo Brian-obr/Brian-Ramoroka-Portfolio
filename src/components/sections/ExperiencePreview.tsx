@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 
 const roles = [
@@ -30,30 +29,21 @@ const roles = [
 ];
 
 export default function ExperiencePreview() {
-  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section className="py-20 md:py-32">
       <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
         <SectionLabel label="05 — Experience" />
-        <motion.h2
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+        <h2
           className="text-[2rem] md:text-[3rem] font-display leading-[1.15] text-text-primary mb-12"
         >
           Where I have been putting in the work.
-        </motion.h2>
+        </h2>
 
         <div className="space-y-8">
           {roles.map((exp, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: prefersReducedMotion ? 0 : i * 0.1 }}
               className="relative grid grid-cols-1 md:grid-cols-[200px_auto_1fr] gap-4 md:gap-0"
             >
               <div className="hidden md:flex flex-col items-start text-left pt-1 pr-6">
@@ -84,21 +74,17 @@ export default function ExperiencePreview() {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+        <div
           className="mt-8"
         >
           <Link href="/experience" className="deep-link text-base">
             See full experience →
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Menu, Download } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { X, Menu } from "lucide-react";
 import { navLinks } from "@/lib/constants";
 
 export default function Navbar() {
@@ -12,7 +11,6 @@ export default function Navbar() {
   const [openOnPath, setOpenOnPath] = useState<string | null>(null);
   const isMobileOpen = openOnPath === pathname;
   const setIsMobileOpen = (open: boolean) => setOpenOnPath(open ? pathname : null);
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
@@ -22,7 +20,7 @@ export default function Navbar() {
 
 
   return (
-    <>
+    <header>
       {/* Desktop bottom pill nav */}
       <nav
         aria-label="Main navigation"
@@ -47,36 +45,33 @@ export default function Navbar() {
             );
           })}
           <div className="w-px h-5 bg-border-subtle mx-1" />
-          <a
-            href="#"
+          <Link
+            href="/contact"
             className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
               bg-accent text-black hover:bg-accent-hover transition-colors whitespace-nowrap"
-            aria-label="Download CV"
           >
-            <Download size={14} />
-            Download CV
-          </a>
+            Get a quote
+          </Link>
         </div>
       </nav>
 
-      {/* Mobile: small pill with hamburger + CV */}
+      {/* Mobile: small pill with hamburger + quote CTA */}
       <nav
         aria-label="Main navigation mobile"
         className="fixed top-4 right-4 z-50 lg:hidden"
       >
         <div className="flex items-center gap-2 px-3 py-2 rounded-full
           bg-bg-nav backdrop-blur-[20px] border border-border-subtle shadow-lg">
-          <a
-            href="#"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold
+          <Link
+            href="/contact"
+            className="flex items-center min-h-[44px] px-4 rounded-full text-sm font-semibold
               bg-accent text-black hover:bg-accent-hover transition-colors"
           >
-            <Download size={13} />
-            CV
-          </a>
+            Get a quote
+          </Link>
           <button
             onClick={() => setIsMobileOpen(true)}
-            className="px-3 py-1.5 rounded-full text-text-body hover:text-text-primary transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-text-body hover:text-text-primary transition-colors"
             aria-label="Open menu"
           >
             <Menu size={20} />
@@ -85,13 +80,8 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile overlay */}
-      <AnimatePresence>
         {isMobileOpen && (
-          <motion.div
-            initial={{ opacity: prefersReducedMotion ? 1 : 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: prefersReducedMotion ? 1 : 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+          <div
             className="fixed inset-0 z-50 flex flex-col items-center justify-center"
             style={{ background: "rgba(10, 10, 12, 0.95)", backdropFilter: "blur(12px)" }}
           >
@@ -117,18 +107,17 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="#"
+              <Link
+                href="/contact"
+                onClick={() => setIsMobileOpen(false)}
                 className="mt-4 flex items-center gap-2 px-8 py-3 rounded-full text-base font-semibold
                   bg-accent text-black hover:bg-accent-hover transition-colors"
               >
-                <Download size={16} />
-                Download CV
-              </a>
+                Get a quote
+              </Link>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </>
+    </header>
   );
 }

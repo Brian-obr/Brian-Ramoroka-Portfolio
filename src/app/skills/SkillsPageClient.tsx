@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { Code2, Search, Layout, Database, Wrench } from "lucide-react";
 import SkillChip from "@/components/ui/SkillChip";
 import LanguageBar from "@/components/ui/LanguageBar";
@@ -18,11 +17,10 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export default function SkillsPageClient() {
-  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
-      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" imageAlt="Brian Ramoroka, Full-Stack Developer" />
+      <BackgroundImage imageAlt="Brian Ramoroka, Full-Stack Developer" />
       <section className="relative z-10 pt-20 md:pt-[120px] pb-16">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20 space-y-20">
 
@@ -39,15 +37,11 @@ export default function SkillsPageClient() {
 
           <div>
             <div className="space-y-12">
-              {skillGroups.map((group, gi) => {
+              {skillGroups.map((group) => {
                 const Icon = iconMap[group.name];
                 return (
-                  <motion.div
+                  <div
                     key={group.name}
-                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: prefersReducedMotion ? 0 : gi * 0.1 }}
                   >
                     <div className="flex items-center gap-2 mb-4">
                       {Icon && <Icon size={18} className="text-accent" />}
@@ -60,7 +54,7 @@ export default function SkillsPageClient() {
                         <SkillChip key={skill} name={skill} index={i} />
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
