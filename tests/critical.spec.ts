@@ -60,7 +60,7 @@ test("F-08 home hero image is prioritised and small", async ({ page }) => {
 
 test("F-06 primary nav CTA leads to contact", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("banner").getByRole("link", { name: "Get a quote" }).first()).toHaveAttribute("href", "/contact");
+  await expect(page.getByRole("banner").getByRole("link", { name: "Contact", exact: true }).first()).toHaveAttribute("href", "/contact");
 });
 
 test("F-06 CV link on /experience is a real PDF when present, absent otherwise", async ({ page, request }) => {

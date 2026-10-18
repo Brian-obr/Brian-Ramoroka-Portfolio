@@ -67,3 +67,27 @@ Measurements: local `next build && next start` (Lighthouse 12.8.2 via LHCI, mobi
 | 11 | CSP needs nonces if `'unsafe-inline'` is ever dropped | note | Documented (H-05) | — |
 
 Debugging note: after the per-IP fix the mobile run failed only on valid submissions. The hypothesis was the shared `"unknown"` rate-limit bucket (desktop used up the limit first), confirmed when the same test passed alone on a fresh server. Tests now get a per-test client IP.
+
+## Phase 5: design system and page rebuilds (`redesign/05-design-system`)
+
+Built from the revised strategy (two audiences, `website-research.md`) and Direction A "Workbench" tokens.
+
+| Check | Before (live) | After (local build) | Evidence |
+|---|---|---|---|
+| Mobile LCP, **devtools throttling** (Slow 4G + 4× CPU), median of 3 | **4,269ms** | **1,476ms** (home), 1,375ms (contact) | `baseline/lighthouse/live-dt-*.json`; `.lighthouseci` |
+| Mobile LCP, simulated (Lantern) | 6,610ms | 2,684ms | see note |
+| Lighthouse performance (mobile) | 83-84 (devtools) / 74-77 (simulated) | 99-100 (devtools) / 97-99 (simulated) | |
+| TBT / CLS | 1-8ms / 0 | 0ms / 0 | |
+| Page weight, home | 1,043KB | 330KB | |
+| Script, home (transfer) | 297KB | 178KB (framework baseline ≈ 160KB) | |
+| Fonts | 4 files, 3 families, 75KB | Geist (1 preloaded file) + Geist Mono (not preloaded), 30KB | |
+| AI-slop markers (REPORT §13) | 9 of 11 | 0 of 11: no serif display, no numbered eyebrows, no glass, no emoji, no scroll-reveal, no glow, no em-dashes (asserted by test on every route) | `design.spec.ts` |
+| Dark mode | dark only | light default + dark via `prefers-color-scheme` | `design.spec.ts` |
+| Touch targets < 44px | 8-20 per page | 0 (inline prose links excepted) | `design.spec.ts` |
+| Tests | 219 | 331 passing | |
+
+**Measurement note:** Lantern (simulated throttling) kept estimating LCP ≈ 2.5-2.7s even when the page's LCP equalled FCP. Experiment on /contact (no images): blocking all JS moved simulated LCP only 1,970 → 1,654ms, and `font-display: optional` had no effect on the simulation. Lantern includes every request started before LCP in its estimate. Applied (devtools) throttling shows LCP = FCP ≈ 1.4-1.7s, so LHCI now asserts with `throttlingMethod: devtools`. The script budget moved from 170KB to 185KB because the Next 16 + React 19 framework alone is ≈ 160KB; Google tag code now loads only after consent.
+
+**Pages:** `/` (two paths: hiring and projects), `/about` (graduation photo), `/experience` (+CV), `/skills` (grouped by evidence: work / own projects / study; Tailwind added; CMS list cut to one line; no Node.js, SQL Server or code review claims), `/services` (one page; SEO tools moved here), `/work`, `/work/the-breezy-exchange`, `/work/brianramoroka-co-za`, `/contact`.
+
+**Removed:** framer-motion, lucide-react, next-mdx-remote, gray-matter, next-sitemap, placeholder projects, emoji flags, 3 font families, fixed background portrait.
