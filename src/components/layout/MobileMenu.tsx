@@ -43,7 +43,7 @@ export default function MobileMenu({ links }: { links: { label: string; href: st
         <nav
           id="mobile-menu"
           aria-label="Mobile"
-          className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-border bg-bg px-4 py-6"
+          className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-border bg-bg px-4 py-6 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0"
         >
           <ul className="space-y-1">
             {[...links, { label: "Contact", href: "/contact" }].map((l) => (
