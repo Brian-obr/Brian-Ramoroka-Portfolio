@@ -26,7 +26,7 @@ function Field({
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="mt-2 text-sm text-[#FCA5A5]">
+        <p id={`${id}-error`} className="mt-2 text-sm text-danger">
           {error}
         </p>
       )}
@@ -54,7 +54,7 @@ export default function ContactForm() {
   return (
     <form ref={formRef} action={action} className="space-y-5" noValidate>
       {state.message && (
-        <p role="alert" className="rounded-lg border border-[#FCA5A5] p-4 text-sm text-[#FCA5A5]">
+        <p role="alert" className="rounded-lg border border-danger p-4 text-sm text-danger">
           {state.message}{" "}
           <a className="underline" href="mailto:ramorokaob@gmail.com">
             ramorokaob@gmail.com
@@ -85,7 +85,7 @@ export default function ContactForm() {
           ))}
         </div>
         {e.type && (
-          <p id="type-error" className="mt-2 text-sm text-[#FCA5A5]">
+          <p id="type-error" className="mt-2 text-sm text-danger">
             {e.type}
           </p>
         )}
@@ -137,7 +137,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full min-h-[44px] bg-accent text-black font-semibold rounded-lg hover:bg-accent-hover disabled:opacity-60"
+        className="w-full min-h-[44px] bg-accent text-on-accent font-semibold rounded-lg hover:bg-accent-hover disabled:opacity-60"
       >
         {pending ? "Sending..." : "Send message"}
       </button>

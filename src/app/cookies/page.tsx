@@ -17,7 +17,7 @@ const rows = [
 
 export default function CookiesPage() {
   return (
-    <article className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24 text-text-body leading-relaxed space-y-6">
+    <article className="mx-auto max-w-[760px] px-4 sm:px-6 pt-12 md:pt-20 pb-10 text-text-body leading-relaxed space-y-6">
       <JsonLd data={pageGraph({ path: "/cookies", name: "Cookie policy", description: metadata.description as string, breadcrumb: [{ name: "Cookie policy", path: "/cookies" }] })} />
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary">Cookie policy</h1>
       <p>

@@ -16,7 +16,7 @@ export default async function ThankYouPage({ searchParams }: { searchParams: Pro
   const id = s && lead === s ? s : null;
 
   return (
-    <section className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24">
+    <section className="mx-auto max-w-[760px] px-4 sm:px-6 pt-12 md:pt-20 pb-10">
       {id && <ThankYouTracker type={kind} id={id} />}
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary mb-6">Thanks, your message is in.</h1>
       <p className="text-text-body text-lg leading-relaxed mb-8">

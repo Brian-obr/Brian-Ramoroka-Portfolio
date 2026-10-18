@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <section className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24 text-center">
+    <section className="mx-auto max-w-[760px] px-4 sm:px-6 pt-12 md:pt-20 pb-10 text-center">
       <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary mb-6">Something went wrong</h1>
       <p className="text-text-body mb-8">The page failed to load. Try again, or go back to the home page.</p>
       <div className="flex flex-wrap justify-center gap-4">

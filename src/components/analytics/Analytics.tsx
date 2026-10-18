@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import dynamic from "next/dynamic";
 import { CONSENT_CHANGE_EVENT, readConsent } from "@/lib/consent";
+
+// Not in the first-load bundle: visitors who never accept never download it.
+const GoogleTags = dynamic(() => import("./GoogleTags"));
 
 /**
  * Basic Consent Mode: no Google tag is requested until the visitor accepts analytics, so the banner's
@@ -20,9 +23,5 @@ export default function Analytics() {
   }, []);
 
   if (!granted || process.env.NODE_ENV !== "production") return null;
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  if (gtmId) return <GoogleTagManager gtmId={gtmId} />;
-  if (gaId) return <GoogleAnalytics gaId={gaId} />;
-  return null;
+  return <GoogleTags />;
 }
