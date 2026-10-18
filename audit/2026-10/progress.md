@@ -91,3 +91,9 @@ Built from the revised strategy (two audiences, `website-research.md`) and Direc
 **Pages:** `/` (two paths: hiring and projects), `/about` (graduation photo), `/experience` (+CV), `/skills` (grouped by evidence: work / own projects / study; Tailwind added; CMS list cut to one line; no Node.js, SQL Server or code review claims), `/services` (one page; SEO tools moved here), `/work`, `/work/the-breezy-exchange`, `/work/brianramoroka-co-za`, `/contact`.
 
 **Removed:** framer-motion, lucide-react, next-mdx-remote, gray-matter, next-sitemap, placeholder projects, emoji flags, 3 font families, fixed background portrait.
+
+## Phases 6-7: content and motion (`redesign/06-content-motion`)
+
+- `audit/2026-10/content-briefs.md`: 3 briefs (WooCommerce product schema from The Breezy Exchange, this site's 4.3 → 1.5s rebuild, a one-hour technical SEO check), replacing the 5 generic briefs per research §5.2. Posts themselves are a follow-up.
+- Motion: CSS only. 150ms colour/border/transform transitions on links and buttons, 1px press on buttons, a 200ms fade-and-drop when the mobile menu opens (`@starting-style`). Nothing animates on load (test: every element in `main` is fully opaque at first paint). `prefers-reduced-motion: reduce` sets every transition to 0ms (test).
+- Found by the motion test: `opacity-85` used to fade text in the dark card; replaced with a colour token so contrast is computed on a real colour.

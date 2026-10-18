@@ -84,7 +84,7 @@ export default function HomePage() {
           </div>
           <div className="rounded-[12px] bg-ink p-6 text-bg md:p-8">
             <h2 className="text-h3 font-semibold">Need a website built or fixed?</h2>
-            <ul className="mt-3 space-y-2 opacity-85">
+            <ul className="mt-3 space-y-2 text-bg/85">
               {services.map((s) => (
                 <li key={s.title}>{s.title}</li>
               ))}
