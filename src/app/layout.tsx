@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { DM_Sans, Space_Mono, Instrument_Serif } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Analytics from "@/components/analytics/Analytics";
+import TrackClicks from "@/components/analytics/TrackClicks";
+import ConsentBanner from "@/components/consent/ConsentBanner";
+import { consentDefaultsScript } from "@/lib/consent";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -59,22 +63,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-
   return (
     <html
       lang="en-ZA"
       className={`${dmSans.variable} ${spaceMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
+      <head>
+        {/* Consent Mode v2 defaults: must run before GTM/GA load. */}
+        <script dangerouslySetInnerHTML={{ __html: consentDefaultsScript }} />
+      </head>
       <body className="min-h-full flex flex-col bg-bg-deep">
         <div className="relative z-10 flex flex-col min-h-full">
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        {gaId && process.env.NODE_ENV === "production" && (
-          <GoogleAnalytics gaId={gaId} />
-        )}
+        <ConsentBanner />
+        <TrackClicks />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

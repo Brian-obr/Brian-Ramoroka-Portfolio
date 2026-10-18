@@ -88,11 +88,11 @@ export default function ContactPage() {
       <section className="pt-16 md:pt-[120px] pb-14 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
           <h1 className="text-[2rem] md:text-[3rem] font-display leading-[1.2] text-text-primary mb-3">
-            Let us Work Together
+            Get in touch
           </h1>
           <p className="text-text-body text-base mb-8 md:mb-12 max-w-xl">
-            Whether you have a project in mind, are looking to fill a dev team role, or need freelance,
-            contract, or permanent support — I am interested. Take a look at{" "}
+            Hiring for a developer role, or need a website built or fixed? Tell me which, and I&apos;ll reply
+            within one working day. Take a look at{" "}
             <Link href="/experience" className="deep-link">my experience</Link> and{" "}
             <Link href="/services" className="deep-link">my services</Link>, then fill out the
             form below or reach out directly.
@@ -102,20 +102,6 @@ export default function ContactPage() {
             {/* Form */}
             <div className="md:col-span-3 relative">
               <ContactForm />
-              <noscript>
-                <div className="bg-bg-card-solid rounded-[20px] p-6 text-center">
-                  <p className="text-text-secondary">
-                    JavaScript is required for the contact form. Please email me
-                    directly at{" "}
-                    <a
-                      href="mailto:ramorokaob@gmail.com"
-                      className="text-accent hover:text-accent-hover"
-                    >
-                      ramorokaob@gmail.com
-                    </a>
-                  </p>
-                </div>
-              </noscript>
             </div>
 
             {/* Contact info */}
@@ -152,21 +138,6 @@ export default function ContactPage() {
                     </div>
                   </div>
                 ))}
-              </div>
-
-              {/* Google Maps — Cape Town general area */}
-              <div className="rounded-[20px] overflow-hidden border border-border-subtle mt-2">
-                <iframe
-                  src="https://www.google.com/maps?q=Cape+Town,+South+Africa&hl=en&z=12&output=embed"
-                  width="100%"
-                  height="200"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Cape Town, South Africa location map"
-                  aria-label="Map showing Cape Town, South Africa"
-                />
               </div>
             </div>
           </div>

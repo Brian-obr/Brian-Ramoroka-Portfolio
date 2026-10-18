@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import ThankYouTracker from "./ThankYouTracker";
+
+export const metadata: Metadata = {
+  title: "Thanks for your message | Brian Ramoroka",
+  robots: { index: false, follow: false },
+};
+
+export default async function ThankYouPage({ searchParams }: { searchParams: Promise<{ type?: string; s?: string }> }) {
+  const { type, s } = await searchParams;
+  const kind = type === "hiring" ? "hiring" : "project";
+  const id = s && /^[a-z0-9-]{1,40}$/i.test(s) ? s : null;
+
+  return (
+    <section className="relative z-10 mx-auto max-w-[760px] px-5 md:px-10 pt-32 pb-24">
+      {id && <ThankYouTracker type={kind} id={id} />}
+      <h1 className="text-[36px] md:text-[48px] font-bold leading-[1.1] text-text-primary mb-6">Thanks, your message is in.</h1>
+      <p className="text-text-body text-lg leading-relaxed mb-8">
+        I reply within one working day (South African time). If it&apos;s urgent, call or WhatsApp me on{" "}
+        <a className="deep-link" href="tel:+27813798635">
+          +27 81 379 8635
+        </a>
+        .
+      </p>
+      <ul className="flex flex-wrap gap-6 text-text-body">
+        {kind === "hiring" ? (
+          <>
+            <li><Link className="deep-link" href="/experience">Read my experience</Link></li>
+            <li><Link className="deep-link" href="/skills">See my skills</Link></li>
+          </>
+        ) : (
+          <>
+            <li><Link className="deep-link" href="/services">See what I offer</Link></li>
+            <li><Link className="deep-link" href="/about">More about me</Link></li>
+          </>
+        )}
+      </ul>
+    </section>
+  );
+}
