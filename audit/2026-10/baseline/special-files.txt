@@ -1,0 +1,7 @@
+/nope 404
+/llms.txt 404
+/.well-known/security.txt 404
+/manifest.webmanifest 404
+/thank-you 404
+/privacy 404
+https://brianramoroka.co.za/ 307 -> https://www.brianramoroka.co.za/

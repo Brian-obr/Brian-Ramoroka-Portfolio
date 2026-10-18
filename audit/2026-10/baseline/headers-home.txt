@@ -1,0 +1,24 @@
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 2020646
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com; frame-src https://www.google.com https://maps.google.com
+content-type: text/html; charset=utf-8
+date: Sun, 18 Oct 2026 22:39:15 GMT
+etag: "a8215f54502e0c9605f726291a6a571e"
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: strict-origin-when-cross-origin
+server: Vercel
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-matched-path: /
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+x-vercel-cache: HIT
+x-vercel-id: cpt1::n96rm-1792363155520-5b20524b3f0f
+content-length: 52318
+

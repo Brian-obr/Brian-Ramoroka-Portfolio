@@ -1,0 +1,124 @@
+/*
+ * Design tokens: Direction A "Workbench"
+ * Tailwind CSS 4. Paste into src/app/globals.css after `@import "tailwindcss";`.
+ * All sizes in px. Contrast ratios computed with WCAG 2.x relative luminance (audit/2026-10, 2026-10-19).
+ *
+ * Rule: accent-coloured TEXT only on --color-bg / --color-surface (4.81 / 5.02:1 light).
+ *       On --color-surface-2 use --color-accent-strong for text (light accent on surface-2 = 4.45:1, fails AA).
+ */
+
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) { @slot; }
+  @media (prefers-color-scheme: dark) {
+    &:where(:not([data-theme="light"], [data-theme="light"] *)) { @slot; }
+  }
+}
+
+@theme {
+  /* ---------- Colour: light (default) ---------- */
+  --color-bg: #FAFAF9;            /* page */
+  --color-surface: #FFFFFF;       /* raised panels, inputs */
+  --color-surface-2: #F2F1EE;     /* subtle bands */
+  --color-ink: #1C1917;           /* text: 16.74:1 on bg, 17.49 on surface, 15.48 on surface-2 */
+  --color-muted: #57534E;         /* secondary text: 7.30 / 7.63 / 6.75 */
+  --color-accent: #B45309;        /* links, focus, primary button bg: text 4.81 on bg, 5.02 on surface */
+  --color-accent-strong: #92400E; /* button hover, accent text on surface-2 */
+  --color-on-accent: #FFFFFF;     /* 5.02:1 on accent, 7.09:1 on accent-strong */
+  --color-border: #D6D3D1;        /* decorative dividers (non-text, no requirement) */
+  --color-border-strong: #78716C; /* input borders: 4.59 on bg, 4.80 on surface (>= 3:1 non-text) */
+  --color-danger: #B91C1C;        /* 6.19 / 6.47 / 5.73 */
+  --color-success: #15803D;       /* 4.80 / 5.02 (do not use on surface-2: 4.44) */
+
+  /* ---------- Type ---------- */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* fluid scale: clamp(min px, ..., max px) between 375px and 1280px viewports */
+  --text-display: clamp(36px, calc(36px + (56 - 36) * ((100vw - 375px) / 905)), 56px);
+  --text-display--line-height: 1.1;
+  --text-h2: clamp(28px, calc(28px + (36 - 28) * ((100vw - 375px) / 905)), 36px);
+  --text-h2--line-height: 1.2;
+  --text-h3: clamp(20px, calc(20px + (24 - 20) * ((100vw - 375px) / 905)), 24px);
+  --text-h3--line-height: 1.3;
+  --text-body: clamp(16px, calc(16px + (18 - 16) * ((100vw - 375px) / 905)), 18px);
+  --text-body--line-height: 1.6;
+  --text-small: 14px;
+  --text-small--line-height: 1.5;
+  --text-mono: 13px;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --spacing: 4px; /* Tailwind multiplier: p-4 = 16px, p-6 = 24px, p-12 = 48px, p-24 = 96px */
+
+  /* ---------- Layout ---------- */
+  --container-page: 1200px;
+  --container-prose: 680px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* ---------- Shape ---------- */
+  --radius-control: 8px;  /* buttons, inputs */
+  --radius-card: 12px;    /* case-study tiles, panels */
+  --radius-full: 9999px;  /* avatar only */
+
+  /* ---------- Elevation (tinted to ink, never pure black) ---------- */
+  --shadow-sm: 0 1px 2px rgb(28 25 23 / 0.06);
+  --shadow-md: 0 8px 24px rgb(28 25 23 / 0.08);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+}
+
+/* ---------- Colour: dark ---------- */
+@layer base {
+  :root { color-scheme: light; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --color-bg: #0F0E0D;
+      --color-surface: #1A1817;
+      --color-surface-2: #242120;
+      --color-ink: #F5F5F4;          /* 17.68 / 16.22 / 14.66 */
+      --color-muted: #A8A29E;        /* 7.65 / 7.02 / 6.34 */
+      --color-accent: #FBBF24;       /* 11.55 / 10.60 / 9.58 */
+      --color-accent-strong: #FCD34D;
+      --color-on-accent: #1C1917;    /* 10.48 on accent, 12.13 on accent-strong */
+      --color-border: #3A3634;
+      --color-border-strong: #78716C;/* 4.02 / 3.69 / 3.33 (>= 3:1 non-text) */
+      --color-danger: #F87171;       /* 6.97 / 6.40 / 5.78 */
+      --color-success: #4ADE80;      /* 11.07 / 10.15 / 9.18 */
+      --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+      --shadow-md: 0 8px 24px rgb(0 0 0 / 0.5);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg: #0F0E0D;
+    --color-surface: #1A1817;
+    --color-surface-2: #242120;
+    --color-ink: #F5F5F4;
+    --color-muted: #A8A29E;
+    --color-accent: #FBBF24;
+    --color-accent-strong: #FCD34D;
+    --color-on-accent: #1C1917;
+    --color-border: #3A3634;
+    --color-border-strong: #78716C;
+    --color-danger: #F87171;
+    --color-success: #4ADE80;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 8px 24px rgb(0 0 0 / 0.5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0ms !important;
+      animation-duration: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

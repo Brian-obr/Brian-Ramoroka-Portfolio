@@ -1,0 +1,60 @@
+mobile perf [77, 74, 74] {'performance': 77, 'accessibility': 100, 'best-practices': 100, 'seo': 100}
+   first-contentful-paint 920.038
+   largest-contentful-paint 6609.673
+   total-blocking-time 200
+   cumulative-layout-shift 0
+   speed-index 920.038
+   server-response-time 5.604
+   total-byte-weight 1043452
+   interactive 6627.617
+  LCP elem: {"type": "list", "items": [{"type": "table", "headings": [{"key": "node", "valueType": "node", "label": "Element"}], "items": [{"node": {"type": "node", "lhId": "page-1-P", "path": "1,HTML,1,BODY,1,DIV,2,MAIN,2,DIV,0,SECTION,0,DIV,0,DIV,3,P", "selector": "section.min-h-screen > div.mx-auto > div.max-w-[540px] > p.text-text-body", "boundingRect": {"top": 270, "bottom": 400, "left": 20, "right": 392, "width": 372, "height": 130}, "snippet": "<p class=\"text-text-body text-base md:text-lg mb-8 leading-relaxed\" style=\"opacity: 1; transform: none;\">", "nodeLabel": "SEO web developer and software engineer based in Cape Town. I have built and ma\u2026"}}]}, {"type": "table", "headings": [{"key":
+   render-blocking-resources 0.5 Est savings of 0 ms
+   unused-javascript 0 Est savings of 125 KiB
+   uses-responsive-images 0 Est savings of 499 KiB
+   modern-image-formats 1 
+   offscreen-images 1 
+   bootup-time 1 0.5 s
+   mainthread-work-breakdown 1 1.9 s
+   color-contrast 1 
+   target-size 1 
+   image-size-responsive 1 
+   font-display 1 
+   legacy-javascript 0.5 Est savings of 14 KiB
+    req 535107 https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp
+    req 180323 https://www.googletagmanager.com/gtag/js?id=G-DJ0D77C38N
+    req 72281 https://www.brianramoroka.co.za/_next/static/chunks/0.~2ky53fo~10.js
+    req 41479 https://www.brianramoroka.co.za/_next/static/chunks/0257pdz1-imal.js
+    req 41401 https://www.brianramoroka.co.za/_next/static/chunks/0a5yi7b75-n6h.js
+    req 37263 https://www.brianramoroka.co.za/_next/static/media/5c285b27cdda1fe8-s.p.0yo6-5yoeeudq.woff2
+    req 15281 https://www.brianramoroka.co.za/_next/static/media/e41d5df559864f9e-s.p.0gq7fw9.sy_5..woff2
+    req 13605 https://www.brianramoroka.co.za/_next/static/chunks/0d3shmwh5_nmn.js
+desktop perf [99, 99, 99] {'performance': 99, 'accessibility': 100, 'best-practices': 100, 'seo': 100}
+   first-contentful-paint 254.143
+   largest-contentful-paint 941.983
+   total-blocking-time 11
+   cumulative-layout-shift 0
+   speed-index 255.166
+   server-response-time 6.787
+   total-byte-weight 1132955
+   interactive 1199.9
+  LCP elem: {"type": "list", "items": [{"type": "table", "headings": [{"key": "node", "valueType": "node", "label": "Element"}], "items": [{"node": {"type": "node", "lhId": "page-0-IMG", "path": "1,HTML,1,BODY,1,DIV,2,MAIN,1,DIV,0,DIV,0,IMG", "selector": "main.flex-1 > div.fixed > div.absolute > img.w-full", "boundingRect": {"top": 0, "bottom": 940, "left": 603, "right": 1339, "width": 736, "height": 940}, "snippet": "<img src=\"/images/brian-ramoroka-seo-web-developer.webp\" alt=\"Brian Ramoroka, SEO Web Developer and Software Engineer based in Cape Town\" loading=\"lazy\" class=\"w-full h-full object-cover\" style=\"object-position:center 15%\">", "nodeLabel": "Brian Ramoroka, SEO Web Developer and So
+   render-blocking-resources 1 
+   unused-javascript 0 Est savings of 185 KiB
+   uses-responsive-images 0 Est savings of 507 KiB
+   modern-image-formats 1 
+   offscreen-images 1 
+   bootup-time 1 0.1 s
+   mainthread-work-breakdown 1 0.4 s
+   color-contrast 1 
+   target-size 1 
+   image-size-responsive 1 
+   font-display 1 
+   legacy-javascript 0 Est savings of 14 KiB
+    req 535121 https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp
+    req 180325 https://www.googletagmanager.com/gtag/js?id=G-DJ0D77C38N
+    req 72331 https://www.brianramoroka.co.za/_next/static/chunks/0.~2ky53fo~10.js
+    req 65772 https://www.brianramoroka.co.za/_next/static/chunks/16xzecuwy429m.js
+    req 41917 https://www.brianramoroka.co.za/_next/static/chunks/0257pdz1-imal.js
+    req 41386 https://www.brianramoroka.co.za/_next/static/chunks/0a5yi7b75-n6h.js
+    req 37263 https://www.brianramoroka.co.za/_next/static/media/5c285b27cdda1fe8-s.p.0yo6-5yoeeudq.woff2
+    req 15723 https://www.brianramoroka.co.za/_next/static/media/e41d5df559864f9e-s.p.0gq7fw9.sy_5..woff2

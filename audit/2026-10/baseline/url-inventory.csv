@@ -1,0 +1,10 @@
+url,status,canonical,in_sitemap,robots_txt,indexed_site_query_2026-10-19,gsc_impressions_3m,inbound_internal_links_from_other_pages,notes
+https://www.brianramoroka.co.za/,200,https://www.brianramoroka.co.za,yes,allow,yes,172,5,
+https://www.brianramoroka.co.za/about,200,https://www.brianramoroka.co.za/about,yes,allow,yes,161,5,
+https://www.brianramoroka.co.za/services,200,https://www.brianramoroka.co.za/services,yes,allow,no,0,5,NOT INDEXED; zero GSC impressions
+https://www.brianramoroka.co.za/experience,200,https://www.brianramoroka.co.za/experience,yes,allow,yes,34,5,
+https://www.brianramoroka.co.za/skills,200,https://www.brianramoroka.co.za/skills,yes,allow,yes,35,5,
+https://www.brianramoroka.co.za/contact,200,https://www.brianramoroka.co.za/contact,yes,allow,yes,46,5,
+https://www.brianramoroka.co.za/portfolio,404,,no,disallow,no,0,,robots Disallow + noindex + 404 live; placeholder content in repo
+https://www.brianramoroka.co.za/portfolio/project-alpha,404,,no,disallow,no,0,,placeholder; same for beta/gamma/delta
+https://brianramoroka.co.za/,307,,no,,no,0,,apex -> www temporary redirect (should be 308)

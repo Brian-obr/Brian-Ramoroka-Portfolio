@@ -1,0 +1,104 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.brianramoroka.co.za/#person",
+      "name": "Brian Ramoroka",
+      "alternateName": "Breezy",
+      "jobTitle": "Web developer and SEO specialist",
+      "url": "https://www.brianramoroka.co.za/",
+      "image": "https://www.brianramoroka.co.za/images/brian-ramoroka-portrait.avif",
+      "email": "mailto:ramorokaob@gmail.com",
+      "telephone": "+27813798635",
+      "address": { "@type": "PostalAddress", "addressLocality": "Cape Town", "addressRegion": "Western Cape", "addressCountry": "ZA" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Cape Peninsula University of Technology", "sameAs": "https://www.cput.ac.za/" },
+      "worksFor": { "@id": "https://www.brianramoroka.co.za/#business" },
+      "knowsAbout": ["Technical SEO", "Local SEO", "WordPress", "Next.js", "React", "Core Web Vitals", "Schema markup"],
+      "sameAs": ["https://za.linkedin.com/in/brian-obr", "https://github.com/Brian-obr"]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.brianramoroka.co.za/#business",
+      "name": "Brian Ramoroka",
+      "url": "https://www.brianramoroka.co.za/",
+      "image": "https://www.brianramoroka.co.za/images/brian-ramoroka-portrait.avif",
+      "logo": "https://www.brianramoroka.co.za/icon.svg",
+      "description": "Freelance web developer in Cape Town building WordPress and Next.js websites and doing local SEO for small businesses.",
+      "telephone": "+27813798635",
+      "email": "mailto:ramorokaob@gmail.com",
+      "founder": { "@id": "https://www.brianramoroka.co.za/#person" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Cape Town", "addressRegion": "Western Cape", "addressCountry": "ZA" },
+      "areaServed": [
+        { "@type": "City", "name": "Cape Town", "sameAs": "https://en.wikipedia.org/wiki/Cape_Town" },
+        { "@type": "Country", "name": "South Africa" }
+      ],
+      "priceRange": "PLACEHOLDER (Brian to confirm, e.g. R8,000 - R60,000)",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@id": "https://www.brianramoroka.co.za/seo-cape-town#service" } },
+          { "@type": "Offer", "itemOffered": { "@id": "https://www.brianramoroka.co.za/web-design-cape-town#service" } },
+          { "@type": "Offer", "itemOffered": { "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#service" } },
+          { "@type": "Offer", "itemOffered": { "@id": "https://www.brianramoroka.co.za/nextjs-developer#service" } },
+          { "@type": "Offer", "itemOffered": { "@id": "https://www.brianramoroka.co.za/white-label-for-agencies#service" } }
+        ]
+      },
+      "sameAs": ["PLACEHOLDER: Google Business Profile URL once created"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.brianramoroka.co.za/#website",
+      "url": "https://www.brianramoroka.co.za/",
+      "name": "Brian Ramoroka",
+      "inLanguage": "en-ZA",
+      "publisher": { "@id": "https://www.brianramoroka.co.za/#person" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#webpage",
+      "url": "https://www.brianramoroka.co.za/wordpress-developer-cape-town",
+      "name": "WordPress developer in Cape Town | Brian Ramoroka",
+      "isPartOf": { "@id": "https://www.brianramoroka.co.za/#website" },
+      "about": { "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#service" },
+      "breadcrumb": { "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#breadcrumb" },
+      "inLanguage": "en-ZA"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#service",
+      "name": "WordPress website development",
+      "serviceType": "WordPress development",
+      "provider": { "@id": "https://www.brianramoroka.co.za/#business" },
+      "areaServed": { "@type": "City", "name": "Cape Town" },
+      "url": "https://www.brianramoroka.co.za/wordpress-developer-cape-town"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.brianramoroka.co.za/wordpress-developer-cape-town#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brianramoroka.co.za/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.brianramoroka.co.za/services" },
+        { "@type": "ListItem", "position": 3, "name": "WordPress developer in Cape Town" }
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://www.brianramoroka.co.za/work/the-breezy-exchange#work",
+      "name": "The Breezy Exchange",
+      "url": "https://www.brianramoroka.co.za/work/the-breezy-exchange",
+      "creator": { "@id": "https://www.brianramoroka.co.za/#person" },
+      "about": "WordPress demo site built by Brian Ramoroka",
+      "isBasedOn": "https://dev-the-breezy-exchange.pantheonsite.io/",
+      "dateCreated": "2026"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.brianramoroka.co.za/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "PLACEHOLDER: only questions shown visibly on the page", "acceptedAnswer": { "@type": "Answer", "text": "Emit FAQPage only on pages that render the same Q&A visibly." } }
+      ]
+    }
+  ]
+}

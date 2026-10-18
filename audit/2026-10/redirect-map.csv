@@ -1,0 +1,10 @@
+old_url,new_url,status,reason,inbound_internal_links_before,gsc_impressions_3m,test
+https://brianramoroka.co.za/*,https://www.brianramoroka.co.za/*,308,apex to www (currently 307; Vercel Domains setting),n/a,n/a,curl -I apex -> 308
+/,/,200,unchanged,5,172,200
+/about,/about,200,unchanged (rewritten content),5,161,200
+/services,/services,200,kept as services hub linking to service pages,5,0,200
+/contact,/contact,200,unchanged,5,46,200
+/experience,/hire-me,308,merged into recruiter page,5,34,308 -> /hire-me 200
+/skills,/hire-me,308,merged into recruiter page,5,35,308 -> /hire-me 200
+/portfolio,/work,308,renamed; was 404 + robots Disallow live,0 live,0,308 -> /work 200
+/portfolio/:slug,/work,308,placeholder projects removed,0,0,308 -> /work 200

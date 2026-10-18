@@ -1,0 +1,161 @@
+{
+ "captured": "2026-10-19",
+ "source": "curl -A Googlebot raw HTML (no JS)",
+ "pages": [
+  {
+   "url": "/",
+   "status": 200,
+   "title": "Brian Ramoroka | SEO Web Developer &amp; Software Engineer | Cape Town",
+   "description": "Brian Ramoroka is an SEO web developer and software engineer in Cape Town, South Africa. I build websites that rank and drive real growth across international markets.",
+   "canonical": "https://www.brianramoroka.co.za",
+   "robots": "index, follow",
+   "h1": "Brian Ramoroka",
+   "h1_count": 1,
+   "schema_types": [
+    "EducationalOrganization",
+    "Organization",
+    "Person",
+    "PostalAddress",
+    "WebSite"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 547,
+   "opacity0_nodes": 46,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  },
+  {
+   "url": "/about",
+   "status": 200,
+   "title": "About Brian Ramoroka | SEO Web Developer &amp; Software Engineer | Cape Town",
+   "description": "Brian Ramoroka. Cape Town-based SEO web developer and software engineer. 150+ client websites across 8 international markets. 90%+ KPI track record.",
+   "canonical": "https://www.brianramoroka.co.za/about",
+   "robots": "index, follow",
+   "h1": "About Me",
+   "h1_count": 1,
+   "schema_types": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 520,
+   "opacity0_nodes": 30,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  },
+  {
+   "url": "/services",
+   "status": 200,
+   "title": "Services | Brian Ramoroka | Web Development, SEO &amp; Software Engineering",
+   "description": "Web development, SEO campaigns, app development, CMS solutions, software engineering, and maintenance. Here is what I can do for you.",
+   "canonical": "https://www.brianramoroka.co.za/services",
+   "robots": "index, follow",
+   "h1": "Services",
+   "h1_count": 1,
+   "schema_types": [
+    "BreadcrumbList",
+    "ListItem",
+    "Person",
+    "Service"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 669,
+   "opacity0_nodes": 1,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  },
+  {
+   "url": "/experience",
+   "status": 200,
+   "title": "Work Experience | Brian Ramoroka | SEO Web Developer &amp; Software Engineer",
+   "description": "Brian Ramoroka work experience. SEO web development across 150+ international client websites and Java/Spring Boot software development.",
+   "canonical": "https://www.brianramoroka.co.za/experience",
+   "robots": "index, follow",
+   "h1": "Work Experience",
+   "h1_count": 1,
+   "schema_types": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 323,
+   "opacity0_nodes": 3,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  },
+  {
+   "url": "/skills",
+   "status": 200,
+   "title": "Skills &amp; Tools | Brian Ramoroka | Full-Stack Development, SEO &amp; More",
+   "description": "The tech, tools, and platforms I work with. Full-stack development, SEO tools, CMS platforms, databases, cloud infrastructure.",
+   "canonical": "https://www.brianramoroka.co.za/skills",
+   "robots": "index, follow",
+   "h1": "Skills &amp; Tools",
+   "h1_count": 1,
+   "schema_types": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 197,
+   "opacity0_nodes": 50,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  },
+  {
+   "url": "/contact",
+   "status": 200,
+   "title": "Contact Brian Ramoroka | SEO Web Developer &amp; Software Engineer | Cape Town",
+   "description": "Get in touch with Brian Ramoroka. Web development, SEO, app development, software engineering. Based in Cape Town, working internationally.",
+   "canonical": "https://www.brianramoroka.co.za/contact",
+   "robots": "index, follow",
+   "h1": "Let us Work Together",
+   "h1_count": 1,
+   "schema_types": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "og_image": "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
+   "words_raw_html": 144,
+   "opacity0_nodes": 1,
+   "internal_links": [
+    "/",
+    "/about",
+    "/contact",
+    "/experience",
+    "/services",
+    "/skills"
+   ]
+  }
+ ]
+}
