@@ -76,7 +76,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </section>
           ))}
         </div>
-        <aside className="h-fit rounded-[12px] bg-surface-2 p-6">
+        <aside className="glass h-fit rounded-[12px] p-6">
           <dl className="space-y-4">
             {c.facts.map((f) => (
               <div key={f.label}>

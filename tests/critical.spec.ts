@@ -48,7 +48,7 @@ for (const route of indexableRoutes) {
 test("F-08 home hero image is prioritised and small", async ({ page }) => {
   const sizes: number[] = [];
   page.on("response", async (r) => {
-    if (r.request().resourceType() === "image" && r.url().includes("portrait")) sizes.push((await r.body()).length);
+    if (r.request().resourceType() === "image" && r.url().includes("brian-ramoroka-hero")) sizes.push((await r.body()).length);
   });
   await page.goto("/");
   const hero = page.locator("img[fetchpriority=high]").first();

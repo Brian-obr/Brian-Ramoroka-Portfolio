@@ -28,7 +28,7 @@ export default function ContactPage() {
         lead="Hiring for a developer role, or need a website built or fixed? Tell me which, and I'll reply within one working day."
       />
       <Container className="grid gap-12 md:grid-cols-[1.4fr_1fr]">
-        <div className="relative rounded-[12px] border border-border bg-surface p-6 md:p-8">
+        <div className="glass relative rounded-[12px] p-6 md:p-8">
           <ContactForm />
         </div>
         <aside data-section="contact-direct">

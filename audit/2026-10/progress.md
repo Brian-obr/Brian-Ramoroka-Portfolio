@@ -116,3 +116,19 @@ Built from the revised strategy (two audiences, `website-research.md`) and Direc
 Also fixed after a visual check: the header name wrapped to two lines at 375px (test added).
 
 **Follow-up (`redesign/05c-case-study-lcp`):** adding `/work/the-breezy-exchange` to LHCI exposed LCP 3.1s. The LCP element was the case-study screenshot loading lazily; now `fetchPriority="high"` + eager. LHCI median 1,450ms (runs: 1,450 / 2,670 / 1,447ms; the one slow run is noted as variance to watch). Test added.
+
+## Home page revision, glass and deep links (`redesign/09-home-content`), Brian's feedback 2026-10-19
+
+| Request | Change | Evidence |
+|---|---|---|
+| "Less content, fewer skills" | Home now carries About (with education and languages), both roles with every bullet and stack, **all** skills in all three evidence groups, CMS and SEO tool lines, the four services with descriptions, the four-step process, both case studies with summaries, and contact | `src/app/page.tsx` |
+| "Text colour not clear" | Body copy uses the main text colour; secondary grey strengthened: light `#57534E` → `#44403C` (7.30 → 9.84:1), dark `#A8A29E` → `#D6D3D1` (7.65 → 12.95:1) | contrast calc |
+| "Use the new images" | Hero: `IMG_4356` (4:5 crop); About section: `IMG_4348`; About page keeps `IMG_4352`. The old cut-out portrait is removed | `public/images/` |
+| "Add glassmorphism" | `.glass` panels (62% surface, 18px blur, 150% saturate, 1px highlight edge) on the header, experience, skills, contact form, case-study facts and consent sheet, over a fixed amber and blue wash. Solid fallback for `prefers-reduced-transparency` and browsers without backdrop-filter; the consent sheet is near-opaque (`.glass-strong`) because it floats over light and dark sections | `links.spec.ts` (translucency emulated) |
+| "Deep link styling missing" | `.text-link` / `.deep-link`: accent colour, 600 weight, 2px underline, underline clears on hover (the original site's behaviour). 9 deep links added to home body copy | `links.spec.ts` |
+
+**Found while checking:** Brian's Mac has *Reduce transparency* switched on (`defaults read com.apple.universalaccess reduceTransparency` → 1), so on that machine every browser correctly shows the solid fallback. Glass was verified with the preference emulated off through Chrome DevTools.
+
+**Performance regression found and fixed:** the new hero photo made home LCP 2.67s in 2 of 3 runs. Hypothesis: Geist Mono (used only for the process step numbers) arrived at ~2.47s and its swap delayed the LCP paint. Confirmed: with the numbers set in Geist, the page loads one font file and LCP is 1.60-1.71s on every run. Glass (backdrop-filter) added no measurable cost: TBT 0ms, CLS 0.
+
+**CI failure email (run `c1465ab`):** all 345 Playwright tests passed; the Lighthouse step failed because the case study page was newly added to the budget and measured 3.1s (lazy lead image). Fixed in `6a2c107` (green).
