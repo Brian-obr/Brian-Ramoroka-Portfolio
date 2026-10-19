@@ -114,3 +114,5 @@ Built from the revised strategy (two audiences, `website-research.md`) and Direc
 | 12 | Dash test missed title/meta/alt/JSON-LD; motion test only checked opacity | minor | Both widened | `design.spec.ts`, `motion.spec.ts` |
 
 Also fixed after a visual check: the header name wrapped to two lines at 375px (test added).
+
+**Follow-up (`redesign/05c-case-study-lcp`):** adding `/work/the-breezy-exchange` to LHCI exposed LCP 3.1s. The LCP element was the case-study screenshot loading lazily; now `fetchPriority="high"` + eager. LHCI median 1,450ms (runs: 1,450 / 2,670 / 1,447ms; the one slow run is noted as variance to watch). Test added.

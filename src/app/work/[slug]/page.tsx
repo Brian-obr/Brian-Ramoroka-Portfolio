@@ -60,7 +60,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       </Container>
       <Container className="mt-12">
         <div className="overflow-hidden rounded-[12px] border border-border bg-surface-2">
-          <Image src={c.image.src} alt={c.image.alt} width={c.image.width} height={c.image.height} sizes="(min-width: 1200px) 1136px, 100vw" className="h-auto w-full" />
+          <Image src={c.image.src} alt={c.image.alt} width={c.image.width} height={c.image.height} sizes="(min-width: 1200px) 1136px, 100vw" loading="eager" fetchPriority="high" className="h-auto w-full" />
         </div>
       </Container>
       <Container className="mt-12 grid gap-12 md:grid-cols-[2fr_1fr]">
