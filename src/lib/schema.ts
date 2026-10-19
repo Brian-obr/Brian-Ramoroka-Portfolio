@@ -15,7 +15,7 @@ export const personNode = (): Node => ({
   jobTitle: site.jobTitle,
   description: site.tagline,
   url: absoluteUrl("/"),
-  image: `${site.url}/images/brian-ramoroka-portrait.webp`,
+  image: `${site.url}/images/brian-ramoroka-hero.webp`,
   email: `mailto:${site.email}`,
   telephone: site.phoneE164,
   address: { "@type": "PostalAddress", addressLocality: site.locality, addressRegion: site.region, addressCountry: site.country },

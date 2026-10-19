@@ -24,7 +24,7 @@ export default function SkillsPage() {
           <section
             key={g.heading}
             aria-labelledby={`skills-${i}`}
-            className={`rounded-[12px] border border-border p-6 ${i === 0 ? "bg-surface md:row-span-2" : "bg-surface-2"}`}
+            className={`glass rounded-[12px] p-6 ${i === 0 ? "md:row-span-2" : ""}`}
           >
             <h2 id={`skills-${i}`} className="text-h3 font-semibold text-ink">{g.heading}</h2>
             <p className="mt-1 text-[15px] text-muted">{g.note}</p>
@@ -37,7 +37,7 @@ export default function SkillsPage() {
             </ul>
           </section>
         ))}
-        <section className="rounded-[12px] border border-border bg-surface-2 p-6 md:col-span-2">
+        <section className="glass rounded-[12px] p-6 md:col-span-2">
           <h2 className="text-h3 font-semibold text-ink">Content management systems</h2>
           <p className="mt-3 text-ink">{cmsLine}.</p>
         </section>

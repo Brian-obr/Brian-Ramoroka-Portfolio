@@ -8,7 +8,7 @@ export default function Header() {
   // Blur lives on a pseudo-element: backdrop-filter on the header itself would make it the containing block
   // for the fixed mobile menu and collapse the menu to the header height.
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/90 before:absolute before:inset-0 before:-z-10 before:backdrop-blur supports-[backdrop-filter]:bg-bg/80">
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/90 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:backdrop-saturate-150 supports-[backdrop-filter]:bg-bg/65">
       <Container className="flex h-16 items-center justify-between gap-3">
         <Link href="/" className="inline-flex min-h-[44px] items-center whitespace-nowrap text-[17px] font-semibold tracking-tight text-ink">
           Brian Ramoroka

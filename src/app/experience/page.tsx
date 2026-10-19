@@ -19,7 +19,7 @@ export default function ExperiencePage() {
   return (
     <>
       <JsonLd data={pageGraph({ path: "/experience", name: title, description, type: "ProfilePage", breadcrumb: [{ name: "Experience", path: "/experience" }] })} />
-      <PageIntro title="Experience" lead="Where I've worked, what I did there and the tools I used.">
+      <PageIntro title="Experience" lead="Where I've worked, what I did there and the tools I used. Every tool is grouped by evidence on the skills page.">
         {cv ? (
           <ButtonLink href={CV_PATH} download data-track="cv_download">
             Download CV (PDF)
