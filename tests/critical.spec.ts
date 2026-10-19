@@ -76,3 +76,10 @@ test("F-06 CV link on /experience is a real PDF when present, absent otherwise",
     await expect(page.getByText(/CV available on request/i)).toBeVisible();
   }
 });
+
+for (const slug of ["the-breezy-exchange", "brianramoroka-co-za"]) {
+  test(`case study ${slug} loads its lead screenshot at high priority`, async ({ page }) => {
+    await page.goto(`/work/${slug}`);
+    await expect(page.locator("main img").first()).toHaveAttribute("fetchpriority", "high");
+  });
+}
