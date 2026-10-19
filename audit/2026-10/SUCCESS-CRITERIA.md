@@ -23,6 +23,22 @@ Baseline date: 2026-10-19. Launch date: **TBD** (L = the day the `main` PR merge
 
 Before/after values measured on the preview are filled in at the end of implementation (section below).
 
-## Measured on preview
+## Measured before launch (2026-10-19)
 
-_To be completed in phase 8._
+The Vercel preview is protected by Vercel Authentication (302 to SSO, `x-robots-tag: noindex`), so outside tools can't reach it yet. The pre-launch figures below come from the same production build (`next build && next start`) and CI; outside-tool checks run on launch day (POST-LAUNCH.md) or on the preview once Brian enables a protection bypass.
+
+| Area | Baseline | Measured before launch | Tool | Status |
+|---|---|---|---|---|
+| Speed, lab, home | LCP 4,269ms (devtools) / 6,610ms (simulated); perf 83-84 | **LCP 1,478ms**, TBT 0ms, CLS 0, perf 99-100 | Lighthouse CI, devtools throttling, median of 3 | ✅ target met |
+| Speed, lab, /contact | not measured | LCP 1,389-1,661ms, perf 99-100 | same | ✅ |
+| Speed, lab, case study | n/a | LCP median 1,450ms (one run 2,670ms) | same | ✅ watch variance |
+| Page weight, home | 1,043KB | 330KB (script 178KB) | Lighthouse | ✅ |
+| Accessibility | 0 axe violations; 8-20 targets < 44px | **0 violations on 11 routes × 2 viewports; 0 targets < 44px** | axe-core 4.10 in Playwright (CI) | ✅ |
+| Consent | GA loaded with no consent | **0 Google requests before Accept**; tag loads after Accept; Reject clears `_ga` | Playwright (`consent.spec.ts`) | ✅ (Tag Assistant check pending, needs Brian's GTM/GA access) |
+| Conversion tracking | none | `generate_lead` fires once per real submission; 0 for bots and forged URLs | Playwright (`thank-you.spec.ts`) | ✅ (GA4 DebugView pending) |
+| Redirects | `/portfolio` 404; apex 307 | `/portfolio*` → 308 `/work`; apex still 307 (Vercel setting, Brian) | `baseline/special-files-after.txt` | ⚠️ apex pending |
+| Security headers | CSP with `unsafe-eval` | HSTS preload, CSP without `unsafe-eval` + frame-ancestors/base-uri/form-action/object-src, XFO, nosniff, Referrer, Permissions | `baseline/headers-after.txt` | ⏳ securityheaders.com grade at launch |
+| Rich results | Person + WebSite only | One `@graph` per page with resolvable `@id`s; BreadcrumbList on inner pages | Playwright (`seo.spec.ts`) | ⏳ Rich Results Test at launch |
+| Regression guard | none | GitHub Actions: lint, typecheck, build, 349 Playwright tests, LHCI budgets on 3 pages | CI | ✅ |
+
+**Field metrics to re-check after launch:** Search Console indexing at L+4 weeks; impressions and queries at L+8 weeks; Speed Insights p75 at L+4 weeks; CrUX once eligible; local grid at L+12 weeks only if a Google Business Profile is created (optional per the 2026-10-19 revision).
