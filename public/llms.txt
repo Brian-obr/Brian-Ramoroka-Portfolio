@@ -1,0 +1,15 @@
+# Brian Ramoroka
+
+> Brian Ramoroka is a front-end developer based in Cape Town, Western Cape, and an SEO Web Developer at Rhiza Babuyile, a South African company that partners with Grizzly New Marketing in the Netherlands. He works on client websites for businesses mainly in the Netherlands and Belgium, and also in Germany, France, Spain, the UK and the US, and on .com sites. He holds an Advanced Diploma in ICT: Application Development (NQF level 7) from the Cape Peninsula University of Technology (2025).
+
+- Looking for: a full-time developer role. Open to roles in Midrand, Johannesburg, Pretoria and remote. Notice period: 1 month.
+- Skills: HTML, CSS, JavaScript, TypeScript, React, Next.js, WordPress, WooCommerce, Shopify, technical SEO, Java, Spring Boot, PostgreSQL.
+- Languages: Sepedi (home language), English, Sesotho, Setswana, some isiZulu, basic isiXhosa, Xitsonga and Tshivenḓa.
+- Contact: ramorokaob@gmail.com, +27 81 379 8635, https://www.linkedin.com/in/brian-obr, https://github.com/Brian-obr
+
+## Pages
+- [About](https://brianramoroka.co.za/about): background, education and where he can work
+- [Experience](https://brianramoroka.co.za/experience): roles and responsibilities
+- [Projects](https://brianramoroka.co.za/portfolio): The Breezy Exchange and this website
+- [Skills](https://brianramoroka.co.za/skills): tools by field
+- [Contact](https://brianramoroka.co.za/contact): message form, CVs and recruiter questions

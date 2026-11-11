@@ -1,83 +1,144 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
+import JsonLd from "@/components/JsonLd";
+import { personLd } from "@/lib/schema";
 import Link from "next/link";
-import PageTransition from "@/components/layout/PageTransition";
-import BackgroundImage from "@/components/BackgroundImage";
+import { Mail } from "lucide-react";
+import Button from "@/components/ui/Button";
+import ButtonGroup from "@/components/ui/ButtonGroup";
+import CvButton from "@/components/cv/CvButton";
 import ExperienceEntry from "@/components/ui/ExperienceEntry";
-import { experiences } from "@/lib/constants";
+import { h1Cls, h2Cls, innerCls } from "@/lib/page-classes";
+import type { Experience } from "@/types";
 
-export const metadata: Metadata = {
-  title: "Work Experience | Brian Ramoroka | SEO Web Developer & Software Engineer",
+export const metadata: Metadata = pageMetadata({
+  title: "Experience | Brian Ramoroka, SEO Web Developer",
   description:
-    "Brian Ramoroka work experience. SEO web development across 150+ international client websites and Java/Spring Boot software development.",
-  openGraph: {
-    title: "Work Experience | Brian Ramoroka | SEO Web Developer & Software Engineer",
-    description:
-      "Brian Ramoroka work experience. SEO web development across 150+ international client websites and Java/Spring Boot software development.",
-    url: "https://www.brianramoroka.co.za/experience",
-    type: "website",
-    locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Work Experience | Brian Ramoroka | SEO Web Developer & Software Engineer",
-    description:
-      "Brian Ramoroka work experience. SEO web development across 150+ international client websites and Java/Spring Boot software development.",
-  },
-  alternates: { canonical: "https://www.brianramoroka.co.za/experience" },
-};
+    "Brian Ramoroka's experience: SEO Web Developer at Rhiza Babuyile since 03/2025, and Software Developer Intern at BIIC working in Java and Spring Boot.",
+  path: "/experience",
+  ogTitle: "Experience: Brian Ramoroka, SEO Web Developer",
+  ogDescription: "WordPress, Shopify and technical SEO work on client websites at Rhiza Babuyile, after a Java and Spring Boot internship at BIIC.",
+});
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Experience", item: "https://www.brianramoroka.co.za/experience" },
-  ],
-};
+// Links to the blog wait until it is published.
+const experiences: Experience[] = [
+  {
+    title: "SEO Web Developer",
+    company: "Rhiza Babuyile",
+    where: "Cape Town, Western Cape | Full-time, on-site",
+    dates: "03/2025 - Present",
+    intro:
+      "Rhiza Babuyile is a South African company that partners with Grizzly New Marketing in the Netherlands. I work with their team on client websites for businesses mainly in the Netherlands and Belgium, and also in Germany, France, Spain, the UK and the US. Most of my time goes into WordPress.",
+    groups: [
+      {
+        heading: "Website development",
+        bullets: [
+          "Develop and maintain SEO-optimised client websites, mostly in WordPress (Elementor, Divi, Bricks Builder, Gutenberg, WPBakery and other builders) and WooCommerce",
+          "Fix and improve front-ends in HTML, CSS and JavaScript",
+          "Build campaign template pages: location and service landing pages for lead generation",
+          "Make sites responsive, mobile-friendly and quick to load, including with WP Rocket on WordPress",
+          "Check pages against the WCAG accessibility guidelines, including alt text and colour contrast",
+          "Publish content on client sites and handle ongoing maintenance, development and performance work",
+        ],
+      },
+      {
+        heading: "SEO campaigns",
+        bullets: [
+          "Build and deploy SEO campaigns at local, provincial, national and international level",
+          "Make on-page changes: meta titles and descriptions, image alt text, internal links and CTAs",
+          "Do link building",
+          "Carry out campaign activation tasks and text updates with the SEO and technical leads",
+        ],
+      },
+      {
+        heading: "Technical SEO",
+        bullets: [
+          "Run technical SEO audits covering crawlability, indexing, site speed and Core Web Vitals, then fix the issues found",
+          "Add JSON-LD structured data (schema markup)",
+          "Use Screaming Frog, Ahrefs, Semrush and AWR (Advanced Web Ranking) for audits and tracking, and Rank Math and Yoast SEO on WordPress",
+        ],
+      },
+      {
+        heading: "Search Console, analytics and tracking",
+        bullets: [
+          "Check pages are indexed in Google Search Console, request indexing, set up Search Console and submit XML sitemaps",
+          "Set up GA4, link it to Search Console and monitor traffic",
+          "Create Google Tag Manager containers and use GTM to add structured data and CSS",
+          "Install Microsoft Clarity, link it to GA4, and use heatmaps and session recordings to find UX problems",
+        ],
+      },
+      {
+        heading: "Other platforms and tasks",
+        bullets: [
+          "Customise Shopify themes in Liquid, CSS and JavaScript, update products, pages and meta data, and add schema and tracking to Shopify stores through GTM",
+          "Work on Magento 2, PrestaShop, OpenCart, Lightspeed eCom, Odoo, Webflow, Wix, Joomla, Drupal, Weebly, JouwWeb and custom CMSs when a client site runs on them",
+          "Fix forms in Contact Form 7 and Gravity Forms from time to time, and set up Google reCAPTCHA",
+          "Advise technical owners and content writers on website and content improvements",
+          "Receive and track tasks in Salesforce Lightning",
+          "Use AI tools for research, drafting, and writing, reviewing and debugging code, and check what they produce",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Software Developer Intern",
+    company: "Business Innovation & Incubation Centre (BIIC)",
+    where: "Cape Town, Western Cape | Internship, hybrid",
+    dates: "07/2024 - 12/2024",
+    intro: "A six-month internship on Java and Spring Boot applications backed by PostgreSQL, in an Agile team.",
+    groups: [
+      {
+        bullets: [
+          "Worked across the full development lifecycle of Java and Spring Boot applications",
+          "Built features, fixed bugs and improved existing functionality",
+          "Worked with REST APIs and used OAuth to secure applications",
+          "Used Azure cloud services, Git for version control, and Zapier",
+          "Helped with database management and back-end development",
+          "Built a grounding in database design, back-end architecture and software engineering principles",
+        ],
+      },
+    ],
+  },
+];
 
 export default function ExperiencePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <BackgroundImage imageSrc="/images/brian-ramoroka-developer-cape-town.webp" imageAlt="Brian Ramoroka, Full-Stack Developer" />
-      <PageTransition>
-        <section className="relative z-10 pt-20 md:pt-[120px] pb-16">
-          <div className="mx-auto max-w-[1200px] px-5 md:px-10 lg:px-20">
-            <div className="mb-12">
-              <h1 className="text-[2rem] md:text-[3rem] font-bold text-text-primary mb-2">
-                Work Experience
-              </h1>
-              <p className="text-text-body max-w-xl">
-                My professional journey in{" "}
-                <Link href="/services" className="deep-link">SEO and web development</Link>. Built with a foundation of{" "}
-                <Link href="/skills" className="deep-link">technical skills</Link> and a focus on measurable growth.
-                Want to work together? <Link href="/contact" className="deep-link">Connect with me</Link>.
-              </p>
-            </div>
+      <JsonLd data={personLd} />
+      <section>
+        <div className={innerCls}>
+          <h1 className={h1Cls}>Experience</h1>
+          <p className="mt-[24px] mb-[48px] text-[18px] text-text-body">
+            Two roles so far, both in Cape Town. The first was Java back-end work. The current one is front-end,
+            WordPress and technical SEO work on client websites.
+          </p>
 
-            <div className="space-y-8">
-              {experiences.map((experience, index) => (
-                <ExperienceEntry
-                  key={index}
-                  experience={experience}
-                  index={index}
-                  linkedProjects={[]}
-                />
-              ))}
-            </div>
-
-            <div className="mt-16 rounded-2xl backdrop-blur-[8px] bg-[rgba(10,10,12,0.4)] border border-border-subtle p-6">
-              <p className="text-text-body leading-relaxed">
-                See the full list of technologies I work with on my{" "}
-                <Link href="/skills" className="deep-link">skills page</Link>, explore my{" "}
-                <Link href="/services" className="deep-link">services</Link>, or{" "}
-                <Link href="/contact" className="deep-link">get in touch</Link> to discuss working together.
-              </p>
-            </div>
+          <div className="space-y-[32px]">
+            {experiences.map((experience) => (
+              <ExperienceEntry key={experience.company} experience={experience} />
+            ))}
           </div>
-        </section>
-      </PageTransition>
+        </div>
+      </section>
+
+      <section>
+        <div className={innerCls}>
+          <h2 className={h2Cls}>Projects</h2>
+          <p className="text-text-body">
+            I also build my own projects, including a WooCommerce sneaker store and this website.
+          </p>
+          <p className="mt-[16px] flex flex-wrap gap-x-[24px] gap-y-[8px]">
+            <Link href="/portfolio" className="deep-link">See my projects</Link>
+            <Link href="/skills" className="deep-link">See all skills</Link>
+          </p>
+          <ButtonGroup className="mt-[32px]">
+            <CvButton />
+            <Button href="/contact" icon={Mail} variant="secondary">
+              Contact me
+            </Button>
+          </ButtonGroup>
+        </div>
+      </section>
     </>
   );
 }

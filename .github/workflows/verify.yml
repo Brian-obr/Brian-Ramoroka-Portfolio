@@ -1,0 +1,29 @@
+# Lint, build, typecheck and the Playwright tests on every pull request and every push to main.
+# The screenshot comparison (npm run verify) needs a local reference capture, so it runs locally only.
+name: checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Dummy container ID so the consent tests can see the tag load (requests are stubbed).
+      NEXT_PUBLIC_GTM_ID: GTM-TEST000
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      # Build before typecheck: tsc reads the route types the build writes to .next/types.
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test

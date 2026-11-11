@@ -1,0 +1,7 @@
+# Working files that the site never serves. Keeping them out of the deploy upload.
+/docs
+/tools
+/.verify
+/tests
+/test-results
+/.lighthouseci

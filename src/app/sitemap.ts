@@ -1,15 +1,22 @@
 import type { MetadataRoute } from "next";
+import { LAST_MODIFIED, SITE_URL } from "@/lib/site";
+
+// Real per-page content dates (was `new Date()` on every build, which tells Google nothing).
+const PRIORITY: Record<keyof typeof LAST_MODIFIED, number> = {
+  "/": 1,
+  "/about": 0.9,
+  "/experience": 0.8,
+  "/skills": 0.6,
+  "/contact": 0.7,
+  "/portfolio": 0.9,
+  "/privacy": 0.2,
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.brianramoroka.co.za";
-  const today = new Date().toISOString();
-
-  return [
-    { url: baseUrl + "/", lastModified: today, changeFrequency: "monthly", priority: 1 },
-    { url: baseUrl + "/about", lastModified: today, changeFrequency: "monthly", priority: 0.9 },
-    { url: baseUrl + "/services", lastModified: today, changeFrequency: "monthly", priority: 0.9 },
-    { url: baseUrl + "/experience", lastModified: today, changeFrequency: "monthly", priority: 0.8 },
-    { url: baseUrl + "/skills", lastModified: today, changeFrequency: "monthly", priority: 0.8 },
-    { url: baseUrl + "/contact", lastModified: today, changeFrequency: "monthly", priority: 0.7 },
-  ];
+  return Object.entries(LAST_MODIFIED).map(([path, lastModified]) => ({
+    url: SITE_URL + path,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: PRIORITY[path as keyof typeof LAST_MODIFIED],
+  }));
 }

@@ -1,21 +1,29 @@
 import { z } from "zod";
 
-export const contactFormSchema = z.object({
-  name: z
+// Single-line fields end up in the notification email, so no control characters (CR, LF, etc).
+const NO_CONTROL_CHARS = /^[^\p{Cc}]*$/u;
+
+const singleLine = (label: string) =>
+  z
     .string()
-    .min(2, "Please enter your name")
-    .max(100, "Name must be 100 characters or less"),
-  email: z.string().email("Please enter a valid email"),
-  projectType: z
-    .enum(["Web Development", "SEO", "Web App", "App Development", "Software Engineering", "Maintenance & Support", "Hiring / Team Role", "Other"])
-    .optional()
-    .or(z.literal("")),
+    .trim()
+    .max(100, `${label} must be 100 characters or less`)
+    .regex(NO_CONTROL_CHARS, `${label} can't contain line breaks or control characters`);
+
+export const contactFormSchema = z.object({
+  name: singleLine("Name").min(2, "Please enter your name"),
+  email: z
+    .string()
+    .trim()
+    .max(254, "Email must be 254 characters or less")
+    .email("Please enter a valid email"),
+  company: singleLine("Company").optional(),
+  role: singleLine("Role").optional(),
   message: z
     .string()
+    .trim()
     .min(10, "Message must be at least 10 characters")
     .max(2000, "Message must be 2000 characters or less"),
-  // Honeypot: accept any string — checked manually in route handler before this schema runs
+  // Honeypot: accept any string; checked manually in the route handler before this schema runs
   website: z.string().optional(),
 });
-
-export type ContactFormData = z.infer<typeof contactFormSchema>;

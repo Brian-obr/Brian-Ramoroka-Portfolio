@@ -1,21 +1,12 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Loader2, CheckCircle } from "lucide-react";
-import { contactFormSchema, type ContactFormData } from "@/lib/validation";
+import { useRouter } from "next/navigation";
+import { LEAD_FLAG } from "@/app/thank-you/LeadEvent";
+import { Loader2, CheckCircle, Send } from "lucide-react";
+import { validateContactForm } from "@/lib/contact-validation";
 import type { FormState } from "@/types";
-
-const projectTypes = [
-  "Web Development",
-  "SEO",
-  "Web App",
-  "App Development",
-  "Software Engineering",
-  "Maintenance & Support",
-  "Hiring / Team Role",
-  "Other",
-];
+import { CONTACT, MAILTO } from "@/lib/site";
 
 export default function ContactForm() {
   const [formState, setFormState] = useState<FormState>({
@@ -24,31 +15,24 @@ export default function ContactForm() {
     errors: {},
   });
   const formRef = useRef<HTMLFormElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formState.status === "submitting") return;
 
     const formData = new FormData(e.currentTarget);
-    const rawProjectType = (formData.get("projectType") as string) || "";
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      projectType: rawProjectType,
+      company: formData.get("company") as string,
+      role: formData.get("role") as string,
       message: formData.get("message") as string,
       website: formData.get("website") as string,
     };
 
-    const result = contactFormSchema.safeParse(data);
-    if (!result.success) {
-      const errors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0];
-        if (typeof field === "string") {
-          errors[field] = issue.message;
-        }
-      });
+    const errors = validateContactForm(data);
+    if (Object.keys(errors).length > 0) {
       setFormState({ status: "idle", message: "", errors });
       return;
     }
@@ -63,9 +47,17 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
+        // generate_lead fires on /thank-you, once per submission (no PII in the URL).
+        // A filled honeypot is a bot: the server silently drops it, and it must not count as a lead.
+        if (!data.website) {
+          try {
+            sessionStorage.setItem(LEAD_FLAG, "1");
+          } catch {}
+        }
+        router.push("/thank-you");
         setFormState({
           status: "success",
-          message: "Thanks! I'll get back to you within 24 hours.",
+          message: "Thanks. Your message is on its way, and I'll reply by email.",
           errors: {},
         });
       } else if (response.status === 429) {
@@ -80,7 +72,7 @@ export default function ContactForm() {
           status: "error",
           message:
             body.error ||
-            "Something went wrong — please try again or email me directly.",
+            "Something went wrong. Please try again or email me directly.",
           errors: {},
         });
       }
@@ -89,7 +81,7 @@ export default function ContactForm() {
       setFormState({
         status: "error",
         message:
-          "Something went wrong — please try again or email me directly.",
+          "Something went wrong. Please try again or email me directly.",
         errors: {},
       });
     }
@@ -102,19 +94,10 @@ export default function ContactForm() {
 
   if (formState.status === "success") {
     return (
-      <motion.div
-        initial={{ opacity: prefersReducedMotion ? 1 : 0, scale: prefersReducedMotion ? 1 : 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-        className="bg-bg-card-solid rounded-[20px] p-8 text-center"
-      >
-        <motion.div
-          initial={{ pathLength: prefersReducedMotion ? 1 : 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
-        >
+      <div className="bg-bg-card-solid rounded-[20px] p-8 text-center">
+        <div>
           <CheckCircle className="mx-auto text-accent mb-4" size={48} />
-        </motion.div>
+        </div>
         <p className="text-text-primary text-lg font-medium mb-4">
           {formState.message}
         </p>
@@ -124,7 +107,7 @@ export default function ContactForm() {
         >
           Send Another Message
         </button>
-      </motion.div>
+      </div>
     );
   }
 
@@ -135,12 +118,12 @@ export default function ContactForm() {
       {formState.status === "error" && (
         <div className="bg-error/10 border border-error rounded-lg p-4 mb-6">
           <p className="text-error text-sm">
-            Something went wrong — please try again or email me directly at{" "}
+            Something went wrong. Please try again or email me directly at{" "}
             <a
-              href="mailto:ramorokaob@gmail.com"
+              href={MAILTO}
               className="underline hover:opacity-80"
             >
-              ramorokaob@gmail.com
+              {CONTACT.email}
             </a>
             .
           </p>
@@ -183,10 +166,9 @@ export default function ContactForm() {
               required
               disabled={isSubmitting}
               maxLength={100}
-              className={`w-full bg-bg-subtle border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none transition-colors ${
-                formState.errors.name ? "border-error" : "border-bg-subtle"
+              className={`w-full bg-card border rounded-lg px-4 py-3 text-text-primary focus:border-accent transition-colors ${
+                formState.errors.name ? "border-error" : "border-field"
               }`}
-              placeholder="Your name"
             />
             {formState.errors.name && (
               <p className="mt-1 text-error text-sm">{formState.errors.name}</p>
@@ -206,10 +188,9 @@ export default function ContactForm() {
               name="email"
               required
               disabled={isSubmitting}
-              className={`w-full bg-bg-subtle border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none transition-colors ${
-                formState.errors.email ? "border-error" : "border-bg-subtle"
+              className={`w-full bg-card border rounded-lg px-4 py-3 text-text-primary focus:border-accent transition-colors ${
+                formState.errors.email ? "border-error" : "border-field"
               }`}
-              placeholder="you@example.com"
             />
             {formState.errors.email && (
               <p className="mt-1 text-error text-sm">
@@ -220,24 +201,36 @@ export default function ContactForm() {
 
           <div>
             <label
-              htmlFor="projectType"
+              htmlFor="company"
               className="block text-sm font-medium text-text-primary mb-1.5"
             >
-              Project Type
+              Company
             </label>
-            <select
-              id="projectType"
-              name="projectType"
+            <input
+              type="text"
+              id="company"
+              name="company"
               disabled={isSubmitting}
-              className="w-full bg-bg-subtle border border-bg-subtle rounded-lg px-4 py-3 text-text-primary focus:border-accent focus:outline-none transition-colors"
+              maxLength={100}
+              className="w-full bg-card border border-field rounded-lg px-4 py-3 text-text-primary focus:border-accent transition-colors"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-text-primary mb-1.5"
             >
-              <option value="">Select a project type</option>
-              {projectTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+              Role you&apos;re hiring for
+            </label>
+            <input
+              type="text"
+              id="role"
+              name="role"
+              disabled={isSubmitting}
+              maxLength={100}
+              className="w-full bg-card border border-field rounded-lg px-4 py-3 text-text-primary focus:border-accent transition-colors"
+            />
           </div>
 
           <div>
@@ -253,18 +246,17 @@ export default function ContactForm() {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-accent text-bg-deep font-semibold py-3 rounded-lg hover:bg-accent-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
+          <button type="submit" disabled={isSubmitting} data-btn className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60">
             {isSubmitting ? (
               <>
-                <Loader2 size={18} className="animate-spin" />
-                Sending...
+                <Loader2 aria-hidden="true" className="animate-spin" />
+                <span>Sending...</span>
               </>
             ) : (
-              "Send Message"
+              <>
+                <Send aria-hidden="true" />
+                <span>Send message</span>
+              </>
             )}
           </button>
         </div>
@@ -292,10 +284,9 @@ function MessageTextarea({
         rows={5}
         maxLength={2000}
         onChange={(e) => setCharCount(e.target.value.length)}
-        className={`w-full bg-bg-subtle border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none transition-colors resize-y ${
-          error ? "border-error" : "border-bg-subtle"
+        className={`w-full bg-card border rounded-lg px-4 py-3 text-text-primary focus:border-accent transition-colors resize-y ${
+          error ? "border-error" : "border-field"
         }`}
-        placeholder="Tell me about your project..."
       />
       <div className="flex justify-between mt-1">
         {error ? (

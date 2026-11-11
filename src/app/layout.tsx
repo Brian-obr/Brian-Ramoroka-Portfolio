@@ -1,64 +1,46 @@
-import type { Metadata } from "next";
-import { DM_Sans, Space_Mono, Instrument_Serif } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+import Consent from "@/components/consent/Consent";
+import ClickTracker from "@/components/consent/ClickTracker";
+import { consentBootstrap } from "@/lib/analytics";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CvDialog from "@/components/cv/CvDialog";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.brianramoroka.co.za"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Brian Ramoroka — SEO Web Developer & Software Engineer",
+    default: "Brian Ramoroka | Front-end Developer | Cape Town",
     template: "%s",
   },
   description:
-    "Brian Ramoroka is an SEO web developer and software engineer based in Cape Town, South Africa, specializing in performant, SEO-optimized web experiences.",
+    "Brian Ramoroka is a front-end developer in Cape Town and an SEO Web Developer at Rhiza Babuyile, working in WordPress, Shopify and JavaScript.",
   openGraph: {
     type: "website",
     locale: "en_ZA",
     siteName: "Brian Ramoroka",
-    images: [
-      {
-        url: "https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp",
-        width: 1200,
-        height: 630,
-        alt: "Brian Ramoroka — SEO Web Developer & Software Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://www.brianramoroka.co.za/images/brian-ramoroka-seo-web-developer.webp"],
   },
   robots: {
     index: true,
     follow: true,
   },
-
-verification: {
+  verification: {
     google: "7zT5KRWkb5rmiyErTIRP8OnVKBIdARbVCBSnfcUGhqg",
   },
+};
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F6F4EF" },
+    { media: "(prefers-color-scheme: dark)", color: "#121110" },
+  ],
 };
 
 export default function RootLayout({
@@ -66,22 +48,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  // Google Tag Manager container (it loads the GA4 tag). Only a well-formed ID is used, since it ends up in an inline script.
+  const gtmId = /^GTM-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GTM_ID ?? "") ? process.env.NEXT_PUBLIC_GTM_ID : undefined;
 
   return (
     <html
       lang="en-ZA"
-      className={`${dmSans.variable} ${spaceMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
-      <body className="min-h-full flex flex-col bg-bg-deep">
-        <div className="relative z-10 flex flex-col min-h-full">
+      <body className="min-h-full flex flex-col bg-paper text-ink">
+        <Script id="consent-default" strategy="beforeInteractive">
+          {consentBootstrap}
+        </Script>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-amber focus:px-5 focus:py-3 focus:text-on-amber focus:font-semibold"
+        >
+          Skip to content
+        </a>
+        <div className="flex flex-col min-h-full">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
           <Footer />
         </div>
-        {gaId && process.env.NODE_ENV === "production" && (
-          <GoogleAnalytics gaId={gaId} />
-        )}
+        <CvDialog />
+        <Consent gtmId={gtmId} />
+        <ClickTracker />
+        {/* Cookieless visit counter (Vercel Web Analytics): no cookies or personal data, so it runs without consent. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

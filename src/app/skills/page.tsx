@@ -1,46 +1,23 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
+import JsonLd from "@/components/JsonLd";
+import { personWithBreadcrumb } from "@/lib/schema";
 import SkillsPageClient from "./SkillsPageClient";
 
-export const metadata: Metadata = {
-  title: "Skills & Tools | Brian Ramoroka | Full-Stack Development, SEO & More",
+export const metadata: Metadata = pageMetadata({
+  title: "Skills | Brian Ramoroka: WordPress, Shopify, React, Java",
   description:
-    "The tech, tools, and platforms I work with. Full-stack development, SEO tools, CMS platforms, databases, cloud infrastructure.",
-  openGraph: {
-    title: "Skills & Tools | Brian Ramoroka | Full-Stack Development, SEO & More",
-    description:
-      "The tech, tools, and platforms I work with. Full-stack development, SEO tools, CMS platforms, databases, cloud infrastructure.",
-    url: "https://www.brianramoroka.co.za/skills",
-    type: "website",
-    locale: "en_ZA",
-    images: [{ url: "/images/brian-ramoroka-seo-web-developer.webp", width: 1200, height: 630, alt: "Brian Ramoroka — SEO Web Developer & Software Engineer" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Skills & Tools | Brian Ramoroka | Full-Stack Development, SEO & More",
-    description:
-      "The tech, tools, and platforms I work with. Full-stack development, SEO tools, CMS platforms, databases, cloud infrastructure.",
-  },
-  alternates: {
-    canonical: "https://www.brianramoroka.co.za/skills",
-  },
-};
+    "Front-end developer skills: HTML, CSS, JavaScript, TypeScript, React, WordPress and Shopify, technical SEO, and Java, Spring Boot and PostgreSQL.",
+  path: "/skills",
+  ogTitle: "Skills: Brian Ramoroka, Front-end Developer",
+  ogDescription: "The tools Brian Ramoroka uses, grouped by field, from front-end and WordPress to technical SEO and Java.",
+});
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.brianramoroka.co.za" },
-    { "@type": "ListItem", position: 2, name: "Skills & Tools", item: "https://www.brianramoroka.co.za/skills" },
-  ],
-};
 
 export default function SkillsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={personWithBreadcrumb("/skills", "Skills")} />
       <SkillsPageClient />
     </>
   );

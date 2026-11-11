@@ -1,136 +1,157 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Menu, Download } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { navLinks } from "@/lib/constants";
+import { X, Download } from "lucide-react";
+
+// The nav goes to the pages; "Download CV" opens the CV chooser (CvDialog).
+const links = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Experience", href: "/experience" },
+  { label: "Projects", href: "/portfolio" },
+  { label: "Skills", href: "/skills" },
+  { label: "Contact", href: "/contact" },
+];
+
+function CvButton({ className = "", onClick }: { className?: string; onClick?: () => void }) {
+  return (
+    <button type="button" className={`btn btn-secondary ${className}`} data-cv-open data-btn data-cta aria-haspopup="dialog" onClick={onClick}>
+      <span>Download CV</span>
+      <Download aria-hidden="true" />
+    </button>
+  );
+}
 
 export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
   const pathname = usePathname();
-  const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
+  // Close the menu on any navigation, including back/forward (adjusting state during render).
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (pathname !== menuPath) {
+    setMenuPath(pathname);
     setIsMobileOpen(false);
-  }, [pathname]);
+  }
 
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Modal behaviour: lock scroll, make the page behind inert, focus inside, Escape and Tab trap,
+  // focus back to the Menu button on close, and close if the window grows past the mobile breakpoint.
   useEffect(() => {
-    document.body.style.overflow = isMobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!isMobileOpen) return;
+    const behind = [document.querySelector("main"), document.querySelector("footer")].filter(Boolean) as HTMLElement[];
+    document.body.style.overflow = "hidden";
+    behind.forEach((el) => (el.inert = true));
+    closeButtonRef.current?.focus();
+    const menuButton = menuButtonRef.current;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileOpen(false);
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const items = dialogRef.current.querySelectorAll<HTMLElement>("a[href], button");
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    const desktop = window.matchMedia("(min-width: 900px)");
+    const onResize = () => desktop.matches && setIsMobileOpen(false);
+    document.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      document.body.style.overflow = "";
+      behind.forEach((el) => (el.inert = false));
+      document.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onResize);
+      menuButton?.focus();
+    };
   }, [isMobileOpen]);
 
-
-
   return (
-    <>
-      {/* Desktop bottom pill nav */}
-      <nav
-        aria-label="Main navigation"
-        className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 hidden lg:block"
-      >
-        <div className="flex items-center gap-1 px-2 py-2 rounded-full
-          bg-bg-nav backdrop-blur-[20px] border border-border-subtle shadow-lg flex-nowrap">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+    <header id="top" className="sticky top-0 z-[70] border-b border-border-subtle bg-paper">
+      <div className="mx-auto flex h-16 max-w-[1160px] items-center justify-between px-5 md:px-10">
+        <Link href="/" className="font-display flex min-h-[44px] items-center text-[20px] text-text-primary">
+          Brian Ramoroka
+        </Link>
+
+        <nav aria-label="Main" className="hidden items-center gap-1 min-[900px]:flex">
+          {links.map((link) => {
+            const active = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                  isActive
-                    ? "bg-accent-dim text-accent"
-                    : "text-text-muted hover:text-text-body"
+                aria-current={active ? "page" : undefined}
+                className={`flex min-h-[44px] items-center px-3 text-[15px] ${
+                  active ? "text-text-primary underline decoration-amber decoration-2 underline-offset-[6px]" : "text-text-body hover:text-text-primary"
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="w-px h-5 bg-border-subtle mx-1" />
-          <a
-            href="#"
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
-              bg-accent text-black hover:bg-accent-hover transition-colors whitespace-nowrap"
-            aria-label="Download CV"
-          >
-            <Download size={14} />
-            Download CV
-          </a>
-        </div>
-      </nav>
+          <CvButton className="ml-3 !min-h-[44px] !text-[15px]" />
+        </nav>
 
-      {/* Mobile: small pill with hamburger + CV */}
-      <nav
-        aria-label="Main navigation mobile"
-        className="fixed top-4 right-4 z-50 lg:hidden"
-      >
-        <div className="flex items-center gap-2 px-3 py-2 rounded-full
-          bg-bg-nav backdrop-blur-[20px] border border-border-subtle shadow-lg">
-          <a
-            href="#"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold
-              bg-accent text-black hover:bg-accent-hover transition-colors"
-          >
-            <Download size={13} />
-            CV
-          </a>
-          <button
-            onClick={() => setIsMobileOpen(true)}
-            className="px-3 py-1.5 rounded-full text-text-body hover:text-text-primary transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu size={20} />
-          </button>
-        </div>
-      </nav>
+        <button
+          type="button"
+          ref={menuButtonRef}
+          onClick={() => setIsMobileOpen(true)}
+          aria-controls="mobile-menu"
+          className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-border-hover px-4 text-[15px] font-semibold text-text-primary min-[900px]:hidden"
+          aria-label="Open menu"
+          aria-expanded={isMobileOpen}
+        >
+          Menu
+        </button>
+      </div>
 
-      {/* Mobile overlay */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            initial={{ opacity: prefersReducedMotion ? 1 : 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: prefersReducedMotion ? 1 : 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center"
-            style={{ background: "rgba(10, 10, 12, 0.95)", backdropFilter: "blur(12px)" }}
-          >
+      {isMobileOpen && (
+        <div
+          id="mobile-menu"
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          className="fixed inset-0 z-[80] flex flex-col bg-paper px-5 py-4 motion-safe:animate-[fade-in_200ms_ease-out] min-[900px]:hidden"
+        >
+          <div className="flex h-12 items-center justify-between">
+            <span className="font-display text-[20px] text-text-primary">Brian Ramoroka</span>
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={() => setIsMobileOpen(false)}
-              className="absolute top-6 right-6 p-2 text-text-secondary hover:text-text-primary"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center text-text-primary"
               aria-label="Close menu"
             >
-              <X size={24} />
+              <X size={24} aria-hidden="true" />
             </button>
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMobileOpen(false)}
-                  className={`text-2xl font-semibold transition-colors ${
-                    pathname === link.href
-                      ? "text-accent"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <a
-                href="#"
-                className="mt-4 flex items-center gap-2 px-8 py-3 rounded-full text-base font-semibold
-                  bg-accent text-black hover:bg-accent-hover transition-colors"
+          </div>
+          <nav aria-label="Mobile" className="mt-10 flex flex-col gap-2">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileOpen(false)}
+                className="font-display flex min-h-[48px] items-center border-b border-border-subtle text-[30px] text-text-primary"
               >
-                <Download size={16} />
-                Download CV
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-auto flex flex-col gap-3 pb-6">
+            <CvButton className="w-full" onClick={() => setIsMobileOpen(false)} />
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local test output
+/test-results/
+/playwright-report/
+/.lighthouseci/
+
+# verify runs and the reference capture (screenshots, coverage, axe): kept on disk only
+/.verify/

@@ -1,43 +1,73 @@
-@import "tailwindcss";
+/* Scan only src/ for class names. Without this Tailwind also reads the rest of the repo,
+   and ships utilities that no page uses. */
+@import "tailwindcss" source("..");
+
+/*
+ * "Field notes" design tokens. Values are CSS variables
+ * (non-inline @theme) so the dark-mode block below can swap them.
+ * Legacy token names are kept so every component re-themes from this one place.
+ */
+@theme {
+  --color-paper: #F6F4EF;
+  --color-card: #FFFFFF;
+  --color-ink: #14130F;
+  --color-line: #E2DED3;
+
+  --color-bg-deep: var(--color-paper);
+  --color-bg-card: var(--color-card);
+  --color-bg-card-solid: var(--color-card);
+  --color-bg-subtle: #EFECE4;
+  --color-bg-nav: var(--color-paper);
+  --color-text-primary: var(--color-ink);   /* 16.9:1 on paper */
+  /* 2026-10-21: no greyed-out text. All text is full ink; hierarchy comes from size and weight. */
+  --color-text-body: var(--color-ink);       /* 16.9:1 on paper */
+  --color-text-secondary: var(--color-ink);
+  --color-text-muted: var(--color-ink);
+  --color-accent: var(--color-ink);          /* accent text/borders: ink on light (amber text would be 1.6:1) */
+  --color-accent-hover: var(--color-ink);
+  --color-amber: #FFB800;                    /* fills only; ink on amber 10.7:1 */
+  --color-amber-hover: #E6A600;
+  --color-on-amber: #14130F;                 /* text on amber in both modes: 10.7:1 */
+  --color-accent-green: #2F7D4F;
+  --color-error: #B42318;                    /* 5.98:1 */
+  --color-border-subtle: var(--color-line);
+  --color-border-hover: #CFCABD;
+  --color-field: #857F72;                    /* form-field borders: 3.6:1 on paper, 4.0:1 on card (WCAG 1.4.11) */
+  --color-keyline: rgba(20, 19, 15, 0.72);   /* button outline (canvas pattern): >=3:1 on paper, card and amber */
+  --color-link: var(--color-ink);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
 
 @theme inline {
-  --color-bg-deep: #0a0a0c;
-  --color-bg-card: rgba(25, 25, 25, 0.75);
-  --color-bg-card-solid: #191919;
-  --color-bg-subtle: rgba(35, 35, 35, 0.6);
-  --color-bg-nav: rgba(15, 15, 17, 0.92);
-  --color-text-primary: #FFFFFF;
-  --color-text-body: #FFFFFF;
-  --color-text-secondary: #FFFFFF;
-  --color-text-muted: #FFFFFF;
-  --color-accent: #FFB800;
-  --color-accent-hover: #E6A600;
-  --color-accent-dim: rgba(255, 184, 0, 0.12);
-  --color-accent-green: #4ADE80;
-  --color-error: #EF4444;
-  --color-border-subtle: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
-  --font-sans: var(--font-dm-sans);
-  --font-mono: var(--font-space-mono);
-  --font-display: var(--font-instrument-serif);
+  /* System UI stack for text: zero font downloads before first paint (LCP). */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-sans);
+  /* Headings: same system sans, bold and tight, for crisp text with zero font downloads. */
+  --font-display: var(--font-sans);
+  --font-label: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-/* Glassmorphism utility */
-.glass {
-  background: var(--color-bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border-subtle);
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .glass {
-    background: var(--color-bg-card-solid);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #121110;
+    --color-card: #1C1B18;
+    --color-ink: #F3F1EA;                    /* 16.7:1 */
+    --color-line: #2E2C27;
+    --color-bg-subtle: #23221E;
+    --color-accent: #FFB800;                 /* amber reads on dark: 9.9:1 on card, 10.7:1 on paper */
+    --color-accent-hover: #FFCB47;
+    --color-error: #F97066;
+    --color-border-hover: #45423A;
+    --color-field: #807C72;                  /* 4.1:1 on dark card */
+    --color-keyline: rgba(243, 241, 234, 0.62);
+    --color-link: #FFB800;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  /* Anchored sections land below the sticky nav (64 px). */
+  scroll-padding-top: 80px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -47,65 +77,299 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-deep);
-  color: var(--color-text-primary);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
-/* Display headings */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Display headings: upright, bold, tight. (The italic serif was removed for clarity, 2026-10-21.) */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
-/* Dark scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Kicker / eyebrow labels in monospace (canvas pattern) */
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
 }
-::-webkit-scrollbar-track {
-  background: var(--color-bg-deep);
+
+/* Cards (replaces the old glassmorphism utility) */
+.glass {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 1px 2px rgba(20, 19, 15, 0.06), 0 8px 24px rgba(20, 19, 15, 0.06);
 }
-::-webkit-scrollbar-thumb {
-  background: var(--color-bg-subtle);
+
+/* In a layer so utilities (e.g. the light ring on the dark CTA band) can override it. */
+@layer base {
+  *:focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
+
+/* In-text links (canvas pattern): bold, 2px underline drawn as a background so it can animate.
+   On hover the rule withdraws from both ends towards the centre. Reduced motion: it stays put. */
+.deep-link {
+  /* Light: ink text, amber underline (amber text would fail contrast). Dark: amber text and underline. */
+  color: var(--color-link);
+  font-weight: 700;
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-amber), var(--color-amber));
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  background-position: center bottom;
+  padding-bottom: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 260ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .deep-link:hover {
+    background-size: 0% 3px;
+  }
+}
+.deep-link:active {
+  background-color: rgba(20, 19, 15, 0.07);
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
-}
 
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-bg-subtle) var(--color-bg-deep);
+/* Buttons: ink keyline, bright top edge, cast shadow (canvas pattern). Hover lifts 2px and deepens the shadow. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform 180ms var(--ease-out), box-shadow 180ms ease, background-color 160ms ease;
 }
-
-/* Focus visible with accent */
-*:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
-
-/* Deep link styling for internal linkbuilding */
-.deep-link {
-  color: #FFB800;
-  font-weight: 700;
-  text-decoration: underline;
-  transition: color 0.2s, text-decoration 0.2s;
+.btn-primary {
+  background: var(--color-amber);
+  color: var(--color-on-amber);
+  /* Rest: a light contact shadow only, so the hover lift (below) is clearly visible. */
+  box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    0 1px 2px rgba(20, 19, 15, 0.16), 0 3px 8px -4px rgba(20, 19, 15, 0.18);
 }
-.deep-link:hover {
-  color: #FFB800CC;
-  text-decoration: none;
+.btn-secondary {
+  background: var(--color-card);
+  color: var(--color-ink);
+  box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 2px rgba(20, 19, 15, 0.08), 0 2px 6px -3px rgba(20, 19, 15, 0.12);
 }
-
-/* Button hover effects */
-button, a[role="button"], .btn, .contact-link {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary:hover {
+    background: #ffc11f;
+    box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      0 2px 4px rgba(20, 19, 15, 0.16), 0 12px 22px -6px rgba(20, 19, 15, 0.35);
+  }
+  .btn-secondary:hover {
+    box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 2px 4px rgba(20, 19, 15, 0.12), 0 12px 22px -6px rgba(20, 19, 15, 0.3);
+  }
 }
-button:hover, a[role="button"]:hover, .btn:hover, .contact-link:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 24px rgba(255, 184, 0, 0.2);
-}
-button:active, a[role="button"]:active, .btn:active, .contact-link:active {
+.btn:active {
   transform: translateY(0) scale(0.98);
-  opacity: 0.9;
+}
+.btn-primary:active {
+  background: #e2a302;
+}
+
+/* Dark theme: near-black shadows vanish on a dark page, so the lift gets a light/amber glow.
+   Visible but not heavy: lift layer alpha 0.15-0.35, blur 12-24px. */
+@media (prefers-color-scheme: dark) and (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      0 2px 4px rgba(0, 0, 0, 0.4), 0 10px 22px -8px rgba(255, 184, 0, 0.3);
+  }
+  .btn-secondary:hover {
+    box-shadow: 0 0 0 1px var(--color-keyline), inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.4), 0 10px 20px -8px rgba(243, 241, 234, 0.3);
+  }
+}
+
+/* Button groups (ButtonGroup.tsx): one row when they fit, otherwise stacked at equal full width. */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
+}
+.btn-group[data-layout="measure"],
+.btn-group[data-layout="row"] {
+  flex-wrap: nowrap;
+}
+.btn-group[data-layout="stack"] {
+  flex-direction: column;
+}
+.btn-group[data-layout="stack"] > .btn {
+  width: 100%;
+}
+/* Small screens: every button group stacks at full width. */
+@media (max-width: 639px) {
+  .btn-group,
+  .btn-group[data-layout] {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .btn-group > .btn {
+    width: 100%;
+  }
+}
+
+/* Back-to-top arrow lifts on hover */
+.lift-arrow svg {
+  transition: transform 200ms var(--ease-out);
+}
+@media (hover: hover) {
+  .lift-arrow:hover svg {
+    transform: translateY(-2px);
+  }
+}
+
+a {
+  transition: color 150ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: box-shadow 180ms ease, background-color 160ms ease;
+  }
+  .btn:hover,
+  .btn:active,
+  .lift-arrow:hover svg {
+    transform: none;
+  }
+  .deep-link {
+    transition: none;
+  }
+  .deep-link:hover {
+    background-size: 100% 3px;
+  }
+}
+
+/* Mobile menu entrance (skipped under prefers-reduced-motion via motion-safe) */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* CV chooser: native dialog, same card language as the rest of the site */
+dialog.cv-dialog {
+  border: 0;
+  border-radius: 16px;
+  padding: 0;
+  margin: auto;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  width: min(720px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.4);
+}
+dialog.cv-dialog::backdrop {
+  background: rgb(20 19 15 / 0.55);
+}
+dialog.cv-dialog[open] {
+  animation: cv-in 200ms var(--ease-out);
+}
+@keyframes cv-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+.cv-inner {
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+}
+.cv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cv-top h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.cv-close {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--color-card);
+  color: var(--color-ink);
+  box-shadow: 0 0 0 1px var(--color-keyline);
+  cursor: pointer;
+}
+.cv-list {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .cv-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.cv-card {
+  display: grid;
+  gap: 16px;
+  align-content: space-between;
+  padding: 20px;
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+}
+.cv-card-head {
+  display: flex;
+  gap: 12px;
+}
+.cv-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.cv-card p {
+  font-size: 15px;
+}
+.cv-card-actions {
+  display: grid;
+  gap: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.cv-dialog[open] {
+    animation: none;
+  }
 }
