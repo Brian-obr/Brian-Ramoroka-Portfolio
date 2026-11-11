@@ -9,14 +9,15 @@ permissions:
   contents: read
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    # Pinned: Playwright's browser dependencies install cleanly on 24.04; ubuntu-latest is moving to 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       # Dummy container ID so the consent tests can see the tag load (requests are stubbed).
       NEXT_PUBLIC_GTM_ID: GTM-TEST000
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 22
           cache: npm
