@@ -27,5 +27,22 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npx playwright install --with-deps chromium
+      # The site uses the system font stack. Make Roboto the default sans-serif so layout
+      # checks match an Android phone instead of the runner's wider fallback font.
+      - name: Use Roboto as the system font
+        run: |
+          sudo apt-get install -y --no-install-recommends fonts-roboto
+          mkdir -p ~/.config/fontconfig
+          cat > ~/.config/fontconfig/fonts.conf <<'EOF'
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+          <fontconfig>
+            <alias><family>sans-serif</family><prefer><family>Roboto</family></prefer></alias>
+            <alias><family>system-ui</family><prefer><family>Roboto</family></prefer></alias>
+          </fontconfig>
+          EOF
+          fc-cache -f
+          fc-match sans-serif
+          fc-match system-ui
       # The github reporter turns each failure into an annotation on the run summary.
       - run: npx playwright test --reporter=list,github
