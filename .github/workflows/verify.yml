@@ -27,4 +27,5 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test
+      # The github reporter turns each failure into an annotation on the run summary.
+      - run: npx playwright test --reporter=list,github
