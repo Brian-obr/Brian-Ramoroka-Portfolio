@@ -7,6 +7,8 @@ import { CONSENT_KEY, type ConsentState } from "@/lib/analytics";
 const OPEN_EVENT = "consent:open";
 const CHANGE_EVENT = "consent:change";
 const RELOAD_GUARD = "consent_reloaded";
+// First-party cookies set by Google Analytics and Microsoft Clarity.
+const ANALYTICS_COOKIE_PREFIXES = ["_ga", "_clck", "_clsk"];
 
 function readConsent(): ConsentState | null {
   try {
@@ -65,10 +67,14 @@ export default function Consent({ gtmId }: { gtmId?: string }) {
     try {
       reloaded = sessionStorage.getItem(RELOAD_GUARD) === "1";
     } catch {}
-    if ((tagRan.current || document.cookie.includes("_ga")) && !reloaded) {
-      // Withdrawal: remove GA cookies and reload so the already-loaded gtag.js is gone too.
+    const analyticsCookies = document.cookie
+      .split(";")
+      .map((c) => c.split("=")[0].trim())
+      .filter((n) => ANALYTICS_COOKIE_PREFIXES.some((p) => n.startsWith(p)));
+    if ((tagRan.current || analyticsCookies.length > 0) && !reloaded) {
+      // Withdrawal: remove analytics cookies and reload so the already-loaded tags are gone too.
       const domain = window.location.hostname.replace(/^www\./, "");
-      for (const name of document.cookie.split(";").map((c) => c.split("=")[0].trim()).filter((n) => n.startsWith("_ga"))) {
+      for (const name of analyticsCookies) {
         for (const d of ["", `; domain=.${domain}`]) document.cookie = `${name}=; Max-Age=0; path=/${d}`;
       }
       try {
@@ -113,7 +119,8 @@ document.head.appendChild(s);`}
           className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-[560px] rounded-2xl border border-border-subtle bg-bg-card-solid p-5 shadow-lg md:bottom-6"
         >
           <p className="text-sm leading-relaxed text-text-body">
-            I&apos;d like to use Google Analytics to see which pages help visitors. It only runs if you accept.{" "}
+            I&apos;d like to use Google Analytics and Microsoft Clarity to see which pages help visitors and where they
+            get stuck. They only run if you accept.{" "}
             <Link href="/privacy" className="deep-link">
               Privacy &amp; cookies
             </Link>

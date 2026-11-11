@@ -49,10 +49,13 @@ test.describe("consent", () => {
     await expect(page.getByRole("region", { name: /cookie/i })).toBeVisible();
   });
 
-  test("every withdrawal in one tab deletes _ga cookies and reloads", async ({ page, context }) => {
+  test("every withdrawal in one tab deletes analytics cookies and reloads", async ({ page, context }) => {
     await page.route(TAG_HOSTS, (r) => r.fulfill({ status: 204, body: "" }));
-    const gaCookie = () => context.addCookies([{ name: "_ga", value: "GA1.1.1.1", domain: "localhost", path: "/" }]);
-    const hasGaCookie = async () => (await context.cookies()).some((c) => c.name.startsWith("_ga"));
+    const setAnalyticsCookies = () =>
+      context.addCookies(
+        ["_ga", "_clck", "_clsk"].map((name) => ({ name, value: "1", domain: "localhost", path: "/" })),
+      );
+    const hasAnalyticsCookie = async () => (await context.cookies()).some((c) => /^_(ga|clck|clsk)/.test(c.name));
     const withdraw = async () => {
       await page.evaluate(() => ((window as unknown as { __before: boolean }).__before = true));
       await page.getByRole("button", { name: /cookie settings/i }).click();
@@ -63,15 +66,15 @@ test.describe("consent", () => {
 
     await page.goto("/");
     await page.getByRole("button", { name: /accept/i }).click();
-    await gaCookie(); // stands in for gtag.js, which the route stub doesn't run
+    await setAnalyticsCookies(); // stands in for gtag.js, which the route stub doesn't run
     await withdraw();
-    expect(await hasGaCookie()).toBe(false);
+    expect(await hasAnalyticsCookie()).toBe(false);
 
     await page.getByRole("button", { name: /cookie settings/i }).click();
     await page.getByRole("button", { name: /accept/i }).click();
-    await gaCookie();
+    await setAnalyticsCookies();
     await withdraw();
-    expect(await hasGaCookie()).toBe(false);
+    expect(await hasAnalyticsCookie()).toBe(false);
   });
 
   test("a choice made in another tab is applied in open tabs", async ({ context }) => {

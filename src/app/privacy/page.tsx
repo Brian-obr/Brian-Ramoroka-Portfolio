@@ -16,6 +16,8 @@ const cookies = [
   { name: "consent_reloaded (session storage)", who: "This site", why: "Makes sure the page reloads only once after you withdraw consent", kept: "Until you close the tab" },
   { name: "None", who: "Google Tag Manager (only after you accept)", why: "Loads the Google Analytics tag", kept: "Sets no cookies of its own" },
   { name: "_ga, _ga_<ID>", who: "Google Analytics 4 (only after you accept)", why: "Counts visits and which pages are used", kept: "Up to 2 years" },
+  { name: "_clck, _clsk", who: "Microsoft Clarity (only after you accept)", why: "Recognises your browser and joins the pages of one visit into a single recording", kept: "_clck up to 1 year, _clsk 1 day" },
+  { name: "CLID, MUID", who: "Microsoft, on clarity.ms (only after you accept)", why: "Recognises the same browser on other sites that use Clarity", kept: "Up to 1 year" },
   { name: "None (cookieless)", who: "Vercel Web Analytics", why: "Counts visits and page views; no personal data", kept: "Aggregated only" },
   { name: "None (cookieless)", who: "Vercel Speed Insights", why: "Anonymous page-speed measurements; no personal data", kept: "Aggregated only" },
 ];
@@ -50,8 +52,15 @@ export default function PrivacyPage() {
               Google Analytics 4, which records pages viewed, approximate location, device type, clicks on email, phone, WhatsApp and CV links, clicks on
               links to other websites (including the link address), and whether the contact form was sent. Both are Google
               services, so this data is processed outside South Africa under Google&apos;s data-protection terms. If you
-              reject, neither loads; if you later withdraw consent, the analytics cookies are deleted and the page reloads
-              without them.
+              reject, none of them load; if you later withdraw consent, the analytics cookies are deleted and the page
+              reloads without them.
+            </li>
+            <li>
+              <strong className="text-text-primary">Session recordings:</strong> only if you click Accept, Google Tag
+              Manager also loads Microsoft Clarity, which records how you use the site (mouse movements, clicks, scrolling
+              and the pages you visit) as replays and heatmaps. Anything you type into the contact form is hidden before
+              it leaves your browser. Clarity is a Microsoft service, so this data is processed outside South Africa under
+              Microsoft&apos;s data-protection terms. Recordings are kept for up to 30 days.
             </li>
             <li>
               <strong className="text-text-primary">Visit counts:</strong> Vercel Web Analytics counts page views, the
