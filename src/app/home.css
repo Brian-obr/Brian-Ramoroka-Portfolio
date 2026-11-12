@@ -180,7 +180,7 @@
     justify-self: center;
     width: min(360px, 100%);
     margin: 0;
-    transform: rotate(2deg);
+    /* No tilt: a rotated photo and caption are resampled and look blurry, worst on Windows. */
   }
 }
 .p1 .polaroid img {
@@ -213,8 +213,8 @@
   position: absolute;
   right: 16px;
   bottom: 16px;
-  width: 108px;
-  height: 108px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--amber);
@@ -222,14 +222,13 @@
   box-shadow: 0 0 0 1px var(--keyline), 0 10px 20px -8px rgba(20, 19, 15, 0.4);
   display: grid;
   place-items: center;
-  transform: rotate(-2deg);
 }
 @media (min-width: 900px) {
   .p1 .badge-spin {
     right: -44px;
     bottom: -40px;
-    width: 132px;
-    height: 132px;
+    width: 140px;
+    height: 140px;
   }
 }
 .p1 .badge-spin svg {
@@ -239,9 +238,9 @@
 }
 .p1 .badge-spin text {
   font-family: var(--label);
-  font-size: 9.6px;
+  /* 57 characters at about 0.6em each must fit in 326px; textLength adds the spacing. */
+  font-size: 8.8px;
   font-weight: 700;
-  letter-spacing: 0.12em;
   fill: #14130f;
 }
 .p1 .badge-spin b {

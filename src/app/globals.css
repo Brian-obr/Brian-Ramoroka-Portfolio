@@ -44,7 +44,7 @@
   --font-mono: var(--font-sans);
   /* Headings: same system sans, bold and tight, for crisp text with zero font downloads. */
   --font-display: var(--font-sans);
-  --font-label: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-label: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Droid Sans Mono", monospace;
 }
 
 @media (prefers-color-scheme: dark) {

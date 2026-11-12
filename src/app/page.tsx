@@ -82,10 +82,10 @@ export default function HomePage() {
             <figure className="polaroid">
               <span className="tape" aria-hidden="true" />
               <Image
-                src="/images/brian-ramoroka-hero.webp"
+                src="/images/brian-ramoroka-hero-v2.webp"
                 alt="Brian Ramoroka smiling, in a graduation gown, outside a university building"
-                width={1200}
-                height={1500}
+                width={1600}
+                height={2000}
                 sizes="(min-width: 900px) 332px, calc(100vw - 68px)"
                 quality={IMAGE_QUALITY.photo}
                 loading="eager"
@@ -96,9 +96,12 @@ export default function HomePage() {
                   <defs>
                     <path id="ring" d="M66,66 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
                   </defs>
+                  {/* One copy of the text, stretched to the ring's exact length (2π × 52 ≈ 326.7).
+                      Each OS has a different monospace font (Menlo, Consolas, Droid Sans Mono), so
+                      without textLength the text overran the ring and was cut off mid-word. */}
                   <text>
-                    <textPath href="#ring">
-                      OPEN TO FULL-TIME ROLES · CAPE TOWN · GAUTENG · REMOTE · OPEN TO FULL-TIME ROLES · CAPE TOWN · GAUTENG · REMOTE ·{" "}
+                    <textPath href="#ring" textLength="326" lengthAdjust="spacing">
+                      OPEN TO FULL-TIME ROLES · CAPE TOWN · GAUTENG · REMOTE ·
                     </textPath>
                   </text>
                 </svg>
@@ -145,10 +148,10 @@ export default function HomePage() {
             </div>
             <figure>
               <Image
-                src="/images/brian-ramoroka-graduation.webp"
+                src="/images/brian-ramoroka-graduation-v2.webp"
                 alt="Brian Ramoroka at his graduation in cap and gown"
-                width={1200}
-                height={1500}
+                width={1600}
+                height={2000}
                 sizes="(min-width: 900px) 320px, calc(100vw - 40px)"
                 quality={IMAGE_QUALITY.photo}
               />

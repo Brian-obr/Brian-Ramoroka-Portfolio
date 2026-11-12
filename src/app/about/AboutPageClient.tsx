@@ -76,7 +76,7 @@ export default function AboutPageClient() {
           >
             <div className="flex items-center gap-[16px] p-[18px] min-[900px]:gap-[20px] min-[900px]:p-[24px]">
               <Image
-                src="/images/brian-ramoroka-graduation.webp"
+                src="/images/brian-ramoroka-graduation-v2.webp"
                 alt="Brian Ramoroka"
                 width={112}
                 height={112}
